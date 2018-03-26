@@ -1859,6 +1859,7 @@ namespace Simple_UID {
       this.linkLabel3.TabIndex = 6;
       this.linkLabel3.TabStop = true;
       this.linkLabel3.Text = "Kênh video hướng dẫn";
+      this.linkLabel3.Visible = false;
       this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
       // 
       // linkLabel2
@@ -1868,10 +1869,11 @@ namespace Simple_UID {
       this.linkLabel2.LinkColor = System.Drawing.Color.White;
       this.linkLabel2.Location = new System.Drawing.Point(611, 12);
       this.linkLabel2.Name = "linkLabel2";
-      this.linkLabel2.Size = new System.Drawing.Size(118, 21);
+      this.linkLabel2.Size = new System.Drawing.Size(92, 21);
       this.linkLabel2.TabIndex = 5;
       this.linkLabel2.TabStop = true;
-      this.linkLabel2.Text = "ATPSoftware.vn";
+      this.linkLabel2.Text = "Software.vn";
+      this.linkLabel2.Visible = false;
       this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
       // 
       // linkLabel1
@@ -1885,6 +1887,7 @@ namespace Simple_UID {
       this.linkLabel1.TabIndex = 4;
       this.linkLabel1.TabStop = true;
       this.linkLabel1.Text = "Group Hỗ Trợ";
+      this.linkLabel1.Visible = false;
       this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
       // 
       // flatTabControl1
@@ -2835,7 +2838,7 @@ namespace Simple_UID {
       this.status.Padding = new System.Windows.Forms.Padding(0, 20, 0, 0);
       this.status.Size = new System.Drawing.Size(784, 42);
       this.status.TabIndex = 2;
-      this.status.Text = "ATP Software Company";
+      this.status.Text = "Software Company";
       this.status.Visible = false;
       this.status.Click += new System.EventHandler(this.status_Click);
       // 
