@@ -468,6 +468,11 @@ namespace Simple_UID {
       }
     }
 
+    public string String_0 {
+      get { return string_0; }
+      set { string_0 = value; }
+    }
+
     private string string_0 = "";
 
     private string string_1 = "";
@@ -720,11 +725,11 @@ namespace Simple_UID {
     }
 
     private void frm_Main_Load(object sender, EventArgs e) {
-      //while(this.string_0 == "") {
-      //  new frm_Login {
-      //    mycookie = new frm_Login.get_cookie(this.get_cookie)
-      //  }.ShowDialog();
-      //}
+      while(this.string_0 == "") {
+        new frm_Login {
+          mycookie = new frm_Login.get_cookie(this.get_cookie)
+        }.ShowDialog();
+      }
     }
 
     private void btn_get_friends_1_uid_Click(object sender, EventArgs e) {
@@ -1696,9 +1701,9 @@ namespace Simple_UID {
     }
 
     private void flatButton27_Click(object sender, EventArgs e) {
-      //new frm_Login {
-      //  mycookie = new frm_Login.get_cookie(this.get_cookie)
-      //}.ShowDialog();
+      new frm_Login {
+        mycookie = new frm_Login.get_cookie(this.get_cookie)
+      }.ShowDialog();
     }
 
     private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
@@ -1826,7 +1831,7 @@ namespace Simple_UID {
       // formSkin1
       // 
       this.formSkin1.BackColor = System.Drawing.Color.White;
-      this.formSkin1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+      this.formSkin1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(168)))), ((int)(((byte)(109)))));
       this.formSkin1.BorderColor = System.Drawing.Color.Aqua;
       this.formSkin1.Controls.Add(this.linkLabel3);
       this.formSkin1.Controls.Add(this.linkLabel2);
