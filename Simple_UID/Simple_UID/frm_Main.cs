@@ -709,18 +709,7 @@ namespace Simple_UID {
         base.Close();
         Application.Exit();
       } else {
-        this.string_0 = cookie_z.Split(new char[]
-        {
-          '|'
-        })[2];
-        this.string_1 = cookie_z.Split(new char[]
-        {
-          '|'
-        })[3];
-        this.string_2 = cookie_z.Split(new char[]
-        {
-          '|'
-        })[1];
+        this.string_0 = cookie_z;
       }
     }
 

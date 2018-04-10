@@ -76,7 +76,7 @@ namespace Simple_UID {
             this.mycookie(this.txt_email.Text);
             base.Hide();
             return;
-          } catch {
+          } catch (Exception ex){
             this.notify.Visible = true;
             this.notify.kind = FlatAlertBox._Kind.Error;
             this.notify.Text = "Lổi chưa xác định";
