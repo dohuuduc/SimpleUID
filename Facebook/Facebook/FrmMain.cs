@@ -95,7 +95,7 @@ namespace Facebook
                                                         " WHEN IsLoai = 1 THEN N'Nhóm'"+
                                                         "    ELSE NULL "+
                                                         " END AS 'LoaiFb'" +
-                                                        " from DmGroupUID where [ParentId] in (select id from DmGroupUID where name = 'admin')");
+                                                        " from NhomUID where [ParentId] in (select id from NhomUID where name = 'admin')");
                 gridUID.DataSource = tb;
                 foreach (DataGridViewRow row in gridUID.Rows)
                 {
@@ -249,8 +249,8 @@ namespace Facebook
                 if (uid == "" && urd == "") return;
                 DialogResult result = MessageBox.Show(string.Format("Bạn có muốn reset lại UID đang chọn không?"), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes){
-                    DmGroupUID model = SQLDatabase.LoadDmGroupUID(string.Format("select * from DmGroupUID where id='{0}'",id)).FirstOrDefault();
-                    DmGroupUID mo= new DmGroupUID();
+                    NhomUID model = SQLDatabase.LoadNhomUID(string.Format("select * from NhomUID where id='{0}'",id)).FirstOrDefault();
+                    NhomUID mo= new NhomUID();
                     if (uid != ""){
                         (new Waiting(() => mo = Facebook.ConvertUidToNhom(uid))).ShowDialog();
                     }
@@ -260,7 +260,7 @@ namespace Facebook
                     model.UID = mo.UID == "" ? model.UID : mo.UID;
                     model.URD = mo.URD == "" ? model.URD : mo.URD;
                     model.IsLoai = mo.IsLoai;
-                    SQLDatabase.UpDmGroupUID(model);
+                    SQLDatabase.UpNhomUID(model);
                     BindUID();
                 }
             }
@@ -299,12 +299,12 @@ namespace Facebook
             {
                 ExcelAdapter excel = new ExcelAdapter(path);
                 DataTable tb = excel.ReadFromFile("SELECT * FROM [Sheet1$]");
-                Guid NhomChaId = SQLDatabase.LoadDmGroupUID(string.Format("select * from DmGroupUID where name='admin'")).FirstOrDefault().id;
+                Guid NhomChaId = SQLDatabase.LoadNhomUID(string.Format("select * from NhomUID where name='admin'")).FirstOrDefault().id;
                 foreach (DataRow item in tb.Rows)
                 {
                     if (item["UID_URD"].ToString() != "")
                     {
-                        DmGroupUID model;
+                        NhomUID model;
                         if (item["UID_URD"].ToString().Contains("https://www.facebook.com/"))
                         {
                             model = Facebook.ConvertUrdToNhom(item["UID_URD"].ToString());
@@ -315,7 +315,7 @@ namespace Facebook
                         model.ParentId = NhomChaId;
                         model.IsActi = true;
                         model.Note = item["Note"].ToString();
-                        SQLDatabase.AddDmGroupUID(model);
+                        SQLDatabase.AddNhomUID(model);
                     }
                 }
                 return true;
@@ -371,7 +371,7 @@ namespace Facebook
                 DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá UID '{0}' ?", _mySelectedRowUid[0].Cells["UID"].Value), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    SQLDatabase.ExcNonQuery(string.Format("[spDelDmGroupUIDAndInfo] '{0}'", _mySelectedRowUid[0].Cells["id"].Value));
+                    SQLDatabase.ExcNonQuery(string.Format("[spDelNhomUIDAndInfo] '{0}'", _mySelectedRowUid[0].Cells["id"].Value));
                     MessageBox.Show(string.Format("Xoá thành công uid '{0}'", _mySelectedRowUid[0].Cells["UID"].Value), "Thông Báo");
                     _mySelectedRowUid = null;
                     BindUID();
@@ -388,13 +388,13 @@ namespace Facebook
         {
             try
             {
-                DmGroupUID model = SQLDatabase.LoadDmGroupUID("Select * from DmGroupUID where name='admin'").FirstOrDefault();
+                NhomUID model = SQLDatabase.LoadNhomUID("Select * from NhomUID where name='admin'").FirstOrDefault();
                 DialogResult result = MessageBox.Show(string.Format("Bạn có muốn lộc trùng!!! "), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     
                     bool temp=false;
-                    new Waiting(() => temp = SQLDatabase.ExcNonQuery(string.Format("[spLocTrungDmGroupUID] '{0}'", model.id)), "Vui Lòng Chờ").ShowDialog();
+                    new Waiting(() => temp = SQLDatabase.ExcNonQuery(string.Format("[spLocTrungNhomUID] '{0}'", model.id)), "Vui Lòng Chờ").ShowDialog();
                     if (temp)
                         MessageBox.Show("Đã lộc trùng danh sách UID", "Thông Báo");
                     BindUID();
@@ -411,13 +411,13 @@ namespace Facebook
         {
             try
             {
-                DmGroupUID model = SQLDatabase.LoadDmGroupUID("Select * from DmGroupUID where name='admin'").FirstOrDefault();
+                NhomUID model = SQLDatabase.LoadNhomUID("Select * from NhomUID where name='admin'").FirstOrDefault();
                 DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá UID đang bị lổi (Thiếu UID)!!! "), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
 
                     bool temp = false;
-                    new Waiting(() => temp = SQLDatabase.ExcNonQuery(string.Format("[spDelDmGroupUIDErr] '{0}'", model.id)), "Vui Lòng Chờ").ShowDialog();
+                    new Waiting(() => temp = SQLDatabase.ExcNonQuery(string.Format("[spDelNhomUIDErr] '{0}'", model.id)), "Vui Lòng Chờ").ShowDialog();
                     if (temp)
                         MessageBox.Show("Đã xoá tất cả UID bị lổi", "Thông Báo");
                     BindUID();
@@ -501,12 +501,12 @@ namespace Facebook
                 CheckBox chkBaiViet = (CheckBox)arr1[6];
                 ProgressBar progressBar1 = (ProgressBar)arr1[7];
 
-                List<DmGroupUID> listQuet = new List<DmGroupUID>();
+                List<NhomUID> listQuet = new List<NhomUID>();
 
                 foreach (DataGridViewRow row in gridUID.SelectedRows)
                 {
                     DataRow myRow = (row.DataBoundItem as DataRowView).Row;
-                    DmGroupUID model = new DmGroupUID();
+                    NhomUID model = new NhomUID();
                     model.id = Guid.Parse(myRow["id"].ToString());
                     model.UID = myRow["UID"].ToString();
                     model.IsLoai = ConvertType.ToInt(myRow["IsLoai"]);
@@ -527,6 +527,7 @@ namespace Facebook
                     {
                         /**************************Code here********************/
                         string uid = gridUID.SelectedRows[_mySelectedRowUid[0].Index].Cells["UID"].Value.ToString();
+                        //string uid = gridUID.SelectedRows[_mySelectedRowUid[0].Index].Cells["UID"].Value.ToString();
                         var model = listQuet.Single(r => r.UID == uid);
                         TheardFacebookWriter.getwebBrowser(model, arrControl);
                         /******************************************************/

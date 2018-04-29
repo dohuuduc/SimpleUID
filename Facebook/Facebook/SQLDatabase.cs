@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -22,11 +24,66 @@ namespace Facebook
     }
     public class FbUID
     {
-        //id, account, password, token, createdate
+        [JsonIgnore]
         public Guid id { get; set; }
-        public string name { get; set; }
+        [JsonProperty("id")]
         public string uid { get; set; }
         public string urd { get; set; }
+        [JsonProperty("name")]
+        public string name { get; set; }
+        [JsonProperty("age_range")]
+        public age_range age_ranges { get; set; }
+        [JsonProperty("education")]
+        public List<education> educations { get; set; }
+        public location location { get; set; }
+        public string mobile_phone { get; set; }
+        public string birthday { get; set; }
+        public string gender { get; set; }
+        public string locale { get; set; }
+        public string relationship_status { get; set; }
+        public string currency { get; set; }
+        public string email { get; set; }
+        public cover cover { get; set; }
+        public List<devices> devices { get; set; }
+
+    }
+    public class cover {
+        public int offset_x { get; set; }
+        public int offset_y { get; set; }
+        public string source { get; set; }
+    }
+    public class devices{
+        public string hardware { get; set; }
+        public string os { get; set; }
+    }
+    
+    public class age_range {
+        public int min { get; set; }
+        public int max { get; set; }
+    }
+    public class currency
+    {
+        public string currency_exchange { get; set; }
+        public string currency_exchange_inverse { get; set; }
+        public string currency_offset { get; set; }
+        public string usd_exchange { get; set; }
+        public string usd_exchange_inverse { get; set; }
+        public string user_currency { get; set; }
+
+    }
+    public class education {
+        public string id { get; set; }
+        public string type { get; set; }
+        [JsonProperty("school")]
+        public school school { get; set; }
+    }
+    public class school {
+        public string id { get; set; }
+        public string name { get; set; }
+    }
+    public class location {
+        public string id { get; set; }
+        public string name { get; set; }
     }
     public class FbFriend {
         public Guid id { get; set; }
@@ -102,7 +159,7 @@ namespace Facebook
             }
         }
     }
-    public class DmGroupUID {
+    public class NhomUID {
         public Guid id { get; set; }
         public Guid? ParentId { get; set; }
         public string Name { get; set; }
@@ -119,6 +176,8 @@ namespace Facebook
     {
         public int sysLimitCallApi { get; set; }
         public int sysTimeSleep { get; set; }
+        public int sysLimitBaiViet { get; set; }
+        
     }
         class SQLDatabase
     {
@@ -160,7 +219,8 @@ namespace Facebook
                         InfoCOMMANDTABLE.sysLimitCallApi = reader.GetInt32(0);
                     if (!reader.IsDBNull(1))
                         InfoCOMMANDTABLE.sysTimeSleep = reader.GetInt32(1);
-
+                    if (!reader.IsDBNull(2))
+                        InfoCOMMANDTABLE.sysLimitBaiViet = reader.GetInt32(2);
                     InfoCOMMANDTABLEs.Add(InfoCOMMANDTABLE);
                 }
                 return InfoCOMMANDTABLEs.FirstOrDefault();
@@ -195,12 +255,13 @@ namespace Facebook
                 cmd = new SqlCommand();
                 cmd.Connection = connection;
                 //sysLimitCallApi, sysTimeSleep
-                cmd.CommandText = "Update [CauHinh] Set sysLimitCallApi=@sysLimitCallApi, sysTimeSleep=@sysTimeSleep";
+                cmd.CommandText = "Update [CauHinh] Set sysLimitCallApi=@sysLimitCallApi, sysTimeSleep=@sysTimeSleep, sysLimitBaiViet=@sysLimitBaiViet";
                                    
                 cmd.CommandType = CommandType.Text;
 
                 cmd.Parameters.AddWithValue("@sysLimitCallApi", record.sysLimitCallApi);
                 cmd.Parameters.AddWithValue("@sysTimeSleep", record.sysTimeSleep);
+                cmd.Parameters.AddWithValue("@sysLimitBaiViet", record.sysLimitBaiViet);
 
                 cmd.ExecuteNonQuery();
                 return true;
@@ -706,17 +767,17 @@ namespace Facebook
         #endregion
 
         #region Nhom
-        public static List<DmGroupUID> LoadDmGroupUID(string sql)
+        public static List<NhomUID> LoadNhomUID(string sql)
         {
             SqlConnection cnn = null;
             SqlCommand cmd = null;
             SqlDataReader reader = null;
-            DmGroupUID InfoCOMMANDTABLE;
-            List<DmGroupUID> InfoCOMMANDTABLEs = null;
+            NhomUID InfoCOMMANDTABLE;
+            List<NhomUID> InfoCOMMANDTABLEs = null;
 
             try
             {
-                InfoCOMMANDTABLEs = new List<DmGroupUID>();
+                InfoCOMMANDTABLEs = new List<NhomUID>();
 
                 cnn = new SqlConnection();
                 cnn.ConnectionString = ConnectionString;
@@ -729,7 +790,7 @@ namespace Facebook
                 reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    InfoCOMMANDTABLE = new DmGroupUID();
+                    InfoCOMMANDTABLE = new NhomUID();
                     //id, ParentId, Name, UID, URD, Note, IsActi, IsPage, OrderID, CreateDate
 
                     if (!reader.IsDBNull(0))
@@ -768,7 +829,7 @@ namespace Facebook
             }
         }
 
-        public static bool AddDmGroupUID(DmGroupUID record)
+        public static bool AddNhomUID(NhomUID record)
         {
             SqlConnection cnn = null;
             SqlCommand cmd = null;
@@ -786,7 +847,7 @@ namespace Facebook
                 cmd = new SqlCommand();
                 cmd.Connection = cnn;
                 //--- Insert Record
-                cmd.CommandText = "Insert into DmGroupUID(ParentId, Name, UID, URD, Note, IsActi, OrderID) OUTPUT inserted.id " +
+                cmd.CommandText = "Insert into NhomUID(ParentId, Name, UID, URD, Note, IsActi, OrderID) OUTPUT inserted.id " +
                                     "values(@ParentId, @Name, @UID, @URD, @Note, @IsActi, @OrderID);";
                                     
 
@@ -822,7 +883,7 @@ namespace Facebook
             }
         }
 
-        public static bool UpDmGroupUID(DmGroupUID record)
+        public static bool UpNhomUID(NhomUID record)
         {
             SqlConnection connection = null;
             SqlCommand cmd = null;
@@ -842,7 +903,7 @@ namespace Facebook
                 cmd.Connection = connection;
                 //id, uid, urd, createdate
                 //id, ParentId, Name, UID, URD, Note, IsActi, IsPage, OrderID, CreateDate
-                cmd.CommandText = "Update [DmGroupUID] Set ParentId=@ParentId,Name=@Name, UID=@UID,URD=@URD,Note=@Note,IsActi=@IsActi,IsLoai=@IsLoai,OrderID=@OrderID"
+                cmd.CommandText = "Update [NhomUID] Set ParentId=@ParentId,Name=@Name, UID=@UID,URD=@URD,Note=@Note,IsActi=@IsActi,IsLoai=@IsLoai,OrderID=@OrderID"
                                     + " where ID='" + record.id + "'";
                 cmd.CommandType = CommandType.Text;
                 if (record.ParentId == null)
@@ -873,7 +934,7 @@ namespace Facebook
             }
         }
 
-        public static bool UpDmGroupUIDByUid(DmGroupUID record)
+        public static bool UpNhomUIDByUid(NhomUID record)
         {
             SqlConnection connection = null;
             SqlCommand cmd = null;
@@ -891,7 +952,7 @@ namespace Facebook
                 // Create command to update GeneralGuessGroup record
                 cmd = new SqlCommand();
                 cmd.Connection = connection;
-                cmd.CommandText = "Update [dmNhom] Set Name=@Name, URD=@URD,Note=@Note,IsActi=@IsActi,IsPage=@IsPage,OrderID=@OrderID"
+                cmd.CommandText = "Update [NhomUID] Set Name=@Name, URD=@URD,Note=@Note,IsActi=@IsActi,IsPage=@IsPage,OrderID=@OrderID"
                                     + " where uid='" + record.UID + "'";
                 cmd.CommandType = CommandType.Text;
 
@@ -915,7 +976,7 @@ namespace Facebook
             }
         }
 
-        public static bool DelDmGroupUID(DmGroupUID recode)
+        public static bool DelNhomUID(NhomUID recode)
         {
             SqlConnection connection = null;
             SqlCommand command = null;
@@ -931,7 +992,7 @@ namespace Facebook
                 connection.Open();
                 command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "DELETE FROM DmGroupUID WHERE id ='" + recode.id + "'";
+                command.CommandText = "DELETE FROM NhomUID WHERE id ='" + recode.id + "'";
 
                 command.CommandType = CommandType.Text;
                 command.ExecuteNonQuery();
@@ -939,7 +1000,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "DelDmGroupUID");
+                MessageBox.Show(ex.Message, "DelNhomUID");
                 return false;
             }
             finally

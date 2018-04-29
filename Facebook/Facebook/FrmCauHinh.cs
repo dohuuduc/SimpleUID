@@ -22,6 +22,7 @@ namespace Facebook
             cauHinh = SQLDatabase.LoadCauHinh("select * from cauhinh");
             txtsysLimitCallApi.Text = cauHinh.sysLimitCallApi.ToString();
             txtsysTimeSleep.Text = cauHinh.sysTimeSleep.ToString();
+            txtsysLimitBaiViet.Text = cauHinh.sysLimitBaiViet.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -10,6 +10,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 using COMExcel = Microsoft.Office.Interop.Excel;
 
 namespace Facebook
@@ -136,7 +138,7 @@ namespace Facebook
         public static bool hasProcess = true; /*khai bao bien stop*/
         private static LogWriter writer;
 
-        public static void getwebBrowser(DmGroupUID model, object arrControl)
+        public static void getwebBrowser(NhomUID model, object arrControl)
         {
             ArrayList arr1 = (ArrayList)arrControl;
             Label lblMessage1 = (Label)arr1[0];
@@ -153,8 +155,14 @@ namespace Facebook
                 if (!TheardFacebookWriter.hasProcess) return;
                 /*Lấy thông tin của UID*/
                 if (chkMe.Checked) {
-                    string requestUriString = model.IsLoai == 0 ? string.Format(@"https://graph.facebook.com/{0}/?fields={1}&access_token={2}", model.UID, Facebook.SelectMyUIDOfUser(), Facebook.Token()) : "";
-                    string json= Facebook.GetHtmlFB(requestUriString);
+                    if (model.IsLoai == 0)
+                    {
+                        Facebook.fbMeByUID(model);
+                    }
+                    else if (model.IsLoai == 1)
+                    {
+                        Facebook.fbMeByGUI(model);
+                    }
                 }
 
             }
@@ -712,6 +720,31 @@ namespace Facebook
         ss.ToString(),
         "',120)"
             });
+        }
+
+        public static string GetXMLFromObject(object o)
+        {
+            StringWriter sw = new StringWriter();
+            XmlTextWriter tw = null;
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(o.GetType());
+                tw = new XmlTextWriter(sw);
+                serializer.Serialize(tw, o);
+            }
+            catch (Exception ex)
+            {
+                //Handle Exception Code
+            }
+            finally
+            {
+                sw.Close();
+                if (tw != null)
+                {
+                    tw.Close();
+                }
+            }
+            return sw.ToString();
         }
     }
 

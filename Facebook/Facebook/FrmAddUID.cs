@@ -23,15 +23,15 @@ namespace Facebook
             get { return chaId; }
             set { chaId = value; }
         }
-        private DmGroupUID _nhom;
+        private NhomUID _nhom;
         private void FrmAddUID_Load(object sender, EventArgs e)
         {
-            _nhom = new DmGroupUID();
+            _nhom = new NhomUID();
         }
         private void button1_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "") return;
-            DmGroupUID temp;
+            NhomUID temp;
             if (!textBox1.Text.Contains("https://www.facebook.com"))
             {
                 if (Utilities.CheckNumberEnterKey(textBox1.Text)){
@@ -48,8 +48,8 @@ namespace Facebook
                 MessageBox.Show("Không lấy được UID", "Thông Báo");
                 return;
             }
-            List<DmGroupUID> dmGroupUIDs = SQLDatabase.LoadDmGroupUID(string.Format("select * from DmGroupUID where uid='{0}'",temp.UID));
-            SQLDatabase.AddDmGroupUID(temp);
+            List<NhomUID> NhomUIDs = SQLDatabase.LoadNhomUID(string.Format("select * from NhomUID where uid='{0}'",temp.UID));
+            SQLDatabase.AddNhomUID(temp);
             
             /*goi hàm kiễm tra lại trạng thái token có vươc gioi han soa chưa?*/
             this.DialogResult = DialogResult.OK;
