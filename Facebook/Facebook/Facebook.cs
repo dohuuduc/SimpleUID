@@ -177,12 +177,13 @@ namespace Facebook
                 NhomUID nhom = new NhomUID();
                 string html = WebToolkit.GetHtml(strUrd);
                 List<string> arrToken1 = html.Split(new char[] { '{' }).Where(p=>p.Contains("entity_id")).ToList();
-                string arrToken2 = Regex.Split(arrToken1.FirstOrDefault(), "{").Where(p => p.Contains("entity_id")).Where(p=>p.Contains("ResetScrollOnUnload")).FirstOrDefault();
-                string arrToken3 = arrToken2.Split(new char[] { ',' }).Where(p => p.Contains("entity_id")).FirstOrDefault();
+                string arrToken2 = Regex.Split(arrToken1.FirstOrDefault(), "{").Where(p => p.Contains("entity_id")).FirstOrDefault();
+                string arrToken3 = arrToken2.Split(new char[] { ';' }).Where(p => p.Contains("entity_id")).FirstOrDefault();
+                string arrToken4 = arrToken3.Split(new char[] { ',' }).Where(p => p.Contains("entity_id")).FirstOrDefault();
 
-                
+
                 List<NhomUID> dm = SQLDatabase.LoadNhomUID("select * from NhomUID where name='admin'");
-                nhom.UID = Regex.Match(arrToken3, @"\d+").Value;
+                nhom.UID = Regex.Match(arrToken4, @"\d+").Value;
                 nhom.URD = strUrd;
                 nhom.IsActi = true;
                 nhom.OrderID = 0;
@@ -198,7 +199,7 @@ namespace Facebook
                     nhom.IsLoai = 2;
                 }
                 else {
-                    if (html.Contains("\"key\":\"friends\""))
+                    if (!html.Contains("MESSAGE_PAGE"))
                     {
                         nhom.IsLoai = 0;
                     }
@@ -220,18 +221,18 @@ namespace Facebook
             try
             {
                 NhomUID nhom = new NhomUID();
-
-                //string reqHTML = string.Format("https://www.facebook.com/profile.php?id={0}", uid);
                 string html = WebToolkit.GetHtmlChuyenHtmlKhac(string.Format("https://www.facebook.com/profile.php?id={0}", strUid));
 
                 List<string> arrToken1 = html.Split(new char[] { '\n', '\r' }).Where(p => p.Contains("entity_id")).ToList();
                 List<string> arrToken2 = Regex.Split(arrToken1.FirstOrDefault(), "&amp;").Where(p => p.Contains("entity_id")).ToList();
+                List<string> arrTokem3 = arrToken2.FirstOrDefault().Split(new char[] { '{' }).Where(p => p.Contains("entity_id")).ToList();
+                List<string> arrTokem4 = arrToken2.FirstOrDefault().Split(new char[] { ',' }).Where(p => p.Contains("entity_id")).ToList();
 
                 List<NhomUID> dm = SQLDatabase.LoadNhomUID("select * from NhomUID where name='admin'");
-                nhom.UID = Regex.Match(arrToken2.FirstOrDefault(), @"\d+").Value;
+                nhom.UID = Regex.Match(arrTokem4.FirstOrDefault(), @"\d+").Value;
 
                 /*tìm urd*/
-                List<string> arrurd = html.Split(new char[] { '<' }).Where(p => p.Contains("link rel=\"canonical\" href=")).ToList();
+                List<string> arrurd = html.Split(new char[] { '<' }).Where(p => p.Contains("link rel=\"alternate\" hreflang=\"x-default\"")).ToList();
                 string strurl= Helpers.getUrlHtml2("<"+arrurd.FirstOrDefault()).FirstOrDefault();
                 nhom.URD = strurl;
                 nhom.IsActi = true;
@@ -432,74 +433,31 @@ namespace Facebook
             return result;
         }
 
-        public static void fbMeByUID(NhomUID model)
-        {
-            try
-            {
+        //public static void fbMeByUID(NhomUID model)
+        //{
+        //    try
+        //    {
 
-                string requestUriString = string.Format(@"https://graph.facebook.com/{0}/?fields={1}&access_token={2}", model.UID, Facebook.SelectMyUIDOfUser(), Facebook.Token());
-                bool flag = true;
-                while (flag)
-                {
-                    HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUriString);
-                    httpWebRequest.UserAgent = "Dalvik/1.6.0 (Linux; U; Android 4.3; Z10 Build/10.3.2.110) [FBAN/FB4A;FBAV/19.0.0.23.14;FBLC/vi_VN;FBBV/4694056;FBCR/null;FBMF/RIM;FBBD/BlackBerry;FBDV/Z10;FBSV/4.3;FBCA/armeabi-v7a:armeabi;FBDM/{density=2.0,width=768,height=1174};FB_FW/1;]";
-                    HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                    string json = new StreamReader(httpWebResponse.GetResponseStream()).ReadToEnd();
-                    JObject jObject = JObject.Parse(json);
-                    FbUID results1 = JsonConvert.DeserializeObject<FbUID>(json);
+        //        string requestUriString = string.Format(@"https://graph.facebook.com/{0}/?fields={1}&access_token={2}", model.UID, Facebook.SelectMyUIDOfUser(), Facebook.Token());
+        //        bool flag = true;
+        //        while (flag)
+        //        {
+        //            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUriString);
+        //            httpWebRequest.UserAgent = "Dalvik/1.6.0 (Linux; U; Android 4.3; Z10 Build/10.3.2.110) [FBAN/FB4A;FBAV/19.0.0.23.14;FBLC/vi_VN;FBBV/4694056;FBCR/null;FBMF/RIM;FBBD/BlackBerry;FBDV/Z10;FBSV/4.3;FBCA/armeabi-v7a:armeabi;FBDM/{density=2.0,width=768,height=1174};FB_FW/1;]";
+        //            HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+        //            string json = new StreamReader(httpWebResponse.GetResponseStream()).ReadToEnd();
+        //            JObject jObject = JObject.Parse(json);
+        //            FbUID results1 = JsonConvert.DeserializeObject<FbUID>(json);
                  
-                }
-            }
-            catch(Exception ex)
-            {
+        //        }
+        //    }
+        //    catch(Exception ex)
+        //    {
                 
-            }
-        }
+        //    }
+        //}
 
-        public static void fbMeByGUI(NhomUID model)
-        {
-            try
-            {
-
-                string requestUriString = string.Format(@"https://graph.facebook.com/{0}/?fields={1}&access_token={2}", model.UID, Facebook.SelectMyGUIOfUser(), Facebook.Token());
-                bool flag = true;
-                while (flag)
-                {
-                    HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUriString);
-                    httpWebRequest.UserAgent = "Dalvik/1.6.0 (Linux; U; Android 4.3; Z10 Build/10.3.2.110) [FBAN/FB4A;FBAV/19.0.0.23.14;FBLC/vi_VN;FBBV/4694056;FBCR/null;FBMF/RIM;FBBD/BlackBerry;FBDV/Z10;FBSV/4.3;FBCA/armeabi-v7a:armeabi;FBDM/{density=2.0,width=768,height=1174};FB_FW/1;]";
-                    HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                    string json = new StreamReader(httpWebResponse.GetResponseStream()).ReadToEnd();
-                    JObject jObject = JObject.Parse(json);
-                    FbUID results1 = JsonConvert.DeserializeObject<FbUID>(json);
-
-
-                    FbUID fbUID = new FbUID();
-                    JToken jUser = jObject;
-                    fbUID.uid = (string)jUser["id"];
-                    if (jUser["age_range"] != null)
-                    {
-                        string age_range = jUser["age_range"].ToString();
-                        JObject jOage_range = JObject.Parse(age_range);
-
-                        age_range results = JsonConvert.DeserializeObject<age_range>(age_range);
-
-                    }
-
-                    if (jObject["paging"]["next"] != null)
-                    {
-                        requestUriString = (string)jObject["paging"]["next"];
-                    }
-                    else
-                    {
-                        flag = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
+        
 
         public static void Log(string url) {
             try
@@ -543,22 +501,69 @@ namespace Facebook
             List<string> lstMyUid = new List<string>();
             lstMyUid.Add("id");
             lstMyUid.Add("name");
-            lstMyUid.Add("age_range"); /*The age segment for this person expressed as a minimum and maximum age. For example, more than 18, less than 21.*/
-            lstMyUid.Add("birthday"); /*The person's birthday. This is a fixed format string, like MM/DD/YYYY. However, people can control who can see the year they were born separately from the month and day so this string can be only the year (YYYY) or the month + day (MM/DD)*/
-            lstMyUid.Add("cover");/*The person's cover photo*/
-            lstMyUid.Add("currency");/*The person's local currency information*/
-            lstMyUid.Add("devices");/*The list of devices the person is using. This will return only iOS and Android devices*/
-            lstMyUid.Add("education"); /*list < EducationExperience >*/
-            lstMyUid.Add("work");/*list<WorkExperience>*/
-            lstMyUid.Add("gender");/*The gender selected by this person, male or female. If the gender is set to a custom value, this value will be based off of the preferred pronoun; it will be omitted if the preferred preferred pronoun is neutral*/
-            lstMyUid.Add("locale");/*he person's locale**/
-            lstMyUid.Add("relationship_status");/*tình trạng hôn nhân*/
-            lstMyUid.Add("mobile_phone");
-
+            lstMyUid.Add("description"); /*The age segment for this person expressed as a minimum and maximum age. For example, more than 18, less than 21.*/
+            lstMyUid.Add("email"); /*The person's birthday. This is a fixed format string, like MM/DD/YYYY. However, people can control who can see the year they were born separately from the month and day so this string can be only the year (YYYY) or the month + day (MM/DD)*/
+            lstMyUid.Add("icon");/*The person's cover photo*/
+            lstMyUid.Add("member_request_count");/*The person's local currency information*/
+            lstMyUid.Add("owner");/*The list of devices the person is using. This will return only iOS and Android devices*/
+            lstMyUid.Add("privacy"); /*list < EducationExperience >*/
+            lstMyUid.Add("updated_time");/*list<WorkExperience>*/
 
             return string.Join(",", lstMyUid);
         }
+
+        public static string SelectMyPageOfUser()
+        {
+            List<string> lstMyUid = new List<string>();
+            lstMyUid.Add("id");
+            lstMyUid.Add("name");
+            lstMyUid.Add("app_links");
+            lstMyUid.Add("about");
+
+            return string.Join(",", lstMyUid);
+        }
+
+        
+        public static string SelectFbFriend() {
+            List<string> lstMyUid = new List<string>();
+            lstMyUid.Add("id");
+            lstMyUid.Add("name");
+            lstMyUid.Add("first_name");
+            lstMyUid.Add("last_name");
+            lstMyUid.Add("name_format");
+            lstMyUid.Add("name");
+            lstMyUid.Add("mobile_phone");
+            lstMyUid.Add("birthday");
+            lstMyUid.Add("email");
+            lstMyUid.Add("gender");
+            lstMyUid.Add("location");
+            lstMyUid.Add("age_range");
+            lstMyUid.Add("cover");
+            lstMyUid.Add("devices");
+            lstMyUid.Add("education");
+            lstMyUid.Add("favorite_athletes");
+            lstMyUid.Add("favorite_teams");
+            lstMyUid.Add("hometown");
+            lstMyUid.Add("install_type");
+            lstMyUid.Add("installed");
+            lstMyUid.Add("interested_in");
+            lstMyUid.Add("is_verified");
+            lstMyUid.Add("languages");
+            lstMyUid.Add("link");
+            lstMyUid.Add("locale");
+            lstMyUid.Add("political");
+            lstMyUid.Add("quotes");
+            lstMyUid.Add("relationship_status");
+            lstMyUid.Add("religion");
+            lstMyUid.Add("sports");
+            lstMyUid.Add("third_party_id");
+            lstMyUid.Add("website");
+            lstMyUid.Add("work");
+
+            return string.Join(",", lstMyUid);
+        }
+
     }
 
-   
+
 }

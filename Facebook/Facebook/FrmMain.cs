@@ -27,6 +27,7 @@ namespace Facebook
             try
             {
                 string strdk = chkShowAllAccount.Checked ? "[spLoadToken]" : "[spLoadToken] 1";
+                DataTable tbTong = SQLDatabase.ExcDataTable("select count(*) from FbAccount");
                 DataTable tb = SQLDatabase.ExcDataTable(strdk);
                 GridAccount.DataSource = tb;
                 foreach (DataGridViewRow row in GridAccount.Rows)
@@ -43,23 +44,8 @@ namespace Facebook
                     }
                 }
                 int n = ConvertType.ToInt(tb.Rows.Count);
-                if (n > 0)
-                {
-                    chkShowAllAccount.Text = string.Format("(All) - Danh Sách Account {0}", n);
-                    /*forcus den dong dau*/
-                    //GridAccount.ClearSelection();
-                    //int nRowIndex = 0;
-
-                    //GridAccount.Rows[nRowIndex].Selected = true;
-                   // GridAccount.Rows[nRowIndex].Cells[0].Selected = true;
-                    BindAccount(GridAccount.Rows[0]);
-
-
-                }
-                else
-                {
-                    chkShowAllAccount.Text = string.Format("(All) - Danh Sách Account");
-                }
+                chkShowAllAccount.Text = string.Format("(All) - Danh Sách Account {0}/{1}", n, ConvertType.ToInt(tbTong.Rows[0][0]));
+                BindAccount(GridAccount.Rows[0]);
             }
             catch (Exception ex)
             {
@@ -92,7 +78,7 @@ namespace Facebook
                  DataTable tb = SQLDatabase.ExcDataTable(" select id,ROW_NUMBER() OVER (ORDER BY OrderID) AS stt,REPLACE(Name,'| Facebook','') as Name, UID, URD,REPLACE(URD,'www.facebook.com','...') as URD2 ,IsLoai, CASE " +
                                                         " WHEN IsLoai = 0 THEN N'Người Dùng'"+
                                                         " WHEN IsLoai = 1 THEN N'Trang'"+
-                                                        " WHEN IsLoai = 1 THEN N'Nhóm'"+
+                                                        " WHEN IsLoai = 2 THEN N'Nhóm'"+
                                                         "    ELSE NULL "+
                                                         " END AS 'LoaiFb'" +
                                                         " from NhomUID where [ParentId] in (select id from NhomUID where name = 'admin')");
@@ -109,6 +95,7 @@ namespace Facebook
                     }
                 }
                 grDsUID.Text = string.Format("Danh Sách UID: {0}",tb.Rows.Count);
+                _mySelectedRowUid = gridUID.SelectedRows;
             }
             catch (Exception ex)
             {
@@ -441,6 +428,10 @@ namespace Facebook
                     MessageBox.Show("Vui lòng chọn Uid bạn cần quét", "Thông báo");
                     return;
                 }
+                if (!chkMe.Checked && !chkBaiViet.Checked && !chkBanBe.Checked) {
+                    MessageBox.Show("Vui lòng chọn quét thông tin nào? \n Bạn bè, Thành viên, bài viết.", "Thông báo");
+                    return;
+                }
                 if (btnQuet.Text == "Start")
                 {
                     btnQuet.Text = "Stop";
@@ -468,13 +459,12 @@ namespace Facebook
 
                 arr = new ArrayList();
                 arr.Add(lblMessage1);
-                arr.Add(lblPhanTram);
+                arr.Add(lblMessage2);
                 arr.Add(lblQuataDaDung);
                 arr.Add(txtToken);
                 arr.Add(chkMe);
                 arr.Add(chkBanBe);
                 arr.Add(chkBaiViet);
-                arr.Add(progressBar1);
 
                 theardProcess.IsBackground = true;
                 theardProcess.Start(arr);
@@ -493,13 +483,12 @@ namespace Facebook
 
                 ArrayList arr1 = (ArrayList)arrControl;
                 Label lblMessage1 = (Label)arr1[0];
-                Label lblPhanTram = (Label)arr1[1];
+                Label lblMessage2 = (Label)arr1[1];
                 Label lblSluongGoi = (Label)arr1[2];
                 TextBox txtToken = (TextBox)arr1[3];
                 CheckBox chkMe = (CheckBox)arr1[4];
                 CheckBox chkBanBe = (CheckBox)arr1[5];
                 CheckBox chkBaiViet = (CheckBox)arr1[6];
-                ProgressBar progressBar1 = (ProgressBar)arr1[7];
 
                 List<NhomUID> listQuet = new List<NhomUID>();
 
@@ -510,42 +499,27 @@ namespace Facebook
                     model.id = Guid.Parse(myRow["id"].ToString());
                     model.UID = myRow["UID"].ToString();
                     model.IsLoai = ConvertType.ToInt(myRow["IsLoai"]);
+                    model.Name = myRow["name"].ToString();
                     listQuet.Add(model);
                 }
-
+                lblMessage1.Text = string.Format("Đang xử lý: Số lượng uid sẽ quét: {0}", listQuet.Count());
                 /*===============================================================*/
-                
                 while (listQuet.Count > 0)
                 {
                     if (!TheardFacebookWriter.hasProcess) break;
-                    progressBar1.Maximum = listQuet.Count;
-                    progressBar1.Value = 0;
-                    lblPhanTram.Text = "0% Hoàn thành...";
-                    lblPhanTram.Update();
                     /*neu dang stop thi khong dc phep xoa*/
                     if (TheardFacebookWriter.hasProcess)
                     {
                         /**************************Code here********************/
-                        string uid = gridUID.SelectedRows[_mySelectedRowUid[0].Index].Cells["UID"].Value.ToString();
-                        //string uid = gridUID.SelectedRows[_mySelectedRowUid[0].Index].Cells["UID"].Value.ToString();
-                        var model = listQuet.Single(r => r.UID == uid);
+                        NhomUID model = listQuet.FirstOrDefault();
+                        lblMessage1.Text = string.Format("Đang xử lý: {0} -UID/GUI: {1}", model.Name , model.UID);
+                        lblMessage1.Update();
                         TheardFacebookWriter.getwebBrowser(model, arrControl);
                         /******************************************************/
-                        progressBar1.PerformStep();
-                        progressBar1.Update();
                         /*KẾT THÚC 1 UID*/
-                        if (gridUID.SelectedRows.Count > 0){
-                            gridUID.SelectedRows[_mySelectedRowUid[0].Index].Selected = false;
-                            gridUID.Update();
-
-                            var row = listQuet.Single(r => r.UID == uid);
-                            listQuet.Remove(row);
-                        }
-
-                       
+                        listQuet.Remove(model);
                     }
                 }
-                //_mySelectedRowUid = null;
                
                 /*===================================================================*/
                 lblMessage1.Text = TheardFacebookWriter.hasProcess ? "Hoàn thành load số liệu." : "Tạm dừng do người dùng!!!";

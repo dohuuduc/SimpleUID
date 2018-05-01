@@ -31,17 +31,17 @@ namespace Facebook
         private void button1_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "") return;
-            NhomUID temp;
+            NhomUID temp = null; ;
             if (!textBox1.Text.Contains("https://www.facebook.com"))
             {
                 if (Utilities.CheckNumberEnterKey(textBox1.Text)){
                     MessageBox.Show("Vui lòng kiễm tra UID", "Thông Báo");
                     return;
                 }
-                temp = Facebook.ConvertUidToNhom(textBox1.Text);
+                (new Waiting(() => temp = Facebook.ConvertUidToNhom(textBox1.Text))).ShowDialog();
             }
             else {
-                temp = Facebook.ConvertUrdToNhom(textBox1.Text);
+                (new Waiting(() => temp = Facebook.ConvertUrdToNhom(textBox1.Text))).ShowDialog();
             }
             if (temp == null)
             {

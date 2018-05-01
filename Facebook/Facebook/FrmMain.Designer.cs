@@ -85,10 +85,13 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblMessage2 = new System.Windows.Forms.Label();
             this.lblPhanTram = new System.Windows.Forms.Label();
             this.lblMessage1 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.grQuataAcc = new System.Windows.Forms.GroupBox();
             this.lblQuataConLai = new System.Windows.Forms.Label();
             this.Labale2 = new System.Windows.Forms.Label();
@@ -103,6 +106,10 @@
             this.btnQuet = new System.Windows.Forms.Button();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.grDsUID.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUID)).BeginInit();
@@ -115,9 +122,11 @@
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.grQuataAcc.SuspendLayout();
             this.grDoituongquet.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -586,9 +595,10 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.groupBox4);
+            this.groupBox3.Controls.Add(this.lblMessage2);
             this.groupBox3.Controls.Add(this.lblPhanTram);
             this.groupBox3.Controls.Add(this.lblMessage1);
-            this.groupBox3.Controls.Add(this.progressBar1);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 169);
             this.groupBox3.Name = "groupBox3";
@@ -596,6 +606,18 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Chuẩn Hoá";
+            // 
+            // lblMessage2
+            // 
+            this.lblMessage2.AllowDrop = true;
+            this.lblMessage2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblMessage2.AutoSize = true;
+            this.lblMessage2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.lblMessage2.Location = new System.Drawing.Point(6, 183);
+            this.lblMessage2.Name = "lblMessage2";
+            this.lblMessage2.Size = new System.Drawing.Size(22, 13);
+            this.lblMessage2.TabIndex = 3;
+            this.lblMessage2.Text = ".....";
             // 
             // lblPhanTram
             // 
@@ -612,23 +634,17 @@
             // 
             this.lblMessage1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblMessage1.AutoSize = true;
-            this.lblMessage1.Location = new System.Drawing.Point(6, 187);
+            this.lblMessage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMessage1.ForeColor = System.Drawing.Color.Red;
+            this.lblMessage1.Location = new System.Drawing.Point(3, 170);
             this.lblMessage1.Name = "lblMessage1";
             this.lblMessage1.Size = new System.Drawing.Size(72, 13);
             this.lblMessage1.TabIndex = 1;
             this.lblMessage1.Text = "Đang quét:....";
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(6, 203);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(591, 23);
-            this.progressBar1.TabIndex = 0;
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.grQuataAcc);
             this.groupBox1.Controls.Add(this.grDoituongquet);
             this.groupBox1.Controls.Add(this.btnQuet);
@@ -640,6 +656,41 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Token";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Location = new System.Drawing.Point(354, 60);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(282, 100);
+            this.groupBox2.TabIndex = 7;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Ghi Chú:";
+            // 
+            // label2
+            // 
+            this.label2.AllowDrop = true;
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(6, 46);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(382, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "2/ Đối với Account là Page thì hệ thống không quét được Bạn bè / Thành viên";
+            // 
+            // label1
+            // 
+            this.label1.AllowDrop = true;
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(6, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(390, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "1/ Trong 1 ngày không được quét 1 account FB quá giới hạn hệ thống cho phép";
             // 
             // grQuataAcc
             // 
@@ -734,8 +785,6 @@
             // chkMe
             // 
             this.chkMe.AutoSize = true;
-            this.chkMe.Checked = true;
-            this.chkMe.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMe.Location = new System.Drawing.Point(16, 19);
             this.chkMe.Name = "chkMe";
             this.chkMe.Size = new System.Drawing.Size(101, 17);
@@ -746,8 +795,6 @@
             // chkBaiViet
             // 
             this.chkBaiViet.AutoSize = true;
-            this.chkBaiViet.Checked = true;
-            this.chkBaiViet.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBaiViet.Location = new System.Drawing.Point(16, 70);
             this.chkBaiViet.Name = "chkBaiViet";
             this.chkBaiViet.Size = new System.Drawing.Size(111, 17);
@@ -758,8 +805,6 @@
             // chkBanBe
             // 
             this.chkBanBe.AutoSize = true;
-            this.chkBanBe.Checked = true;
-            this.chkBanBe.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBanBe.Location = new System.Drawing.Point(16, 44);
             this.chkBanBe.Name = "chkBanBe";
             this.chkBanBe.Size = new System.Drawing.Size(121, 17);
@@ -798,6 +843,48 @@
             this.panel2.Size = new System.Drawing.Size(655, 426);
             this.panel2.TabIndex = 2;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.checkBox1);
+            this.groupBox4.Controls.Add(this.checkBox2);
+            this.groupBox4.Controls.Add(this.checkBox3);
+            this.groupBox4.Location = new System.Drawing.Point(155, 33);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(144, 100);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Đối Tượng Qúet";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(16, 19);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(101, 17);
+            this.checkBox1.TabIndex = 3;
+            this.checkBox1.Text = "Chính UID/GUI";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(16, 70);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(111, 17);
+            this.checkBox2.TabIndex = 2;
+            this.checkBox2.Text = "Bài Viết/Comment";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(16, 44);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(121, 17);
+            this.checkBox3.TabIndex = 0;
+            this.checkBox3.Text = "Bạn Bè/Thành Viên";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
             // FrmMain123
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -827,11 +914,15 @@
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.grQuataAcc.ResumeLayout(false);
             this.grQuataAcc.PerformLayout();
             this.grDoituongquet.ResumeLayout(false);
             this.grDoituongquet.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -893,7 +984,6 @@
         private System.Windows.Forms.ToolStripMenuItem quétToolStripMenuItem;
         private System.Windows.Forms.Label lblPhanTram;
         private System.Windows.Forms.Label lblMessage1;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.CheckBox chkShowAllAccount;
         private System.Windows.Forms.GroupBox grQuataAcc;
         private System.Windows.Forms.Label lblQuataConLai;
@@ -913,6 +1003,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn account;
         private System.Windows.Forms.DataGridViewTextBoxColumn password;
         private System.Windows.Forms.DataGridViewTextBoxColumn token;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblMessage2;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
     }
 }
 
