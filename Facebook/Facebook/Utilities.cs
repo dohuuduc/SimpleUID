@@ -273,29 +273,30 @@ namespace Facebook
                         string requestUriLike = string.Format(@"https://graph.facebook.com/{0}/likes?limit=500&access_token={1}", model.UID, Facebook.Token());
                         string jsonLike = Facebook.GetHtmlFB(requestUriLike);
                         Likes resultsLikes = JsonConvert.DeserializeObject<Likes>(jsonLike);
-                        if (resultsLikes.likes.Count != 0)
+                        if (resultsLikes.like.Count() != 0)
                         {
                             string dsstrLike = "";
-                            foreach (like item1 in resultsLikes.likes)
+                            foreach (like item1 in resultsLikes.like)
                             {
-                                dsstrLike += item1 + ",";
+                                dsstrLike += item1.id + ",";
                             }
                             dsstrLike = dsstrLike.Substring(0, dsstrLike.Length - 1);
 
                             string strdsLike = string.Format(@"https://graph.facebook.com/?ids={0}&access_token={1}", dsstrLike, Facebook.Token());
                             string jsonLikechitiet = Facebook.GetHtmlFB(strdsLike);
-                            ListFbLike resultsLikechitiets = JsonConvert.DeserializeObject<ListFbLike>(jsonLikechitiet);
-                            foreach (FbLike itemLike in resultsLikechitiets.fbLike)
+                            Dictionary<string, FbLike> resultsLikechitiets = JsonConvert.DeserializeObject<Dictionary<string, FbLike>>(jsonLikechitiet);
+                            foreach (KeyValuePair<string, FbLike> itemLike in resultsLikechitiets)
                             {
-                                itemLike.uid = item.uid;
-                                itemLike.feedid = item.feedid;
-                                DataTable tbFbLike = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbLike where uid='{0}' & [feedId]='{1}' and userUid='{2}'", itemLike.uid, itemLike.feedid, itemLike.userUid));
+                                itemLike.Value.uid = item.uid;
+                                itemLike.Value.likeid = itemLike.Key;
+                                itemLike.Value.feedid = item.feedid;
+                                DataTable tbFbLike = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbLike where uid='{0}' and [feedId]='{1}' and likeid='{2}'", itemLike.Value.uid, itemLike.Value.feedid, itemLike.Value.likeid));
                                 if (ConvertType.ToInt(tbFbLike.Rows[0][0]) == 0)
-                                    SQLDatabase.AddFbLike(itemLike);
+                                    SQLDatabase.AddFbLike(itemLike.Value);
                                 else
-                                    SQLDatabase.UpFbLike(itemLike);
+                                    SQLDatabase.UpFbLike(itemLike.Value);
 
-                                lblMessage2.Text = string.Format("Quét Like ->mã bài: {0} | user like:{1} ",itemLike.feedid ,itemLike.username);
+                                lblMessage2.Text = string.Format("Quét Like ->mã bài: {0} | user like:{1} ", itemLike.Value.feedid, itemLike.Value.likeid);
                                 lblMessage2.Update();
                             }
                         }
