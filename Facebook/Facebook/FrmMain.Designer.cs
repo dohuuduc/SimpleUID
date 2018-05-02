@@ -85,6 +85,10 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.lblMessage2 = new System.Windows.Forms.Label();
             this.lblPhanTram = new System.Windows.Forms.Label();
             this.lblMessage1 = new System.Windows.Forms.Label();
@@ -106,10 +110,6 @@
             this.btnQuet = new System.Windows.Forms.Button();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.grDsUID.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUID)).BeginInit();
@@ -121,12 +121,12 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grQuataAcc.SuspendLayout();
             this.grDoituongquet.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -262,7 +262,7 @@
             this.zToolStripMenuItem,
             this.xuấtFileToolStripMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(133, 180);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 180);
             // 
             // quétToolStripMenuItem
             // 
@@ -339,8 +339,9 @@
             // xuấtFileToolStripMenuItem1
             // 
             this.xuấtFileToolStripMenuItem1.Name = "xuấtFileToolStripMenuItem1";
-            this.xuấtFileToolStripMenuItem1.Size = new System.Drawing.Size(132, 22);
-            this.xuấtFileToolStripMenuItem1.Text = "Xuất File";
+            this.xuấtFileToolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
+            this.xuấtFileToolStripMenuItem1.Text = "Xuất File Nhanh";
+            this.xuấtFileToolStripMenuItem1.Click += new System.EventHandler(this.xuấtFileToolStripMenuItem1_Click);
             // 
             // grDsAccount
             // 
@@ -605,17 +606,60 @@
             this.groupBox3.Size = new System.Drawing.Size(641, 228);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Chuẩn Hoá";
+            this.groupBox3.Text = "Xuất File";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.checkBox1);
+            this.groupBox4.Controls.Add(this.checkBox2);
+            this.groupBox4.Controls.Add(this.checkBox3);
+            this.groupBox4.Location = new System.Drawing.Point(6, 19);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(192, 100);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Đối Tượng Qúet";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(16, 19);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(101, 17);
+            this.checkBox1.TabIndex = 3;
+            this.checkBox1.Text = "Chính UID/GUI";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(16, 70);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(111, 17);
+            this.checkBox2.TabIndex = 2;
+            this.checkBox2.Text = "Bài Viết/Comment";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(16, 44);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(121, 17);
+            this.checkBox3.TabIndex = 0;
+            this.checkBox3.Text = "Bạn Bè/Thành Viên";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // lblMessage2
             // 
             this.lblMessage2.AllowDrop = true;
             this.lblMessage2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblMessage2.AutoSize = true;
+            this.lblMessage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblMessage2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.lblMessage2.Location = new System.Drawing.Point(6, 183);
+            this.lblMessage2.Location = new System.Drawing.Point(6, 201);
             this.lblMessage2.Name = "lblMessage2";
-            this.lblMessage2.Size = new System.Drawing.Size(22, 13);
+            this.lblMessage2.Size = new System.Drawing.Size(22, 15);
             this.lblMessage2.TabIndex = 3;
             this.lblMessage2.Text = ".....";
             // 
@@ -634,11 +678,11 @@
             // 
             this.lblMessage1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblMessage1.AutoSize = true;
-            this.lblMessage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMessage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblMessage1.ForeColor = System.Drawing.Color.Red;
-            this.lblMessage1.Location = new System.Drawing.Point(3, 170);
+            this.lblMessage1.Location = new System.Drawing.Point(3, 182);
             this.lblMessage1.Name = "lblMessage1";
-            this.lblMessage1.Size = new System.Drawing.Size(72, 13);
+            this.lblMessage1.Size = new System.Drawing.Size(93, 15);
             this.lblMessage1.TabIndex = 1;
             this.lblMessage1.Text = "Đang quét:....";
             // 
@@ -843,48 +887,6 @@
             this.panel2.Size = new System.Drawing.Size(655, 426);
             this.panel2.TabIndex = 2;
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.checkBox1);
-            this.groupBox4.Controls.Add(this.checkBox2);
-            this.groupBox4.Controls.Add(this.checkBox3);
-            this.groupBox4.Location = new System.Drawing.Point(155, 33);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(144, 100);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Đối Tượng Qúet";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(16, 19);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(101, 17);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Chính UID/GUI";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(16, 70);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(111, 17);
-            this.checkBox2.TabIndex = 2;
-            this.checkBox2.Text = "Bài Viết/Comment";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(16, 44);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(121, 17);
-            this.checkBox3.TabIndex = 0;
-            this.checkBox3.Text = "Bạn Bè/Thành Viên";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
             // FrmMain123
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -912,6 +914,8 @@
             this.tabPage1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -921,8 +925,6 @@
             this.grDoituongquet.ResumeLayout(false);
             this.grDoituongquet.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

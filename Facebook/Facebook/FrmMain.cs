@@ -22,6 +22,9 @@ namespace Facebook
         private DataGridViewRow _mySelectedRowAcc;
         private DataGridViewSelectedRowCollection _mySelectedRowUid;
         private Thread theardProcess;
+        private Dictionary<string, int> _dauso;
+        private List<regexs> _regexs;
+
         private void BindAccount()
         {
             try
@@ -69,8 +72,7 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "BindAccount");
             }
         }
-
-            private void BindUID() {
+        private void BindUID() {
             try
             {
                
@@ -103,21 +105,31 @@ namespace Facebook
                 throw;
             }
         }
-       
-
         private void FrmMain_Load(object sender, EventArgs e)
         {
             _cauHinh = SQLDatabase.LoadCauHinh("select * from cauhinh");
             BindAccount();
             BindUID();
 
-        }
+            _regexs = SQLDatabase.LoadRegexs("select * from Regexs");
+            DataTable tb_dausp = SQLDatabase.ExcDataTable(" select distinct dauso dauso,lenght  " +
+                                                          " from dau_so where dauso is not null and dauso <> '' " +
+                                                          " union all " +
+                                                          " select distinct right(dauso, len(dauso) - 1)dauso, lenght -1" +
+                                                          " from dau_so where dauso is not null and dauso <> ''");
 
+            Dictionary<string, int> dauso = new Dictionary<string, int>();
+            foreach (DataRow item in tb_dausp.Rows)
+            {
+                dauso.Add(item["dauso"].ToString(), ConvertType.ToInt(item["lenght"]));
+            }
+            _dauso = dauso;
+
+        }
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
 
         }
-
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             FrmAddUID frm = new FrmAddUID();
@@ -126,7 +138,6 @@ namespace Facebook
                 BindUID();
             }
         }
-
         private void thêmAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmAddAcc frm = new FrmAddAcc();
@@ -136,12 +147,10 @@ namespace Facebook
                 BindAccount();
             }
         }
-
         private void sửaAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
-
         private void GridAccount_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
@@ -158,9 +167,6 @@ namespace Facebook
                 }
             }
         }
-
-        
-
         private void GridAccount_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
@@ -168,7 +174,6 @@ namespace Facebook
                 BindAccount(GridAccount.Rows[e.RowIndex]);
             }
         }
-
         private void resetTokenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_mySelectedRowAcc != null) {
@@ -185,7 +190,6 @@ namespace Facebook
                 }
             }
         }
-
         private void xoáAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -205,12 +209,10 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "xoáAccountToolStripMenuItem_Click");
             }
         }
-
         private void gridUID_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
         private void gridUID_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
              _mySelectedRowUid = gridUID.SelectedRows;
@@ -219,12 +221,10 @@ namespace Facebook
         {
             _mySelectedRowAcc = GridAccount.SelectedRows[0];
         }
-
         private void zToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
         }
-
         private void resetUIDToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -256,17 +256,14 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "Thông Báo");
             }
         }
-
         private void làmTươiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BindUID();
         }
-
         private void làmTươiToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             BindAccount();
         }
-
         private void asToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -279,7 +276,6 @@ namespace Facebook
             else
                 MessageBox.Show("Import file thất bại", "Lỗi");
         }
-
         private bool importfile(string path)
         {
             try
@@ -312,7 +308,6 @@ namespace Facebook
                 return false;
             }
         }
-
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
@@ -329,7 +324,6 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "linkLabel1_LinkClicked");
             }
         }
-
         private bool xuatfilemain(string filePath)
         {
             try
@@ -349,7 +343,6 @@ namespace Facebook
             }
 
         }
-
         private void xoáUIDThôngTinToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -370,7 +363,6 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "zToolStripMenuItem_Click");
             }
         }
-
         private void lọcTrùngToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -393,7 +385,6 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "zToolStripMenuItem_Click");
             }
         }
-
         private void xoáUIDLỗiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -416,7 +407,6 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "zToolStripMenuItem_Click");
             }
         }
-
         private void btnQuet_Click(object sender, EventArgs e)
         {
             ParameterizedThreadStart par;
@@ -474,7 +464,6 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "button2_Click");
             }
         }
-
         private void ProcessFB(object arrControl)
         {
             try
@@ -536,12 +525,10 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "ProcessTrangVang");
             }
         }
-
         private void chkShowAllAccount_CheckedChanged(object sender, EventArgs e)
         {
             BindAccount();
         }
-
         private void cấuHìnhToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -555,6 +542,95 @@ namespace Facebook
             {
 
                 throw;
+            }
+        }
+
+        private void xuấtFileToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (gridUID.SelectedRows.Count == 0) return;
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string fileName = Utilities.convertToUnSign3(gridUID.SelectedRows[0].ToString()) + "_createdate_" + DateTime.Now.ToString("dd_MM_yyyy");
+                bool temp = false;
+                new Waiting(() => temp = xuatnhanh(filePath + "\\" + fileName), "Vui Lòng Chờ").ShowDialog();
+                MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "xuấtFileToolStripMenuItem1_Click");
+            }
+        }
+        private bool xuatnhanh(string filePath) {
+            try
+            {
+                DataTable table = new DataTable();
+                table.Columns.Add("UID", typeof(string));
+                table.Columns.Add("name", typeof(string));
+                table.Columns.Add("bai_viet", typeof(string));
+                table.Columns.Add("description", typeof(DateTime));
+                table.Columns.Add("created_time", typeof(DateTime));
+                table.Columns.Add("message", typeof(DateTime));
+                table.Columns.Add("phone", typeof(DateTime));
+                table.Columns.Add("email", typeof(DateTime));
+
+                foreach (DataGridViewRow row in gridUID.SelectedRows)
+                {
+                    DataRow myRow = (row.DataBoundItem as DataRowView).Row;
+                    NhomUID model = new NhomUID();
+                    model.id = Guid.Parse(myRow["id"].ToString());
+                    model.UID = myRow["UID"].ToString();
+                    model.IsLoai = ConvertType.ToInt(myRow["IsLoai"]);
+                    if (model.IsLoai == 0) {
+                        DataTable tb = SQLDatabase.ExcDataTable("select distinct a.UID,a.name,b.name as bai_viet,b.description , b.created_time,c.message "+
+                                                                " from FbUID a inner join [dbo].[FbFeed] b on a.UID = b.UID "+
+                                                                " inner join[dbo].[FbComments] c on b.feedid = c.feedid "+
+                                                                " order by created_time ");
+                        foreach (DataRow item in tb.Rows)
+                            table.Rows.Add(item["UID"], item["name"], item["bai_viet"], item["description"], item["created_time"], item["message"], "", "");
+                    }
+                    if (model.IsLoai == 1) {
+                        DataTable tb = SQLDatabase.ExcDataTable("select distinct a.UID,a.name,b.name as bai_viet,b.description , b.created_time,c.message " +
+                                                              " from [FbPage] a inner join [dbo].[FbFeed] b on a.UID = b.UID " +
+                                                              " inner join[dbo].[FbComments] c on b.feedid = c.feedid " +
+                                                              " order by created_time ");
+                        foreach (DataRow item in tb.Rows)
+                            table.Rows.Add(item["UID"], item["name"], item["bai_viet"], item["description"], item["created_time"], item["message"], "", "");
+                    }
+                    if (model.IsLoai == 2)
+                    {
+                        DataTable tb = SQLDatabase.ExcDataTable("select distinct a.UID,a.name,b.name as bai_viet,b.description , b.created_time,c.message " +
+                                                              " from [FbGUI] a inner join [dbo].[FbFeed] b on a.UID = b.UID " +
+                                                              " inner join[dbo].[FbComments] c on b.feedid = c.feedid " +
+                                                              " order by created_time ");
+                        foreach (DataRow item in tb.Rows)
+                            table.Rows.Add(item["UID"], item["name"], item["bai_viet"], item["description"], item["created_time"], item["message"], "", "");
+                    }
+                    /*lấy số liệu*/
+                    foreach (DataRow item in table.Rows)
+                    {
+                        List<string> arrPhone = Utilities.getPhoneHTML(item["message"].ToString(), _dauso, _regexs);
+                        string listPhone = "";
+                        foreach (var dienthoai in arrPhone)
+                            listPhone += dienthoai + ";";
+                        item["phone"] = listPhone;
+
+                        List<string> arrEmail = Utilities.getEmail(new List<string>() { item["message"].ToString() });
+                        string listemail = "";
+                        foreach (var email in arrEmail)
+                            listemail += email + ";";
+                        item["email"] = listemail;
+                    }
+                   
+
+                    ExcelAdapter excel = new ExcelAdapter(filePath);
+                    excel.CreateAndWrite(table, "Sheet", 1);
+                }
+                return true;
+            }
+            catch (Exception )
+            {
+                return false;
             }
         }
     }

@@ -33,6 +33,146 @@ namespace Facebook
                 return false;
             }
         }
+        public static string convertToUnSign3(string s)
+        {
+            Regex regex = new Regex("\\p{IsCombiningDiacriticalMarks}+");
+            string temp = s.Normalize(NormalizationForm.FormD);
+            return regex.Replace(temp, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
+        }
+        public static List<string> getPhoneHTML(string content, Dictionary<string, int> dauso, List<regexs> _regexs, bool? istestTrung = null)
+        {
+            List<string> hashSet = new List<string>();
+            List<string> phoneChuan = new List<string>();
+            if (content == null || content == "") return null;
+            content = content.Replace("(84)", "0").Replace("(+84)", "0").Replace("+84", "0");
+            foreach (regexs re in _regexs)
+            {
+                Regex rg = new Regex(string.Format(@"{0}", re.Regex), RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace);
+                MatchCollection m = rg.Matches(content);
+                foreach (Match g in m)
+                {
+                    string item = RemoveSymbolInPhone(g.Value);
+                    if (istestTrung == null || istestTrung == true)
+                    {
+                        if (!hashSet.Contains(item))
+                        {
+                            hashSet.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        hashSet.Add(item);
+                    }
+                }
+            }
+
+            /*01/2018 bo xung theo kiem tra so luong chuoi dien thoai*/
+            /*xu ly so lieu*/
+            foreach (var item in hashSet)
+            {
+                string dienthoai = item;
+                Dictionary<string, int> dausothieu0 = dauso.Where(p => !p.Key.StartsWith("0")).ToDictionary(p => p.Key, p => p.Value);
+                bool kiemtra0 = dausothieu0.Where(x => (dienthoai.StartsWith(x.Key) && dienthoai.Length == x.Value)).Count() > 0;
+                if (kiemtra0)
+                    dienthoai = string.Format("0{0}", dienthoai);
+
+                if (dienthoai.Length >= 10 && dienthoai.Length <= 11)
+                {
+                    bool kiemtra = dauso.Where(x => (dienthoai.StartsWith(x.Key) && dienthoai.Length == x.Value)).Count() > 0;
+                    if (kiemtra)
+                        phoneChuan.Add(dienthoai);
+                }
+            }
+            return phoneChuan;
+        }
+        public static List<string> getPhoneHTML(List<string> datahtml, Dictionary<string, int> dauso, List<regexs> _regexs, bool? istestTrung = null)
+        {
+            List<string> hashSet = new List<string>();
+            List<string> phoneChuan = new List<string>();
+            foreach (var chuoi in datahtml)
+            {
+                string content = chuoi.Replace("(84)", "0").Replace("(+84)", "0").Replace("+84", "0");
+
+                foreach (regexs re in _regexs)
+                {
+                    Regex rg = new Regex(string.Format(@"{0}", re.Regex), RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace);
+                    MatchCollection m = rg.Matches(content);
+                    foreach (Match g in m)
+                    {
+                        string item = RemoveSymbolInPhone(g.Value);
+                        if (istestTrung == null || istestTrung == true)
+                        {
+                            if (!hashSet.Contains(item))
+                            {
+                                hashSet.Add(item);
+                            }
+                        }
+                        else
+                        {
+                            hashSet.Add(item);
+                        }
+                    }
+                }
+            }
+            /*01/2018 bo xung theo kiem tra so luong chuoi dien thoai*/
+            /*xu ly so lieu*/
+            foreach (var item in hashSet)
+            {
+                string dienthoai = item;
+                Dictionary<string, int> dausothieu0 = dauso.Where(p => !p.Key.StartsWith("0")).ToDictionary(p => p.Key, p => p.Value);
+                bool kiemtra0 = dausothieu0.Where(x => (dienthoai.StartsWith(x.Key) && dienthoai.Length == x.Value)).Count() > 0;
+                if (kiemtra0)
+                    dienthoai = string.Format("0{0}", dienthoai);
+
+                if (dienthoai.Length >= 10 && dienthoai.Length <= 11)
+                {
+                    bool kiemtra = dauso.Where(x => (dienthoai.StartsWith(x.Key) && dienthoai.Length == x.Value)).Count() > 0;
+                    if (kiemtra)
+                        phoneChuan.Add(dienthoai);
+                }
+            }
+            return phoneChuan;
+        }
+        public static string RemoveSymbolInPhone(string phonenum)
+        {
+            string text = phonenum;
+            for (int i = 0; i < text.Length; i++)
+            {
+                char c = text[i];
+                if (!char.IsDigit(c))
+                {
+                    phonenum = phonenum.Replace(c.ToString(), "");
+                }
+            }
+            return phonenum;
+        }
+
+
+        public static List<string> getEmail(List<string> datahtml)
+        {
+            try
+            {
+                List<string> emailList = new List<string>();
+                foreach (var item in datahtml)
+                {
+                    Regex rg = new Regex(@"([\w\.])+@([a-zA-Z0-9\-])+\.([a-zA-Z]{2,4})(\.[a-zA-Z]{2,4})?");
+                    MatchCollection m = rg.Matches(item);
+                    foreach (Match g in m)
+                    {
+                        if (g.Groups[0].Value.Length > 0)
+                            if (emailList.Count(x => x.Contains(g.Groups[0].Value)) == 0)
+                                emailList.Add(g.Groups[0].Value);
+                    }
+                }
+                return emailList;
+            }
+            catch (Exception ex)
+            {
+                return null;
+
+            }
+        }
+
     }
 
     public class Log
@@ -185,6 +325,8 @@ namespace Facebook
                                 SQLDatabase.UpFbUID(resultsFbUID);
                             }
                         }
+                        lblMessage2.Text = string.Format("Quét Thông Tin UID: {0}-{1}", resultsFbUID.uid,resultsFbUID.name);
+                        lblMessage2.Update();
                     }
                     else if (model.IsLoai == 1)
                     {
@@ -201,6 +343,8 @@ namespace Facebook
                                 SQLDatabase.UpFbPage(resultsFbPage);
                             }
                         }
+                        lblMessage2.Text = string.Format("Quét Thông Tin Page: {0}-{1}", resultsFbPage.uid, resultsFbPage.name);
+                        lblMessage2.Update();
                     }
                     else if (model.IsLoai == 2)
                     {
@@ -217,10 +361,11 @@ namespace Facebook
                                 SQLDatabase.UpFbGUI(resultsFbGUI);
                             }
                         }
+                        lblMessage2.Text = string.Format("Quét Thông Tin FbGUI: {0}-{1}", resultsFbGUI.uid, resultsFbGUI.name);
+                        lblMessage2.Update();
                     }
 
-                    lblMessage2.Text = string.Format("Quét Thông Tin UID/GUI/Page:{0}", requestUriString);
-                    lblMessage2.Update();
+                   
                 }
                 #endregion
 
@@ -270,54 +415,61 @@ namespace Facebook
                             SQLDatabase.UpFbFeed(item);
 
                         /*tìm số lần like cũa tần bài viến*/
-                        string requestUriLike = string.Format(@"https://graph.facebook.com/{0}/likes?limit=500&access_token={1}", model.UID, Facebook.Token());
+                        string requestUriLike = string.Format(@"https://graph.facebook.com/{0}/likes?limit=500&access_token={1}", item.feedid, Facebook.Token());
                         string jsonLike = Facebook.GetHtmlFB(requestUriLike);
-                        Likes resultsLikes = JsonConvert.DeserializeObject<Likes>(jsonLike);
-                        if (resultsLikes.like.Count() != 0)
+                        if (jsonLike != "")
                         {
-                            string dsstrLike = "";
-                            foreach (like item1 in resultsLikes.like)
+                            Likes resultsLikes = JsonConvert.DeserializeObject<Likes>(jsonLike);
+                            if (resultsLikes.like.Count() != 0)
                             {
-                                dsstrLike += item1.id + ",";
-                            }
-                            dsstrLike = dsstrLike.Substring(0, dsstrLike.Length - 1);
+                                string dsstrLike = "";
+                                foreach (like item1 in resultsLikes.like)
+                                {
+                                    dsstrLike += item1.id + ",";
+                                }
+                                dsstrLike = dsstrLike.Substring(0, dsstrLike.Length - 1);
 
-                            string strdsLike = string.Format(@"https://graph.facebook.com/?ids={0}&access_token={1}", dsstrLike, Facebook.Token());
-                            string jsonLikechitiet = Facebook.GetHtmlFB(strdsLike);
-                            Dictionary<string, FbLike> resultsLikechitiets = JsonConvert.DeserializeObject<Dictionary<string, FbLike>>(jsonLikechitiet);
-                            foreach (KeyValuePair<string, FbLike> itemLike in resultsLikechitiets)
-                            {
-                                itemLike.Value.uid = item.uid;
-                                itemLike.Value.likeid = itemLike.Key;
-                                itemLike.Value.feedid = item.feedid;
-                                DataTable tbFbLike = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbLike where uid='{0}' and [feedId]='{1}' and likeid='{2}'", itemLike.Value.uid, itemLike.Value.feedid, itemLike.Value.likeid));
-                                if (ConvertType.ToInt(tbFbLike.Rows[0][0]) == 0)
-                                    SQLDatabase.AddFbLike(itemLike.Value);
-                                else
-                                    SQLDatabase.UpFbLike(itemLike.Value);
+                                string strdsLike = string.Format(@"https://graph.facebook.com/?ids={0}&access_token={1}", dsstrLike, Facebook.Token());
+                                string jsonLikechitiet = Facebook.GetHtmlFB(strdsLike);
+                                Dictionary<string, FbLike> resultsLikechitiets = JsonConvert.DeserializeObject<Dictionary<string, FbLike>>(jsonLikechitiet);
+                                foreach (KeyValuePair<string, FbLike> itemLike in resultsLikechitiets)
+                                {
+                                    itemLike.Value.uid = item.uid;
+                                    itemLike.Value.likeid = itemLike.Key;
+                                    itemLike.Value.feedid = item.feedid;
+                                    DataTable tbFbLike = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbLike where uid='{0}' and [feedId]='{1}' and likeid='{2}'", itemLike.Value.uid, itemLike.Value.feedid, itemLike.Value.likeid));
+                                    if (ConvertType.ToInt(tbFbLike.Rows[0][0]) == 0)
+                                        SQLDatabase.AddFbLike(itemLike.Value);
+                                    else
+                                        SQLDatabase.UpFbLike(itemLike.Value);
 
-                                lblMessage2.Text = string.Format("Quét Like ->mã bài: {0} | user like:{1} ", itemLike.Value.feedid, itemLike.Value.likeid);
-                                lblMessage2.Update();
+                                    lblMessage2.Text = string.Format("Quét Like ->mã bài: {0} | user like:{1} ", itemLike.Value.feedid, itemLike.Value.likeid);
+                                    lblMessage2.Update();
+                                }
                             }
                         }
                         /************Tìm thông tin comment****************/
                         string requestComment = string.Format(@"https://graph.facebook.com/{0}/comments?limit=500&fields=message,from.location,from.birthday,from.email,from.gender,from.name,from.mobile_phone,from.email&access_token={1}", item.feedid, Facebook.Token());
                         string jsonComment = Facebook.GetHtmlFB(requestComment);
-                        ListFbComments resultsComment = JsonConvert.DeserializeObject<ListFbComments>(jsonComment);
-                        foreach (FbComments itemComment in resultsComment.fbComments){
-                            itemComment.uid = item.uid;
-                            itemComment.feedid = item.feedid;
-                            itemComment.commendId = itemComment.commendId.Split('_').LastOrDefault();
+                        if (jsonComment != "")
+                        {
+                            ListFbComments resultsComment = JsonConvert.DeserializeObject<ListFbComments>(jsonComment);
+                            foreach (FbComments itemComment in resultsComment.fbComments)
+                            {
+                                itemComment.uid = item.uid;
+                                itemComment.feedid = item.feedid;
+                                itemComment.commendId = itemComment.commendId.Split('_').LastOrDefault();
 
-                            DataTable tbFbCommnet = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbComments where uid='{0}' & [feedId]='{1}' and commendId='{2}'", itemComment.uid, itemComment.feedid, itemComment.commendId));
-                            if (ConvertType.ToInt(tbFbCommnet.Rows[0][0]) == 0)
-                                SQLDatabase.AddFbComments(itemComment);
-                            else
-                                SQLDatabase.UpFbComments(itemComment);
+                                DataTable tbFbCommnet = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbComments where uid='{0}' and [feedId]='{1}' and commendId='{2}'", itemComment.uid, itemComment.feedid, itemComment.commendId));
+                                if (ConvertType.ToInt(tbFbCommnet.Rows[0][0]) == 0)
+                                    SQLDatabase.AddFbComments(itemComment);
+                                else
+                                    SQLDatabase.UpFbComments(itemComment);
 
 
-                            lblMessage2.Text = string.Format("Quét comment ->mã bài {0}_{1} | Nội dung: {2}",itemComment.feedid,itemComment.commendId, itemComment.message);
-                            lblMessage2.Update();
+                                lblMessage2.Text = string.Format("Quét comment ->mã bài {0}_{1} | Nội dung: {2}", itemComment.feedid, itemComment.commendId, itemComment.message);
+                                lblMessage2.Update();
+                            }
                         }
                     }
                 }

@@ -283,7 +283,7 @@ namespace Facebook
             try
             {
                 string url = "https://www.facebook.com/login.php";
-                string html = getHTML(url);
+                string html = WebToolkit.GetHtmlChuyenHtmlKhac(url);
 
                 HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                 doc.LoadHtml(html);
@@ -295,7 +295,9 @@ namespace Facebook
 
 
                 string lgndim = "eyJ3IjoxMzY2LCJoIjo3NjgsImF3IjoxMzY2LCJhaCI6NzI4LCJjIjoyNH0=";
-                string lgnjs = RandomDigits(10);//"1524644545";
+                List<string> lstserverTime = html.Split(new char[] { '{', '}' }).Where(p=>p.Contains("serverTime")).ToList();
+                string serverTime = Regex.Match(lstserverTime.FirstOrDefault(), @"\d+").Value;
+
 
                 string dk_lsd = "//input[@name='lsd'][@value]";
                 HtmlNode dk_lsdNode = documentNode.SelectSingleNode(dk_lsd);
@@ -352,14 +354,14 @@ namespace Facebook
                 data += "&skip_api_login=" + "";
                 data += "&signed_next=" + "";
                 data += "&trynum=" + trynum;
-                data += "&timezone=420";
+                data += "&timezone=-60";
                 data += "&lgndim=" + Uri.EscapeDataString(lgndim);
                 data += "&lgnrnd=" + lgnrnd;
-                data += "&lgnjs=" + lgnjs;
+                data += "&lgnjs=" + serverTime;
                 data += "&email=" + Uri.EscapeDataString(username);
                 data += "&pass=" + Uri.EscapeDataString(password);
                 data += "&prefill_contact_point=" + Uri.EscapeDataString(username);
-                data += "&prefill_source=" + prefill_source;
+                data += "&prefill_source=" + prefill_source.Substring(0,10);
                 data += "&prefill_type=" + prefill_type;
                 data += "&first_prefill_source=" + first_prefill_source;
                 data += "&first_prefill_type=" + first_prefill_type;
@@ -433,6 +435,32 @@ namespace Facebook
             return result;
         }
 
+        public static string GetHtmlFB2(string Url)
+        {
+            string result;
+            try
+            {
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(Url);
+                httpWebRequest.Method = "Post";
+                httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+                httpWebRequest.Accept = "application/json, text/plain, */*";
+                httpWebRequest.Headers.Add("Accept-Language: vi-VN,vi;q=0.8,fr-FR;q=0.6,fr;q=0.4,en-US;q=0.2,en;q=0.2,ja;q=0.2,de;q=0.2");
+                httpWebRequest.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36";
+                WebResponse response = httpWebRequest.GetResponse();
+                StreamReader streamReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+                string text = streamReader.ReadToEnd();
+                streamReader.Close();
+                response.Close();
+                result = text;
+            }
+            catch
+            {
+                result = "";
+            }
+            Log(Url);
+            return result;
+        }
+
         //public static void fbMeByUID(NhomUID model)
         //{
         //    try
@@ -448,16 +476,16 @@ namespace Facebook
         //            string json = new StreamReader(httpWebResponse.GetResponseStream()).ReadToEnd();
         //            JObject jObject = JObject.Parse(json);
         //            FbUID results1 = JsonConvert.DeserializeObject<FbUID>(json);
-                 
+
         //        }
         //    }
         //    catch(Exception ex)
         //    {
-                
+
         //    }
         //}
 
-        
+
 
         public static void Log(string url) {
             try

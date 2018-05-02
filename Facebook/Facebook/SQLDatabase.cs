@@ -24,6 +24,7 @@ namespace Facebook
         public bool IsAct { get; set; }
     }
     public class ListFbComments {
+        [JsonProperty("data")]
         public FbComments[] fbComments { get; set; }
     }
     public class FbComments {
@@ -161,11 +162,11 @@ namespace Facebook
         public location location { get; set; }
         public string locale { get; set; }
         public string updated_time { get; set; }
-        public education education { get; set; }
-        public favorite_athletes favorite_athletes { get; set; }
-        public favorite_teams favorite_teams { get; set; }
+        public List<education> education { get; set; }
+        public List<favorite_athletes> favorite_athletes { get; set; }
+        public List<favorite_teams> favorite_teams { get; set; }
         public string relationship_status { get; set; }
-        public work work { get; set; }
+        public List<work> work { get; set; }
         public bool can_post { get; set; }
         public string category { get; set; }
         public List<Category_list> category_list { get; set; }
@@ -518,7 +519,27 @@ namespace Facebook
         public int sysLimitBaiViet { get; set; }
         
     }
-        class SQLDatabase
+
+    public class dau_so
+    {
+        public int id { get; set; }
+        public string nhanamg { get; set; }
+        public int parentid { get; set; }
+        public string dauso { get; set; }
+        public int length { get; set; }
+        public int orderid { get; set; }
+    }
+
+    public class regexs
+    {
+        public int id { get; set; }
+        public string RegexName { get; set; }
+        public string Regex { get; set; }
+        public string Example { get; set; }
+        public int OrderId { get; set; }
+    }
+
+    class SQLDatabase
     {
         #region Fields
         public static string ConnectionString {
@@ -528,6 +549,111 @@ namespace Facebook
             }
         }
         #endregion // Fields
+
+        #region Đầu số vs Regexs
+        public static List<dau_so> Loaddau_so(string sql)
+        {
+            SqlConnection cnn = null;
+            SqlCommand cmd = null;
+            SqlDataReader reader = null;
+            dau_so InfoCOMMANDTABLE;
+            List<dau_so> InfoCOMMANDTABLEs = null;
+
+            try
+            {
+                InfoCOMMANDTABLEs = new List<dau_so>();
+
+                cnn = new SqlConnection();
+                cnn.ConnectionString = ConnectionString;
+                cnn.Open();
+                cnn.FireInfoMessageEventOnUserErrors = false;
+
+                cmd = new SqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = cnn;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    InfoCOMMANDTABLE = new dau_so();
+
+
+                    if (!reader.IsDBNull(0))
+                        InfoCOMMANDTABLE.id = reader.GetInt32(0);
+                    if (!reader.IsDBNull(1))
+                        InfoCOMMANDTABLE.nhanamg = reader.GetString(1);
+                    if (!reader.IsDBNull(2))
+                        InfoCOMMANDTABLE.parentid = reader.GetInt32(2);
+                    if (!reader.IsDBNull(3))
+                        InfoCOMMANDTABLE.dauso = reader.GetString(3);
+                    if (!reader.IsDBNull(4))
+                        InfoCOMMANDTABLE.length = reader.GetInt32(4);
+                    if (!reader.IsDBNull(5))
+                        InfoCOMMANDTABLE.orderid = reader.GetInt32(5);
+                    InfoCOMMANDTABLEs.Add(InfoCOMMANDTABLE);
+                }
+                return InfoCOMMANDTABLEs;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (cnn.State == ConnectionState.Open)
+                    cnn.Close();
+            }
+        }
+        public static List<regexs> LoadRegexs(string sql)
+        {
+            SqlConnection cnn = null;
+            SqlCommand cmd = null;
+            SqlDataReader reader = null;
+            regexs InfoCOMMANDTABLE;
+            List<regexs> InfoCOMMANDTABLEs = null;
+
+            try
+            {
+                InfoCOMMANDTABLEs = new List<regexs>();
+
+                cnn = new SqlConnection();
+                cnn.ConnectionString = ConnectionString;
+                cnn.Open();
+                cnn.FireInfoMessageEventOnUserErrors = false;
+
+                cmd = new SqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = cnn;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    InfoCOMMANDTABLE = new regexs();
+
+
+                    if (!reader.IsDBNull(0))
+                        InfoCOMMANDTABLE.id = reader.GetInt32(0);
+                    if (!reader.IsDBNull(1))
+                        InfoCOMMANDTABLE.RegexName = reader.GetString(1);
+                    if (!reader.IsDBNull(2))
+                        InfoCOMMANDTABLE.Regex = reader.GetString(2);
+                    if (!reader.IsDBNull(3))
+                        InfoCOMMANDTABLE.Example = reader.GetString(3);
+                    if (!reader.IsDBNull(4))
+                        InfoCOMMANDTABLE.OrderId = reader.GetInt32(4);
+                    InfoCOMMANDTABLEs.Add(InfoCOMMANDTABLE);
+                }
+                return InfoCOMMANDTABLEs;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (cnn.State == ConnectionState.Open)
+                    cnn.Close();
+            }
+        }
+        #endregion
 
         #region CauHinh
         public static CauHinh LoadCauHinh(string sql)
@@ -1985,7 +2111,7 @@ namespace Facebook
                 cmd = new SqlCommand();
                 cmd.Connection = cnn;
                 //--- Insert Record
-                cmd.CommandText = " Insert into FbComments(uid, feedid, commendId, message, from, created_time) OUTPUT inserted.id " +
+                cmd.CommandText = " Insert into FbComments(uid, feedid, commendId, message, [from], created_time) OUTPUT inserted.id " +
                                   " values(@uid, @feedid, @commendId, @message, @from, @created_time);";
 
                 cmd.Parameters.AddWithValue("@uid", record.uid);
@@ -1995,7 +2121,7 @@ namespace Facebook
                 if (record.from == null)
                     cmd.Parameters.AddWithValue("@from", SqlGuid.Null);
                 else
-                    cmd.Parameters.AddWithValue("@from", record.from);
+                    cmd.Parameters.AddWithValue("@from", ConvertType.GetXMLFromObject(record.from));
                 cmd.Parameters.AddWithValue("@created_time", record.created_time);
 
                 Guid guid = (Guid)cmd.ExecuteScalar();
@@ -2036,18 +2162,18 @@ namespace Facebook
                 // Create command to update GeneralGuessGroup record
                 cmd = new SqlCommand();
                 cmd.Connection = connection;
-                cmd.CommandText = "Update [FbComments] Set  message =@message, from=@from "
-                                    + " where uid='" + record.uid + "' and feedid=" + record.feedid + "' and commendId=" + record.commendId + "'";
+                cmd.CommandText = "Update [FbComments] Set  message =@message, [from]=@from "
+                                    + " where uid='" + record.uid + "' and feedid='" + record.feedid + "' and commendId='" + record.commendId + "'";
 
 
-                cmd.Parameters.AddWithValue("@uid", record.uid);
-                cmd.Parameters.AddWithValue("@feedid", record.feedid);
-                cmd.Parameters.AddWithValue("@commendId", record.commendId);
+                //cmd.Parameters.AddWithValue("@uid", record.uid);
+               // cmd.Parameters.AddWithValue("@feedid", record.feedid);
+                //cmd.Parameters.AddWithValue("@commendId", record.commendId);
                 cmd.Parameters.AddWithValue("@message", record.message);
                 if (record.from == null)
                     cmd.Parameters.AddWithValue("@from", SqlGuid.Null);
                 else
-                    cmd.Parameters.AddWithValue("@from", record.from);
+                    cmd.Parameters.AddWithValue("@from", ConvertType.GetXMLFromObject(record.from));
                 cmd.Parameters.AddWithValue("@created_time", record.created_time);
 
                 cmd.ExecuteNonQuery();
