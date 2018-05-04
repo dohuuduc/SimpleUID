@@ -24,6 +24,7 @@ namespace Facebook
         private Thread theardProcess;
         private Dictionary<string, int> _dauso;
         private List<regexs> _regexs;
+        private string _strdatabasename;
 
         private void BindAccount()
         {
@@ -124,6 +125,7 @@ namespace Facebook
                 dauso.Add(item["dauso"].ToString(), ConvertType.ToInt(item["lenght"]));
             }
             _dauso = dauso;
+            _strdatabasename = SQLDatabase.ExcDataTable(string.Format("SELECT DB_NAME(0)AS [DatabaseName]; ")).Rows[0]["DatabaseName"].ToString();
 
         }
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -455,6 +457,9 @@ namespace Facebook
                 arr.Add(chkMe);
                 arr.Add(chkBanBe);
                 arr.Add(chkBaiViet);
+                arr.Add(lblQuataDaDung);
+                arr.Add(lblQuataConLai);
+                
 
                 theardProcess.IsBackground = true;
                 theardProcess.Start(arr);
@@ -478,6 +483,8 @@ namespace Facebook
                 CheckBox chkMe = (CheckBox)arr1[4];
                 CheckBox chkBanBe = (CheckBox)arr1[5];
                 CheckBox chkBaiViet = (CheckBox)arr1[6];
+                Label lblQuataDaDung =(Label)arr1[7];
+                Label lblQuataConLai = (Label)arr1[8];
 
                 List<NhomUID> listQuet = new List<NhomUID>();
 
@@ -511,7 +518,7 @@ namespace Facebook
                 }
                
                 /*===================================================================*/
-                lblMessage1.Text = TheardFacebookWriter.hasProcess ? "Hoàn thành load số liệu." : "Tạm dừng do người dùng!!!";
+                lblMessage1.Text = TheardFacebookWriter.hasProcess ? "Hoàn thành load số liệu." : "Tạm dừng do người dùng, hoặc do hết Quata!!!";
                 btnQuet.Text = "Start";
                 TheardFacebookWriter.hasProcess = false;
 
@@ -547,90 +554,133 @@ namespace Facebook
 
         private void xuấtFileToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            
+        }
+        private string strDanhSachXuat() {
+            string strdk = "";
+            foreach (DataGridViewRow row in gridUID.SelectedRows)
+            {
+                strdk += string.Format("'{0}',", row.Cells["UID"].Value.ToString());
+                break;
+            }
+            if (strdk.Length > 0)
+            {
+                strdk = strdk.Substring(0, strdk.Length - 1);
+            }
+            return strdk;
+        }
+        private bool XuatnhanhPhoneEmail(string filePath)
+        {
+            try
+            {
+                if (gridUID.SelectedRows.Count == 0) {
+                    MessageBox.Show("Vui lòng chọn Uid cần xuất", "Thông Báo");
+                    return false;
+                }
+                string strdk = strDanhSachXuat();
+                DataTable table = SQLDatabase.ExcDataTable(string.Format("[spXuatFileNhanhPhoneEmail] \"{0}\"", strdk));
+                foreach (DataRow item in table.Rows)
+                {
+                    List<string> arrPhone = Utilities.getPhoneHTML(item["message"].ToString(), _dauso, _regexs);
+                    string listPhone = "";
+                    foreach (var dienthoai in arrPhone)
+                        listPhone += dienthoai + ";";
+                    item["phone"] = listPhone;
+
+                    List<string> arrEmail = Utilities.getEmail(new List<string>() { item["message"].ToString() });
+                    string listemail = "";
+                    foreach (var email in arrEmail)
+                        listemail += email + ";";
+                    item["email"] = listemail;
+                }
+                ExcelAdapter excel = new ExcelAdapter(filePath);
+                excel.CreateAndWrite(table, "Sheet", 1);
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        private bool XuatnhanhFriend(string filePath)
+        {
+            try
+            {
+                if (gridUID.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn Uid cần xuất", "Thông Báo");
+                    return false;
+                }
+                string strdk =string.Format("select * from {0}.dbo.FbFriend where UID in({1}) order by [create_date]",_strdatabasename, strDanhSachXuat());
+                return SQLDatabase.ExcNonQuery(string.Format("[spXuatFileNhanhFriend] \"{0}\",\"{1}\"", strdk, filePath));
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
+        private void phoneEmailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             try
             {
                 if (gridUID.SelectedRows.Count == 0) return;
-                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string fileName = Utilities.convertToUnSign3(gridUID.SelectedRows[0].ToString()) + "_createdate_" + DateTime.Now.ToString("dd_MM_yyyy");
-                bool temp = false;
-                new Waiting(() => temp = xuatnhanh(filePath + "\\" + fileName), "Vui Lòng Chờ").ShowDialog();
-                MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "Excel 97-2003 WorkBook|*.xls";
+                saveFileDialog1.Title = "Xuất file Excel";
+                saveFileDialog1.FileName = string.Format("{0}", Helpers.convertToUnSign3("File_EmailPhone_" + DateTime.Now.ToString("dd_MM_yyyy")));
+                //saveFileDialog1.ShowDialog();
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    if (saveFileDialog1.FileName == "")
+                    {
+                        MessageBox.Show("Vui lòng nhập tên file", "Thông Báo");
+                        return;
+                    }
+
+                    //string fileName = Utilities.convertToUnSign3("FileEmail_Phone_createdate_" + DateTime.Now.ToString("dd_MM_yyyy"))+".xls";
+                    bool temp = false;
+                    new Waiting(() => temp = XuatnhanhPhoneEmail(saveFileDialog1.FileName), "Vui Lòng Chờ").ShowDialog();
+                    MessageBox.Show("Đã xuất thành công file phone và email.", "Thông Báo");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "xuấtFileToolStripMenuItem1_Click");
             }
         }
-        private bool xuatnhanh(string filePath) {
+
+        private void bạnBèThànhViênToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             try
             {
-                DataTable table = new DataTable();
-                table.Columns.Add("UID", typeof(string));
-                table.Columns.Add("name", typeof(string));
-                table.Columns.Add("bai_viet", typeof(string));
-                table.Columns.Add("description", typeof(DateTime));
-                table.Columns.Add("created_time", typeof(DateTime));
-                table.Columns.Add("message", typeof(DateTime));
-                table.Columns.Add("phone", typeof(DateTime));
-                table.Columns.Add("email", typeof(DateTime));
-
-                foreach (DataGridViewRow row in gridUID.SelectedRows)
+                if (gridUID.SelectedRows.Count == 0) return;
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "Excel 97-2003 WorkBook|*.xls";
+                saveFileDialog1.Title = "Xuất file Excel";
+                saveFileDialog1.FileName = string.Format("{0}", Helpers.convertToUnSign3("File_Friend_" + DateTime.Now.ToString("dd_MM_yyyy")));
+                //saveFileDialog1.ShowDialog();
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    DataRow myRow = (row.DataBoundItem as DataRowView).Row;
-                    NhomUID model = new NhomUID();
-                    model.id = Guid.Parse(myRow["id"].ToString());
-                    model.UID = myRow["UID"].ToString();
-                    model.IsLoai = ConvertType.ToInt(myRow["IsLoai"]);
-                    if (model.IsLoai == 0) {
-                        DataTable tb = SQLDatabase.ExcDataTable("select distinct a.UID,a.name,b.name as bai_viet,b.description , b.created_time,c.message "+
-                                                                " from FbUID a inner join [dbo].[FbFeed] b on a.UID = b.UID "+
-                                                                " inner join[dbo].[FbComments] c on b.feedid = c.feedid "+
-                                                                " order by created_time ");
-                        foreach (DataRow item in tb.Rows)
-                            table.Rows.Add(item["UID"], item["name"], item["bai_viet"], item["description"], item["created_time"], item["message"], "", "");
-                    }
-                    if (model.IsLoai == 1) {
-                        DataTable tb = SQLDatabase.ExcDataTable("select distinct a.UID,a.name,b.name as bai_viet,b.description , b.created_time,c.message " +
-                                                              " from [FbPage] a inner join [dbo].[FbFeed] b on a.UID = b.UID " +
-                                                              " inner join[dbo].[FbComments] c on b.feedid = c.feedid " +
-                                                              " order by created_time ");
-                        foreach (DataRow item in tb.Rows)
-                            table.Rows.Add(item["UID"], item["name"], item["bai_viet"], item["description"], item["created_time"], item["message"], "", "");
-                    }
-                    if (model.IsLoai == 2)
+                    if (saveFileDialog1.FileName == "")
                     {
-                        DataTable tb = SQLDatabase.ExcDataTable("select distinct a.UID,a.name,b.name as bai_viet,b.description , b.created_time,c.message " +
-                                                              " from [FbGUI] a inner join [dbo].[FbFeed] b on a.UID = b.UID " +
-                                                              " inner join[dbo].[FbComments] c on b.feedid = c.feedid " +
-                                                              " order by created_time ");
-                        foreach (DataRow item in tb.Rows)
-                            table.Rows.Add(item["UID"], item["name"], item["bai_viet"], item["description"], item["created_time"], item["message"], "", "");
+                        MessageBox.Show("Vui lòng nhập tên file", "Thông Báo");
+                        return;
                     }
-                    /*lấy số liệu*/
-                    foreach (DataRow item in table.Rows)
-                    {
-                        List<string> arrPhone = Utilities.getPhoneHTML(item["message"].ToString(), _dauso, _regexs);
-                        string listPhone = "";
-                        foreach (var dienthoai in arrPhone)
-                            listPhone += dienthoai + ";";
-                        item["phone"] = listPhone;
 
-                        List<string> arrEmail = Utilities.getEmail(new List<string>() { item["message"].ToString() });
-                        string listemail = "";
-                        foreach (var email in arrEmail)
-                            listemail += email + ";";
-                        item["email"] = listemail;
-                    }
-                   
-
-                    ExcelAdapter excel = new ExcelAdapter(filePath);
-                    excel.CreateAndWrite(table, "Sheet", 1);
+                    string fileName = Utilities.convertToUnSign3("File_Friends_" + DateTime.Now.ToString("dd_MM_yyyy"));
+                    bool temp = false;
+                    new Waiting(() => temp = XuatnhanhFriend(saveFileDialog1.FileName), "Vui Lòng Chờ").ShowDialog();
+                    MessageBox.Show("Đã xuất thành công file Friends.", "Thông Báo");
                 }
-                return true;
             }
-            catch (Exception )
+            catch (Exception ex)
             {
-                return false;
+                MessageBox.Show(ex.Message, "xuấtFileToolStripMenuItem1_Click");
             }
         }
     }

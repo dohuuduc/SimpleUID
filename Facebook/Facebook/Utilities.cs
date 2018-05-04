@@ -279,6 +279,7 @@ namespace Facebook
     public static class TheardFacebookWriter
     {
         public static bool hasProcess = true; /*khai bao bien stop*/
+
         private static LogWriter writer;
 
         public static void getwebBrowser(NhomUID model, object arrControl)
@@ -291,7 +292,7 @@ namespace Facebook
             CheckBox chkMe = (CheckBox)arr1[4];
             CheckBox chkBanBe = (CheckBox)arr1[5];
             CheckBox chkBaiViet = (CheckBox)arr1[6];
-
+            string strToken = "";
             try
             {
                 if (!TheardFacebookWriter.hasProcess) return;
@@ -300,11 +301,17 @@ namespace Facebook
                 #region Get Me
                 if (chkMe.Checked)
                 {
+
+                    strToken = Facebook.Token(arrControl);
+                    if (strToken == "") {
+                        TheardFacebookWriter.hasProcess = false;
+                        return;
+                    };
                     string requestUriString = string.Format(@"https://graph.facebook.com/{0}/?fields={1}&access_token={2}", model.UID,
                                     model.IsLoai == 0 ? Facebook.SelectMyUIDOfUser() :
                                     model.IsLoai == 1 ? Facebook.SelectMyPageOfUser() :
                                                         Facebook.SelectMyGUIOfUser()
-                        , Facebook.Token());
+                        , strToken);
 
                     string json = Facebook.GetHtmlFB(requestUriString);
                     if (model.IsLoai == 0)
@@ -372,9 +379,16 @@ namespace Facebook
                 #region Bạn bè / Thành Viên
                 if (chkBanBe.Checked && model.IsLoai != 1)
                 {
+                    strToken = Facebook.Token(arrControl);
+                    if (strToken == "")
+                    {
+                        TheardFacebookWriter.hasProcess = false;
+                        return;
+                    };
+
                     string requestUriString = string.Format(@"https://graph.facebook.com/{0}/{1}?limit=100&fields={2}&access_token={3}", model.UID,
                                   model.IsLoai == 0 ? "friends" : "members",
-                                  model.IsLoai == 0 ? Facebook.SelectFbFriend() : Facebook.SelectFbFriend(), Facebook.Token());
+                                  model.IsLoai == 0 ? Facebook.SelectFbFriend() : Facebook.SelectFbFriend(), strToken);
 
                     string json = Facebook.GetHtmlFB(requestUriString);
                     ListFbFriend resultsFbFrend = JsonConvert.DeserializeObject<ListFbFriend>(json);
@@ -398,7 +412,14 @@ namespace Facebook
                 #region Bài Viết / Like + Comment
                 if (chkBaiViet.Checked)
                 {
-                    string requestUriString = string.Format(@"https://graph.facebook.com/{0}/feed?&access_token={1}", model.UID, Facebook.Token());
+                    strToken = Facebook.Token(arrControl);
+                    if (strToken == "")
+                    {
+                        TheardFacebookWriter.hasProcess = false;
+                        return;
+                    };
+
+                    string requestUriString = string.Format(@"https://graph.facebook.com/{0}/feed?&access_token={1}", model.UID, strToken);
                     string json = Facebook.GetHtmlFB(requestUriString);
                     ListFbFeed resultsFbFeed = JsonConvert.DeserializeObject<ListFbFeed>(json);
                     foreach (FbFeed item in resultsFbFeed.FbFeed)
@@ -415,7 +436,13 @@ namespace Facebook
                             SQLDatabase.UpFbFeed(item);
 
                         /*tìm số lần like cũa tần bài viến*/
-                        string requestUriLike = string.Format(@"https://graph.facebook.com/{0}/likes?limit=500&access_token={1}", item.feedid, Facebook.Token());
+                        strToken = Facebook.Token(arrControl);
+                        if (strToken == "")
+                        {
+                            TheardFacebookWriter.hasProcess = false;
+                            return;
+                        };
+                        string requestUriLike = string.Format(@"https://graph.facebook.com/{0}/likes?limit=500&access_token={1}", item.feedid, strToken);
                         string jsonLike = Facebook.GetHtmlFB(requestUriLike);
                         if (jsonLike != "")
                         {
@@ -429,7 +456,13 @@ namespace Facebook
                                 }
                                 dsstrLike = dsstrLike.Substring(0, dsstrLike.Length - 1);
 
-                                string strdsLike = string.Format(@"https://graph.facebook.com/?ids={0}&access_token={1}", dsstrLike, Facebook.Token());
+                                strToken = Facebook.Token(arrControl);
+                                if (strToken == "")
+                                {
+                                    TheardFacebookWriter.hasProcess = false;
+                                    return;
+                                };
+                                string strdsLike = string.Format(@"https://graph.facebook.com/?ids={0}&access_token={1}", dsstrLike, strToken);
                                 string jsonLikechitiet = Facebook.GetHtmlFB(strdsLike);
                                 Dictionary<string, FbLike> resultsLikechitiets = JsonConvert.DeserializeObject<Dictionary<string, FbLike>>(jsonLikechitiet);
                                 foreach (KeyValuePair<string, FbLike> itemLike in resultsLikechitiets)
@@ -449,7 +482,13 @@ namespace Facebook
                             }
                         }
                         /************Tìm thông tin comment****************/
-                        string requestComment = string.Format(@"https://graph.facebook.com/{0}/comments?limit=500&fields=message,from.location,from.birthday,from.email,from.gender,from.name,from.mobile_phone,from.email&access_token={1}", item.feedid, Facebook.Token());
+                        strToken = Facebook.Token(arrControl);
+                        if (strToken == "")
+                        {
+                            TheardFacebookWriter.hasProcess = false;
+                            return;
+                        };
+                        string requestComment = string.Format(@"https://graph.facebook.com/{0}/comments?limit=500&fields=message,from.location,from.birthday,from.email,from.gender,from.name,from.mobile_phone,from.email&access_token={1}", item.feedid, strToken);
                         string jsonComment = Facebook.GetHtmlFB(requestComment);
                         if (jsonComment != "")
                         {
@@ -474,6 +513,8 @@ namespace Facebook
                     }
                 }
                 #endregion
+
+               
             }
             catch (Exception ex)
             {

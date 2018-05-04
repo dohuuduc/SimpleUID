@@ -158,16 +158,47 @@ namespace Facebook
     }
     class Facebook
     {
-        public static string Token() {
+        public static string Token(object arrControl) {
+           
+
+            FbAccount fbAccount = new FbAccount();
             try
             {
+                ArrayList arr1 = (ArrayList)arrControl;
+                System.Windows.Forms.Label lblMessage1 = (System.Windows.Forms.Label)arr1[0];
+                System.Windows.Forms.Label lblMessage2 = (System.Windows.Forms.Label)arr1[1];
+                System.Windows.Forms.Label lblSluongGoi = (System.Windows.Forms.Label)arr1[2];
+                TextBox txtToken = (TextBox)arr1[3];
+                CheckBox chkMe = (CheckBox)arr1[4];
+                CheckBox chkBanBe = (CheckBox)arr1[5];
+                CheckBox chkBaiViet = (CheckBox)arr1[6];
+                System.Windows.Forms.Label lblQuataDaDung = (System.Windows.Forms.Label)arr1[7];
+                System.Windows.Forms.Label lblQuataConLai = (System.Windows.Forms.Label)arr1[8];
+
                 DataTable tb = SQLDatabase.ExcDataTable("spToken");
-                return tb.Rows[0][0].ToString();
+                if (tb.Rows.Count == 0) return "";
+
+                fbAccount.id = (Guid)tb.Rows[0]["id"];
+                fbAccount.account = tb.Rows[0]["account"].ToString();
+                fbAccount.password =tb.Rows[0]["password"].ToString();
+                fbAccount.token = tb.Rows[0]["token"].ToString();
+                fbAccount.IsAct = Convert.ToBoolean(tb.Rows[0]["IsAct"].ToString());
+                fbAccount.SoLuong = ConvertType.ToInt(tb.Rows[0]["sl"].ToString());
+                fbAccount.maxx = ConvertType.ToInt(tb.Rows[0]["maxx"].ToString());
+
+                /*update UI*/
+                txtToken.Text = fbAccount.token;
+                lblQuataDaDung.Text = string.Format("{0:#,#.}",fbAccount.SoLuong.ToString());
+                lblQuataConLai.Text = string.Format("{0:#,#.}", fbAccount.maxx - fbAccount.SoLuong);
+                txtToken.Update();
+                lblQuataDaDung.Update();
+                lblQuataConLai.Update();
+                return fbAccount.token;
             }
             catch (Exception ex)
             {
 
-                return "";
+                return "" ;
             }
         }
         public static NhomUID ConvertUrdToNhom(string strUrd)

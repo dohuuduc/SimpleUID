@@ -22,6 +22,8 @@ namespace Facebook
         public string password { get; set; }
         public string token { get; set; }
         public bool IsAct { get; set; }
+        public int SoLuong { get; set; }
+        public int maxx { get; set; }
     }
     public class ListFbComments {
         [JsonProperty("data")]
