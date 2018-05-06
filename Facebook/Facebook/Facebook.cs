@@ -440,7 +440,7 @@ namespace Facebook
             return html2;
         }
 
-        public static string GetHtmlFB(string Url)
+        public static string GetHtmlFB(string Url,string token)
         {
             string result;
             try
@@ -462,72 +462,15 @@ namespace Facebook
             {
                 result = "";
             }
-            Log(Url);
+            Log(Url,token);
             return result;
         }
 
-        public static string GetHtmlFB2(string Url)
-        {
-            string result;
+        public static void Log(string url,string token) {
             try
             {
-                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(Url);
-                httpWebRequest.Method = "Post";
-                httpWebRequest.ContentType = "application/x-www-form-urlencoded";
-                httpWebRequest.Accept = "application/json, text/plain, */*";
-                httpWebRequest.Headers.Add("Accept-Language: vi-VN,vi;q=0.8,fr-FR;q=0.6,fr;q=0.4,en-US;q=0.2,en;q=0.2,ja;q=0.2,de;q=0.2");
-                httpWebRequest.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36";
-                WebResponse response = httpWebRequest.GetResponse();
-                StreamReader streamReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-                string text = streamReader.ReadToEnd();
-                streamReader.Close();
-                response.Close();
-                result = text;
-            }
-            catch
-            {
-                result = "";
-            }
-            Log(Url);
-            return result;
-        }
-
-        //public static void fbMeByUID(NhomUID model)
-        //{
-        //    try
-        //    {
-
-        //        string requestUriString = string.Format(@"https://graph.facebook.com/{0}/?fields={1}&access_token={2}", model.UID, Facebook.SelectMyUIDOfUser(), Facebook.Token());
-        //        bool flag = true;
-        //        while (flag)
-        //        {
-        //            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUriString);
-        //            httpWebRequest.UserAgent = "Dalvik/1.6.0 (Linux; U; Android 4.3; Z10 Build/10.3.2.110) [FBAN/FB4A;FBAV/19.0.0.23.14;FBLC/vi_VN;FBBV/4694056;FBCR/null;FBMF/RIM;FBBD/BlackBerry;FBDV/Z10;FBSV/4.3;FBCA/armeabi-v7a:armeabi;FBDM/{density=2.0,width=768,height=1174};FB_FW/1;]";
-        //            HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-        //            string json = new StreamReader(httpWebResponse.GetResponseStream()).ReadToEnd();
-        //            JObject jObject = JObject.Parse(json);
-        //            FbUID results1 = JsonConvert.DeserializeObject<FbUID>(json);
-
-        //        }
-        //    }
-        //    catch(Exception ex)
-        //    {
-
-        //    }
-        //}
-
-
-
-        public static void Log(string url) {
-            try
-            {
-                List<string> lst=   url.Split(new string[] { "access_token=" }, StringSplitOptions.None).Where(p=>p.Contains("EAA")).ToList();
-                if (lst.Count != 0)
-                {
-                    FbAccount model = SQLDatabase.LoadFbAccount(string.Format("select * from FbAccount where token='{0}'", lst.FirstOrDefault())).FirstOrDefault();
-                    SQLDatabase.AddFbLog(new FbLog() { account = model.account, command= url });
-                }
-               
+               FbAccount model = SQLDatabase.LoadFbAccount(string.Format("select * from FbAccount where token='{0}'", token)).FirstOrDefault();
+               SQLDatabase.AddFbLog(new FbLog() { account = model.account, command= url });
             }
             catch (Exception e)
             {

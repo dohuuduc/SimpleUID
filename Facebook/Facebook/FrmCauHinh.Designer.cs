@@ -36,19 +36,17 @@
             this.chkFriend = new System.Windows.Forms.CheckBox();
             this.chkUID = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.txtsysLimitBaiViet = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtsysTimeSleep = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtsysLimitCallApi = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.txtsysLimitCallApi = new System.Windows.Forms.NumericUpDown();
+            this.txtsysTimeSleep = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsysLimitCallApi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsysTimeSleep)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -58,7 +56,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(426, 311);
+            this.tabControl1.Size = new System.Drawing.Size(426, 268);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -68,7 +66,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(418, 285);
+            this.tabPage1.Size = new System.Drawing.Size(418, 242);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Account Facebook";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -79,7 +77,7 @@
             this.groupBox2.Controls.Add(this.chkBaiViet);
             this.groupBox2.Controls.Add(this.chkFriend);
             this.groupBox2.Controls.Add(this.chkUID);
-            this.groupBox2.Location = new System.Drawing.Point(8, 176);
+            this.groupBox2.Location = new System.Drawing.Point(8, 127);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(392, 106);
             this.groupBox2.TabIndex = 1;
@@ -128,75 +126,26 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.txtsysLimitBaiViet);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtsysTimeSleep);
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtsysLimitCallApi);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Location = new System.Drawing.Point(8, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(392, 164);
+            this.groupBox1.Size = new System.Drawing.Size(392, 115);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông Tin Facebook";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 48);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(176, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Giới Hạn Load Bạn Bè/ Thành Viên";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 76);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(114, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Giới Hạn Load Bài Viết";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.textBox1.Location = new System.Drawing.Point(213, 45);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(159, 22);
-            this.textBox1.TabIndex = 5;
-            // 
-            // txtsysLimitBaiViet
-            // 
-            this.txtsysLimitBaiViet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtsysLimitBaiViet.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.txtsysLimitBaiViet.Location = new System.Drawing.Point(213, 73);
-            this.txtsysLimitBaiViet.Name = "txtsysLimitBaiViet";
-            this.txtsysLimitBaiViet.Size = new System.Drawing.Size(159, 22);
-            this.txtsysLimitBaiViet.TabIndex = 5;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 104);
+            this.label2.Location = new System.Drawing.Point(11, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(127, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Thời Gian Giửa 2 Lần Gọi";
-            // 
-            // txtsysTimeSleep
-            // 
-            this.txtsysTimeSleep.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtsysTimeSleep.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.txtsysTimeSleep.Location = new System.Drawing.Point(213, 101);
-            this.txtsysTimeSleep.Name = "txtsysTimeSleep";
-            this.txtsysTimeSleep.Size = new System.Drawing.Size(159, 22);
-            this.txtsysTimeSleep.TabIndex = 3;
             // 
             // label1
             // 
@@ -207,18 +156,9 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Giới Hạn Gọi API";
             // 
-            // txtsysLimitCallApi
-            // 
-            this.txtsysLimitCallApi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtsysLimitCallApi.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.txtsysLimitCallApi.Location = new System.Drawing.Point(213, 19);
-            this.txtsysLimitCallApi.Name = "txtsysLimitCallApi";
-            this.txtsysLimitCallApi.Size = new System.Drawing.Size(159, 22);
-            this.txtsysLimitCallApi.TabIndex = 1;
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(297, 129);
+            this.button1.Location = new System.Drawing.Point(297, 75);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -226,11 +166,56 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // txtsysLimitCallApi
+            // 
+            this.txtsysLimitCallApi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.txtsysLimitCallApi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.txtsysLimitCallApi.Location = new System.Drawing.Point(252, 20);
+            this.txtsysLimitCallApi.Maximum = new decimal(new int[] {
+            15000,
+            0,
+            0,
+            0});
+            this.txtsysLimitCallApi.Minimum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.txtsysLimitCallApi.Name = "txtsysLimitCallApi";
+            this.txtsysLimitCallApi.Size = new System.Drawing.Size(120, 22);
+            this.txtsysLimitCallApi.TabIndex = 5;
+            this.txtsysLimitCallApi.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtsysLimitCallApi.Value = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            // 
+            // txtsysTimeSleep
+            // 
+            this.txtsysTimeSleep.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.txtsysTimeSleep.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.txtsysTimeSleep.Location = new System.Drawing.Point(252, 47);
+            this.txtsysTimeSleep.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.txtsysTimeSleep.Name = "txtsysTimeSleep";
+            this.txtsysTimeSleep.Size = new System.Drawing.Size(120, 22);
+            this.txtsysTimeSleep.TabIndex = 6;
+            this.txtsysTimeSleep.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtsysTimeSleep.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            // 
             // FrmCauHinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 311);
+            this.ClientSize = new System.Drawing.Size(426, 268);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -244,6 +229,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsysLimitCallApi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsysTimeSleep)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -254,18 +241,14 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtsysTimeSleep;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtsysLimitCallApi;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtsysLimitBaiViet;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox chkBaiViet;
         private System.Windows.Forms.CheckBox chkFriend;
         private System.Windows.Forms.CheckBox chkUID;
+        private System.Windows.Forms.NumericUpDown txtsysLimitCallApi;
+        private System.Windows.Forms.NumericUpDown txtsysTimeSleep;
     }
 }

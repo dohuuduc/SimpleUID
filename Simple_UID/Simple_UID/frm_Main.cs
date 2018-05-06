@@ -1074,7 +1074,7 @@ namespace Simple_UID {
       @class.dataGridView_0 = dgv;
       @class.string_0 = uid;
       try {
-        string requestUriString = "https://graph.facebook.com/" + @class.string_0 + "/likes?limit=200&access_token=" + this.string_0;
+        string requestUriString = "https://graph.facebook.com/" + @class.string_0 + "/likes?limit=30000&access_token=" + this.string_0;
         bool flag = true;
         bool flag2 = false;
         int num = 200;

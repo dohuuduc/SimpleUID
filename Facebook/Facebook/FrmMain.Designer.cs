@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain123));
             this.panel1 = new System.Windows.Forms.Panel();
             this.grDsUID = new System.Windows.Forms.GroupBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -54,21 +55,11 @@
             this.xoáUIDThôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearThôngTinUidToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xuấtFileToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.uIDVàNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.phoneEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bạnBèThànhViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grDsAccount = new System.Windows.Forms.GroupBox();
             this.GridAccount = new System.Windows.Forms.DataGridView();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.createdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsAct = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gioihan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dagoi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conlai = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idacc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.account = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.password = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.làmTươiToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.resetTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,12 +78,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.lblMessage2 = new System.Windows.Forms.Label();
-            this.lblPhanTram = new System.Windows.Forms.Label();
             this.lblMessage1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -112,6 +98,26 @@
             this.btnQuet = new System.Windows.Forms.Button();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chbExpFriend = new System.Windows.Forms.CheckBox();
+            this.chbExpFeed = new System.Windows.Forms.CheckBox();
+            this.chbExpUid = new System.Windows.Forms.CheckBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.radExportUser = new System.Windows.Forms.RadioButton();
+            this.radExportPage = new System.Windows.Forms.RadioButton();
+            this.radExportGroup = new System.Windows.Forms.RadioButton();
+            this.button1 = new System.Windows.Forms.Button();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.createdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsAct = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gioihan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dagoi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conlai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idacc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.account = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.password = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.grDsUID.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUID)).BeginInit();
@@ -123,12 +129,13 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grQuataAcc.SuspendLayout();
             this.grDoituongquet.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -138,7 +145,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(411, 426);
+            this.panel1.Size = new System.Drawing.Size(411, 376);
             this.panel1.TabIndex = 0;
             // 
             // grDsUID
@@ -146,9 +153,9 @@
             this.grDsUID.Controls.Add(this.linkLabel1);
             this.grDsUID.Controls.Add(this.gridUID);
             this.grDsUID.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grDsUID.Location = new System.Drawing.Point(0, 208);
+            this.grDsUID.Location = new System.Drawing.Point(0, 169);
             this.grDsUID.Name = "grDsUID";
-            this.grDsUID.Size = new System.Drawing.Size(411, 218);
+            this.grDsUID.Size = new System.Drawing.Size(411, 207);
             this.grDsUID.TabIndex = 1;
             this.grDsUID.TabStop = false;
             this.grDsUID.Text = "Danh Sách UID";
@@ -189,7 +196,7 @@
             this.gridUID.Name = "gridUID";
             this.gridUID.RowHeadersVisible = false;
             this.gridUID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridUID.Size = new System.Drawing.Size(405, 199);
+            this.gridUID.Size = new System.Drawing.Size(405, 188);
             this.gridUID.TabIndex = 0;
             this.gridUID.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridUID_CellDoubleClick);
             this.gridUID.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridUID_CellMouseDown);
@@ -264,46 +271,47 @@
             this.zToolStripMenuItem,
             this.xuấtFileToolStripMenuItem2});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 202);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 180);
             // 
             // quétToolStripMenuItem
             // 
             this.quétToolStripMenuItem.Name = "quétToolStripMenuItem";
             this.quétToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quétToolStripMenuItem.Text = "Quét";
+            this.quétToolStripMenuItem.Click += new System.EventHandler(this.quétToolStripMenuItem_Click);
             // 
             // làmTươiToolStripMenuItem
             // 
             this.làmTươiToolStripMenuItem.Name = "làmTươiToolStripMenuItem";
-            this.làmTươiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.làmTươiToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.làmTươiToolStripMenuItem.Text = "Làm Tươi";
             this.làmTươiToolStripMenuItem.Click += new System.EventHandler(this.làmTươiToolStripMenuItem_Click);
             // 
             // resetUIDToolStripMenuItem
             // 
             this.resetUIDToolStripMenuItem.Name = "resetUIDToolStripMenuItem";
-            this.resetUIDToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetUIDToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.resetUIDToolStripMenuItem.Text = "Reset UID";
             this.resetUIDToolStripMenuItem.Click += new System.EventHandler(this.resetUIDToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
             this.toolStripMenuItem1.Text = "Thêm UID";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // asToolStripMenuItem
             // 
             this.asToolStripMenuItem.Name = "asToolStripMenuItem";
-            this.asToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.asToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.asToolStripMenuItem.Text = "Import UID";
             this.asToolStripMenuItem.Click += new System.EventHandler(this.asToolStripMenuItem_Click);
             // 
             // lọcTrùngToolStripMenuItem
             // 
             this.lọcTrùngToolStripMenuItem.Name = "lọcTrùngToolStripMenuItem";
-            this.lọcTrùngToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lọcTrùngToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.lọcTrùngToolStripMenuItem.Text = "Lộc Trùng";
             this.lọcTrùngToolStripMenuItem.Click += new System.EventHandler(this.lọcTrùngToolStripMenuItem_Click);
             // 
@@ -314,38 +322,46 @@
             this.xoáUIDThôngTinToolStripMenuItem,
             this.clearThôngTinUidToolStripMenuItem});
             this.zToolStripMenuItem.Name = "zToolStripMenuItem";
-            this.zToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.zToolStripMenuItem.Text = "Xoá UID";
             this.zToolStripMenuItem.Click += new System.EventHandler(this.zToolStripMenuItem_Click);
             // 
             // xoáUIDLỗiToolStripMenuItem
             // 
             this.xoáUIDLỗiToolStripMenuItem.Name = "xoáUIDLỗiToolStripMenuItem";
-            this.xoáUIDLỗiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.xoáUIDLỗiToolStripMenuItem.Text = "Xoá UID Lỗi";
+            this.xoáUIDLỗiToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.xoáUIDLỗiToolStripMenuItem.Text = "UID Lỗi";
             this.xoáUIDLỗiToolStripMenuItem.Click += new System.EventHandler(this.xoáUIDLỗiToolStripMenuItem_Click);
             // 
             // xoáUIDThôngTinToolStripMenuItem
             // 
             this.xoáUIDThôngTinToolStripMenuItem.Name = "xoáUIDThôngTinToolStripMenuItem";
-            this.xoáUIDThôngTinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.xoáUIDThôngTinToolStripMenuItem.Text = "Xoá UID và Thông Tin";
+            this.xoáUIDThôngTinToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.xoáUIDThôngTinToolStripMenuItem.Text = "Tất cả UID và Thông Tin";
             this.xoáUIDThôngTinToolStripMenuItem.Click += new System.EventHandler(this.xoáUIDThôngTinToolStripMenuItem_Click);
             // 
             // clearThôngTinUidToolStripMenuItem
             // 
             this.clearThôngTinUidToolStripMenuItem.Name = "clearThôngTinUidToolStripMenuItem";
-            this.clearThôngTinUidToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearThôngTinUidToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.clearThôngTinUidToolStripMenuItem.Text = "Clear Thông Tin uid";
+            this.clearThôngTinUidToolStripMenuItem.Click += new System.EventHandler(this.clearThôngTinUidToolStripMenuItem_Click);
             // 
             // xuấtFileToolStripMenuItem2
             // 
             this.xuấtFileToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.uIDVàNameToolStripMenuItem,
             this.phoneEmailToolStripMenuItem,
             this.bạnBèThànhViênToolStripMenuItem});
             this.xuấtFileToolStripMenuItem2.Name = "xuấtFileToolStripMenuItem2";
-            this.xuấtFileToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.xuấtFileToolStripMenuItem2.Size = new System.Drawing.Size(158, 22);
             this.xuấtFileToolStripMenuItem2.Text = "Xuất File Nhanh";
+            // 
+            // uIDVàNameToolStripMenuItem
+            // 
+            this.uIDVàNameToolStripMenuItem.Name = "uIDVàNameToolStripMenuItem";
+            this.uIDVàNameToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.uIDVàNameToolStripMenuItem.Text = "UID và Name";
             // 
             // phoneEmailToolStripMenuItem
             // 
@@ -368,7 +384,7 @@
             this.grDsAccount.Dock = System.Windows.Forms.DockStyle.Top;
             this.grDsAccount.Location = new System.Drawing.Point(0, 0);
             this.grDsAccount.Name = "grDsAccount";
-            this.grDsAccount.Size = new System.Drawing.Size(411, 208);
+            this.grDsAccount.Size = new System.Drawing.Size(411, 169);
             this.grDsAccount.TabIndex = 0;
             this.grDsAccount.TabStop = false;
             this.grDsAccount.Text = "Danh Sách Account";
@@ -399,88 +415,11 @@
             this.GridAccount.Name = "GridAccount";
             this.GridAccount.RowHeadersVisible = false;
             this.GridAccount.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GridAccount.Size = new System.Drawing.Size(405, 189);
+            this.GridAccount.Size = new System.Drawing.Size(405, 150);
             this.GridAccount.TabIndex = 1;
             this.GridAccount.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridAccount_CellClick);
             this.GridAccount.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridAccount_CellDoubleClick);
             this.GridAccount.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GridAccount_MouseDown);
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.HeaderText = "";
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.Width = 20;
-            // 
-            // createdate
-            // 
-            this.createdate.DataPropertyName = "createdate";
-            this.createdate.HeaderText = "createdate";
-            this.createdate.Name = "createdate";
-            this.createdate.Visible = false;
-            // 
-            // IsAct
-            // 
-            this.IsAct.DataPropertyName = "IsAct";
-            this.IsAct.HeaderText = "IsAct";
-            this.IsAct.Name = "IsAct";
-            this.IsAct.Visible = false;
-            // 
-            // gioihan
-            // 
-            this.gioihan.DataPropertyName = "gioihan";
-            this.gioihan.HeaderText = "goihan";
-            this.gioihan.Name = "gioihan";
-            this.gioihan.Visible = false;
-            // 
-            // dagoi
-            // 
-            this.dagoi.DataPropertyName = "dagoi";
-            this.dagoi.HeaderText = "dagoi";
-            this.dagoi.Name = "dagoi";
-            this.dagoi.Visible = false;
-            // 
-            // conlai
-            // 
-            this.conlai.DataPropertyName = "conlai";
-            this.conlai.HeaderText = "conlai";
-            this.conlai.Name = "conlai";
-            this.conlai.Visible = false;
-            // 
-            // idacc
-            // 
-            this.idacc.DataPropertyName = "id";
-            this.idacc.HeaderText = "id";
-            this.idacc.Name = "idacc";
-            this.idacc.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "stt";
-            this.dataGridViewTextBoxColumn1.HeaderText = "TT";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 30;
-            // 
-            // account
-            // 
-            this.account.DataPropertyName = "account";
-            this.account.HeaderText = "Account";
-            this.account.Name = "account";
-            this.account.Width = 150;
-            // 
-            // password
-            // 
-            this.password.DataPropertyName = "password";
-            this.password.HeaderText = "Password";
-            this.password.Name = "password";
-            this.password.Visible = false;
-            this.password.Width = 150;
-            // 
-            // token
-            // 
-            this.token.DataPropertyName = "token";
-            this.token.HeaderText = "Token";
-            this.token.Name = "token";
-            this.token.Width = 200;
             // 
             // contextMenuStrip2
             // 
@@ -571,7 +510,7 @@
             this.hệThốngToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1066, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1070, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -597,7 +536,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(655, 426);
+            this.tabControl1.Size = new System.Drawing.Size(659, 376);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -607,66 +546,25 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(647, 400);
+            this.tabPage1.Size = new System.Drawing.Size(651, 350);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Quét Info";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Controls.Add(this.lblMessage2);
-            this.groupBox3.Controls.Add(this.lblPhanTram);
             this.groupBox3.Controls.Add(this.lblMessage1);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 169);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(641, 228);
+            this.groupBox3.Size = new System.Drawing.Size(645, 178);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Xuất File";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.checkBox1);
-            this.groupBox4.Controls.Add(this.checkBox2);
-            this.groupBox4.Controls.Add(this.checkBox3);
-            this.groupBox4.Location = new System.Drawing.Point(6, 19);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(192, 100);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Đối Tượng Qúet";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(16, 19);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(101, 17);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Chính UID/GUI";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(16, 70);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(111, 17);
-            this.checkBox2.TabIndex = 2;
-            this.checkBox2.Text = "Bài Viết/Comment";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(16, 44);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(121, 17);
-            this.checkBox3.TabIndex = 0;
-            this.checkBox3.Text = "Bạn Bè/Thành Viên";
-            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // lblMessage2
             // 
@@ -675,22 +573,11 @@
             this.lblMessage2.AutoSize = true;
             this.lblMessage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblMessage2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblMessage2.Location = new System.Drawing.Point(6, 201);
+            this.lblMessage2.Location = new System.Drawing.Point(6, 148);
             this.lblMessage2.Name = "lblMessage2";
             this.lblMessage2.Size = new System.Drawing.Size(22, 15);
             this.lblMessage2.TabIndex = 3;
             this.lblMessage2.Text = ".....";
-            // 
-            // lblPhanTram
-            // 
-            this.lblPhanTram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblPhanTram.AutoSize = true;
-            this.lblPhanTram.Location = new System.Drawing.Point(604, 233);
-            this.lblPhanTram.Name = "lblPhanTram";
-            this.lblPhanTram.Size = new System.Drawing.Size(21, 13);
-            this.lblPhanTram.TabIndex = 2;
-            this.lblPhanTram.Text = "0%";
             // 
             // lblMessage1
             // 
@@ -698,7 +585,7 @@
             this.lblMessage1.AutoSize = true;
             this.lblMessage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblMessage1.ForeColor = System.Drawing.Color.Red;
-            this.lblMessage1.Location = new System.Drawing.Point(3, 182);
+            this.lblMessage1.Location = new System.Drawing.Point(3, 122);
             this.lblMessage1.Name = "lblMessage1";
             this.lblMessage1.Size = new System.Drawing.Size(93, 15);
             this.lblMessage1.TabIndex = 1;
@@ -714,7 +601,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(641, 166);
+            this.groupBox1.Size = new System.Drawing.Size(645, 166);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Token";
@@ -727,7 +614,7 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Location = new System.Drawing.Point(354, 60);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(282, 100);
+            this.groupBox2.Size = new System.Drawing.Size(286, 100);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ghi Chú:";
@@ -877,7 +764,7 @@
             // btnQuet
             // 
             this.btnQuet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQuet.Location = new System.Drawing.Point(563, 16);
+            this.btnQuet.Location = new System.Drawing.Point(567, 16);
             this.btnQuet.Name = "btnQuet";
             this.btnQuet.Size = new System.Drawing.Size(75, 37);
             this.btnQuet.TabIndex = 2;
@@ -893,7 +780,7 @@
             this.txtToken.Location = new System.Drawing.Point(6, 16);
             this.txtToken.Multiline = true;
             this.txtToken.Name = "txtToken";
-            this.txtToken.Size = new System.Drawing.Size(556, 37);
+            this.txtToken.Size = new System.Drawing.Size(560, 37);
             this.txtToken.TabIndex = 0;
             // 
             // panel2
@@ -902,17 +789,197 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(411, 24);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(655, 426);
+            this.panel2.Size = new System.Drawing.Size(659, 376);
             this.panel2.TabIndex = 2;
+            // 
+            // chbExpFriend
+            // 
+            this.chbExpFriend.AutoSize = true;
+            this.chbExpFriend.Checked = true;
+            this.chbExpFriend.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbExpFriend.Location = new System.Drawing.Point(16, 44);
+            this.chbExpFriend.Name = "chbExpFriend";
+            this.chbExpFriend.Size = new System.Drawing.Size(121, 17);
+            this.chbExpFriend.TabIndex = 0;
+            this.chbExpFriend.Text = "Bạn Bè/Thành Viên";
+            this.chbExpFriend.UseVisualStyleBackColor = true;
+            // 
+            // chbExpFeed
+            // 
+            this.chbExpFeed.AutoSize = true;
+            this.chbExpFeed.Checked = true;
+            this.chbExpFeed.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbExpFeed.Location = new System.Drawing.Point(16, 70);
+            this.chbExpFeed.Name = "chbExpFeed";
+            this.chbExpFeed.Size = new System.Drawing.Size(111, 17);
+            this.chbExpFeed.TabIndex = 2;
+            this.chbExpFeed.Text = "Bài Viết/Comment";
+            this.chbExpFeed.UseVisualStyleBackColor = true;
+            // 
+            // chbExpUid
+            // 
+            this.chbExpUid.AutoSize = true;
+            this.chbExpUid.Checked = true;
+            this.chbExpUid.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbExpUid.Location = new System.Drawing.Point(16, 19);
+            this.chbExpUid.Name = "chbExpUid";
+            this.chbExpUid.Size = new System.Drawing.Size(101, 17);
+            this.chbExpUid.TabIndex = 3;
+            this.chbExpUid.Text = "Chính UID/GUI";
+            this.chbExpUid.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.chbExpUid);
+            this.groupBox4.Controls.Add(this.chbExpFeed);
+            this.groupBox4.Controls.Add(this.chbExpFriend);
+            this.groupBox4.Location = new System.Drawing.Point(204, 19);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(144, 100);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Đối Tượng Qúet";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.radExportGroup);
+            this.groupBox5.Controls.Add(this.radExportPage);
+            this.groupBox5.Controls.Add(this.radExportUser);
+            this.groupBox5.Location = new System.Drawing.Point(6, 19);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(192, 100);
+            this.groupBox5.TabIndex = 5;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Type Uid";
+            // 
+            // radExportUser
+            // 
+            this.radExportUser.AutoSize = true;
+            this.radExportUser.Location = new System.Drawing.Point(18, 19);
+            this.radExportUser.Name = "radExportUser";
+            this.radExportUser.Size = new System.Drawing.Size(67, 17);
+            this.radExportUser.TabIndex = 0;
+            this.radExportUser.Text = "Cá Nhân";
+            this.radExportUser.UseVisualStyleBackColor = true;
+            // 
+            // radExportPage
+            // 
+            this.radExportPage.AutoSize = true;
+            this.radExportPage.Checked = true;
+            this.radExportPage.Location = new System.Drawing.Point(18, 44);
+            this.radExportPage.Name = "radExportPage";
+            this.radExportPage.Size = new System.Drawing.Size(53, 17);
+            this.radExportPage.TabIndex = 1;
+            this.radExportPage.TabStop = true;
+            this.radExportPage.Text = "Trang";
+            this.radExportPage.UseVisualStyleBackColor = true;
+            // 
+            // radExportGroup
+            // 
+            this.radExportGroup.AutoSize = true;
+            this.radExportGroup.Location = new System.Drawing.Point(18, 69);
+            this.radExportGroup.Name = "radExportGroup";
+            this.radExportGroup.Size = new System.Drawing.Size(53, 17);
+            this.radExportGroup.TabIndex = 2;
+            this.radExportGroup.Text = "Nhóm";
+            this.radExportGroup.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(563, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Xuất File";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Width = 20;
+            // 
+            // createdate
+            // 
+            this.createdate.DataPropertyName = "createdate";
+            this.createdate.HeaderText = "createdate";
+            this.createdate.Name = "createdate";
+            this.createdate.Visible = false;
+            // 
+            // IsAct
+            // 
+            this.IsAct.DataPropertyName = "IsAct";
+            this.IsAct.HeaderText = "IsAct";
+            this.IsAct.Name = "IsAct";
+            this.IsAct.Visible = false;
+            // 
+            // gioihan
+            // 
+            this.gioihan.DataPropertyName = "gioihan";
+            this.gioihan.HeaderText = "goihan";
+            this.gioihan.Name = "gioihan";
+            this.gioihan.Visible = false;
+            // 
+            // dagoi
+            // 
+            this.dagoi.DataPropertyName = "dagoi";
+            this.dagoi.HeaderText = "dagoi";
+            this.dagoi.Name = "dagoi";
+            this.dagoi.Visible = false;
+            // 
+            // conlai
+            // 
+            this.conlai.DataPropertyName = "conlai";
+            this.conlai.HeaderText = "conlai";
+            this.conlai.Name = "conlai";
+            this.conlai.Visible = false;
+            // 
+            // idacc
+            // 
+            this.idacc.DataPropertyName = "id";
+            this.idacc.HeaderText = "id";
+            this.idacc.Name = "idacc";
+            this.idacc.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "stt";
+            this.dataGridViewTextBoxColumn1.HeaderText = "TT";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 30;
+            // 
+            // account
+            // 
+            this.account.DataPropertyName = "account";
+            this.account.HeaderText = "Account";
+            this.account.Name = "account";
+            this.account.Width = 200;
+            // 
+            // password
+            // 
+            this.password.DataPropertyName = "password";
+            this.password.HeaderText = "Password";
+            this.password.Name = "password";
+            this.password.Visible = false;
+            this.password.Width = 150;
+            // 
+            // token
+            // 
+            this.token.DataPropertyName = "token";
+            this.token.HeaderText = "Token";
+            this.token.Name = "token";
+            this.token.Width = 150;
             // 
             // FrmMain123
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1066, 450);
+            this.ClientSize = new System.Drawing.Size(1070, 400);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmMain123";
             this.Text = "Facebook";
@@ -932,8 +999,6 @@
             this.tabPage1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -943,6 +1008,10 @@
             this.grDoituongquet.ResumeLayout(false);
             this.grDoituongquet.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1001,7 +1070,6 @@
         private System.Windows.Forms.ToolStripMenuItem lọcTrùngToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearThôngTinUidToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quétToolStripMenuItem;
-        private System.Windows.Forms.Label lblPhanTram;
         private System.Windows.Forms.Label lblMessage1;
         private System.Windows.Forms.CheckBox chkShowAllAccount;
         private System.Windows.Forms.GroupBox grQuataAcc;
@@ -1011,6 +1079,23 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblQataLimit;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblMessage2;
+        private System.Windows.Forms.ToolStripMenuItem xuấtFileToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem phoneEmailToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bạnBèThànhViênToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uIDVàNameToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.RadioButton radExportGroup;
+        private System.Windows.Forms.RadioButton radExportPage;
+        private System.Windows.Forms.RadioButton radExportUser;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckBox chbExpUid;
+        private System.Windows.Forms.CheckBox chbExpFeed;
+        private System.Windows.Forms.CheckBox chbExpFriend;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdate;
         private System.Windows.Forms.DataGridViewTextBoxColumn IsAct;
@@ -1022,17 +1107,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn account;
         private System.Windows.Forms.DataGridViewTextBoxColumn password;
         private System.Windows.Forms.DataGridViewTextBoxColumn token;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblMessage2;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.ToolStripMenuItem xuấtFileToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem phoneEmailToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bạnBèThànhViênToolStripMenuItem;
     }
 }
 

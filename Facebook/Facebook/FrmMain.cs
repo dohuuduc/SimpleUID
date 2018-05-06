@@ -66,7 +66,9 @@ namespace Facebook
                 lblQuataDaDung.Text = string.Format("{0:#,#.}", ConvertType.ToInt(row.Cells["dagoi"].Value));
                 lblQuataConLai.Text = string.Format("{0:#,#.}", ConvertType.ToInt(row.Cells["conlai"].Value));
 
-                grQuataAcc.Text = string.Format("Quata Acc: {0}/{1}/{2}", DateTime.Now.Day, DateTime.Now.Month, DateTime.Now.Year);
+                grQuataAcc.Text = string.Format("Quata Acc: -> {0:00}/{1:00}/{2}", DateTime.Now.Day, DateTime.Now.Month, DateTime.Now.Year);
+
+                //string.Format("{0:00} - {1:00}", 5, 6);
             }
             catch (Exception ex)
             {
@@ -350,11 +352,11 @@ namespace Facebook
             try
             {
                 if (_mySelectedRowUid == null) return;
-                DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá UID '{0}' ?", _mySelectedRowUid[0].Cells["UID"].Value), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá tất cả thông tin và Uid đang chọn không? '{0}' ?", _mySelectedRowUid[0].Cells["name1"].Value), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    SQLDatabase.ExcNonQuery(string.Format("[spDelNhomUIDAndInfo] '{0}'", _mySelectedRowUid[0].Cells["id"].Value));
-                    MessageBox.Show(string.Format("Xoá thành công uid '{0}'", _mySelectedRowUid[0].Cells["UID"].Value), "Thông Báo");
+                    SQLDatabase.ExcNonQuery(string.Format("[spDelDmGroupUIDAndInfo] '{0}'", _mySelectedRowUid[0].Cells["id"].Value));
+                    MessageBox.Show(string.Format("Xoá thành công uid '{0}'", _mySelectedRowUid[0].Cells["name1"].Value), "Thông Báo");
                     _mySelectedRowUid = null;
                     BindUID();
                 }
@@ -397,7 +399,7 @@ namespace Facebook
                 {
 
                     bool temp = false;
-                    new Waiting(() => temp = SQLDatabase.ExcNonQuery(string.Format("[spDelNhomUIDErr] '{0}'", model.id)), "Vui Lòng Chờ").ShowDialog();
+                    new Waiting(() => temp = SQLDatabase.ExcNonQuery(string.Format("[spDelDmGroupUIDErr] '{0}'", model.id)), "Vui Lòng Chờ").ShowDialog();
                     if (temp)
                         MessageBox.Show("Đã xoá tất cả UID bị lổi", "Thông Báo");
                     BindUID();
@@ -417,7 +419,7 @@ namespace Facebook
             {
                 if (_mySelectedRowUid.Count == 0)
                 {
-                    MessageBox.Show("Vui lòng chọn Uid bạn cần quét", "Thông báo");
+                    MessageBox.Show("Vui lòng chọn Uid bạn cần quét: \n 1- Chính Uid \n 2- Bạn bè, thành viên \n 3- Bài viết, like, comments", "Thông báo");
                     return;
                 }
                 if (!chkMe.Checked && !chkBaiViet.Checked && !chkBanBe.Checked) {
@@ -641,8 +643,6 @@ namespace Facebook
                         MessageBox.Show("Vui lòng nhập tên file", "Thông Báo");
                         return;
                     }
-
-                    //string fileName = Utilities.convertToUnSign3("FileEmail_Phone_createdate_" + DateTime.Now.ToString("dd_MM_yyyy"))+".xls";
                     bool temp = false;
                     new Waiting(() => temp = XuatnhanhPhoneEmail(saveFileDialog1.FileName), "Vui Lòng Chờ").ShowDialog();
                     MessageBox.Show("Đã xuất thành công file phone và email.", "Thông Báo");
@@ -682,6 +682,32 @@ namespace Facebook
             {
                 MessageBox.Show(ex.Message, "xuấtFileToolStripMenuItem1_Click");
             }
+        }
+
+        private void clearThôngTinUidToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_mySelectedRowUid == null) return;
+                DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá tất cả thông tin từ Uid đang chọn không? '{0}' ?", _mySelectedRowUid[0].Cells["name1"].Value), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    SQLDatabase.ExcNonQuery(string.Format("[spDelInfo] '{0}'", _mySelectedRowUid[0].Cells["id"].Value));
+                    MessageBox.Show(string.Format("Xoá thành công uid '{0}'", _mySelectedRowUid[0].Cells["name1"].Value), "Thông Báo");
+                    _mySelectedRowUid = null;
+                    BindUID();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "zToolStripMenuItem_Click");
+            }
+        }
+
+        private void quétToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnQuet_Click(null, null);
         }
     }
 }

@@ -27,10 +27,9 @@ namespace Facebook
     }
     public class ListFbComments {
         [JsonProperty("data")]
-        public FbComments[] fbComments { get; set; }
+        public List<FbComments> fbComments { get; set; }
     }
     public class FbComments {
-        //id, uid, feedid, commendId, message, from, created_time
         [JsonIgnore]
         public Guid id { get; set; }
         [JsonIgnore]
@@ -41,8 +40,19 @@ namespace Facebook
         public string commendId { get; set; }
         public string message { get; set; }
         public from from { get; set; }
+        public bool can_remove { get; set; }
+        public int like_count { get; set; }
+        public bool user_likes { get; set; }
         public string created_time { get; set; }
-
+        public FbComments() {
+            this.commendId = "";
+            this.message = "";
+            this.from = null;
+            this.can_remove = false;
+            this.like_count = 0;
+            this.user_likes = false;
+            this.created_time = "";
+    }
     }
     public class FbUID
     {
@@ -139,8 +149,6 @@ namespace Facebook
         }
     }
 
-   
-
 
     //public class ListFbLike {
     //    [JsonProperty("data")]
@@ -212,7 +220,7 @@ namespace Facebook
     public class ListFbFeed
     {
         [JsonProperty("data")]
-        public FbFeed[] FbFeed { get; set; }
+        public List<FbFeed> FbFeed { get; set; }
     }
     public class FbFeed
     {
@@ -224,7 +232,13 @@ namespace Facebook
         public string uid { get; set; }
         public string name { get; set; }
         public from from { get; set; }
+        public string message { get; set; }
+        [JsonProperty("message_tags")]
+        public Dictionary<string,story_tags[]> message_tags { get; set; }
+        public with_tags with_tags { get; set; }
         public string story { get; set; }
+        [JsonProperty("story_tags")]
+        public Dictionary<string,story_tags[]> story_tags { get; set; }
         public string picture { get; set; }
         public string link { get; set; }
         public string description { get; set; }
@@ -244,6 +258,8 @@ namespace Facebook
             this.uid = "";
             this.name = "";
             this.from = null;
+            this.message = "";
+            this.message_tags = null;
             this.story = "";
             this.picture = "";
             this.link = "";
@@ -261,6 +277,37 @@ namespace Facebook
             this.comments = null;
     }
 
+    }
+    public class Pagings
+    {
+        [JsonProperty("paging")]
+        public Paging Paging { get; set; }
+    }
+    public partial class Paging
+    {
+        [JsonProperty("previous")]
+        public string Previous { get; set; }
+
+        [JsonProperty("next")]
+        public string Next { get; set; }
+    }
+
+
+    public class with_tags {
+        [JsonProperty("data")]
+        public List<with_tags_data> data { get; set; }
+    }
+    public class with_tags_data {
+        public string id { get; set; }
+        public string name { get; set; }
+    }
+
+    public class story_tags {
+        public string id { get; set; }
+        public string name { get; set; }
+        public string type { get; set; }
+        public int offset { get; set; }
+        public int length { get; set; }
     }
     public class comments {
         public int count { get; set; }
@@ -282,6 +329,10 @@ namespace Facebook
     public class from {
         public string id { get; set; }
         public string name { get; set; }
+        public string email { get; set; }
+        public string gender { get; set; }
+        public location location { get; set; }
+
     }
     public class ListFbFriend {
         [JsonProperty("data")]
@@ -292,8 +343,9 @@ namespace Facebook
     {
         [JsonIgnore]
         public Guid id { get; set; }
-        [JsonProperty("id")]
         public string uid { get; set; }
+        [JsonProperty("id")]
+        public string FriendUid { get; set; }
         public string name { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
@@ -328,6 +380,7 @@ namespace Facebook
 
         public FbFriend() {
             this.uid = "";
+            this.FriendUid = "";
             this.name = "";
             this.first_name = "";
             this.last_name = "";
@@ -436,7 +489,7 @@ namespace Facebook
     public class Likes
     {
         [JsonProperty("data")]
-        public like[] like { get; set; }
+        public List<like> like { get; set; }
     }
 
     public class like
@@ -941,10 +994,11 @@ namespace Facebook
                 cmd.Connection = cnn;
                 //--- Insert Record
 
-                cmd.CommandText = "Insert into FbFriend(UID, first_name, last_name, name_format, name, mobile_phone, birthday, email, gender, location, age_range, cover, devices, education, favorite_athletes, favorite_teams, hometown, install_type, installed, interested_in, is_verified, languages, link, locale, political, quotes, relationship_status, religion, sports, third_party_id, website, work) OUTPUT inserted.id " +
-                                  " values(@UID, @first_name, @last_name, @name_format, @name, @mobile_phone, @birthday, @email, @gender, @location, @age_range, @cover, @devices, @education, @favorite_athletes, @favorite_teams, @hometown, @install_type, @installed, @interested_in, @is_verified, @languages, @link, @locale, @political, @quotes, @relationship_status, @religion, @sports, @third_party_id, @website, @work);";
+                cmd.CommandText = "Insert into FbFriend(UID,FriendUid, first_name, last_name, name_format, name, mobile_phone, birthday, email, gender, location, age_range, cover, devices, education, favorite_athletes, favorite_teams, hometown, install_type, installed, interested_in, is_verified, languages, link, locale, political, quotes, relationship_status, religion, sports, third_party_id, website, work) OUTPUT inserted.id " +
+                                  " values(@UID,@FriendUid, @first_name, @last_name, @name_format, @name, @mobile_phone, @birthday, @email, @gender, @location, @age_range, @cover, @devices, @education, @favorite_athletes, @favorite_teams, @hometown, @install_type, @installed, @interested_in, @is_verified, @languages, @link, @locale, @political, @quotes, @relationship_status, @religion, @sports, @third_party_id, @website, @work);";
 
                 cmd.Parameters.AddWithValue("@uid", record.uid);
+                cmd.Parameters.AddWithValue("@FriendUid", record.FriendUid);
                 cmd.Parameters.AddWithValue("@name", record.name);
                 cmd.Parameters.AddWithValue("@first_name", record.first_name);
                 cmd.Parameters.AddWithValue("@last_name", record.last_name);
@@ -1029,6 +1083,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "AddFbFriend");
                 return false;
             }
             finally
@@ -1057,7 +1112,7 @@ namespace Facebook
                 cmd = new SqlCommand();
                 cmd.Connection = connection;
                 cmd.CommandText = " Update [FbFriend] Set first_name=@first_name, last_name=@last_name, name_format=@name_format, name=@name, mobile_phone=@mobile_phone, birthday=@birthday, email=@email, gender=@gender, location=@location, age_range=@age_range, cover=@cover, devices=@devices, education=@education, favorite_athletes=@favorite_athletes, favorite_teams=@favorite_teams, hometown=@hometown, install_type=@install_type, installed=@installed, interested_in=@interested_in, is_verified=@is_verified, languages=@languages, link=@link, locale=@locale, political=@political, quotes=@quotes, relationship_status=@relationship_status, religion=@religion, sports=@sports, third_party_id=@third_party_id, website=@website, work=@work"
-                                + " where uid='" + record.uid + "'";
+                                + " where uid='" + record.uid + "' and FriendUid='"+record.FriendUid+"'";
                 cmd.CommandType = CommandType.Text;
 
                 cmd.Parameters.AddWithValue("@name", record.name);
@@ -1139,6 +1194,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "UpdateFbFriend");
                 return false;
             }
             finally
@@ -1226,6 +1282,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "AddFbUID");
                 return false;
             }
             finally
@@ -1301,6 +1358,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "UpFbUID");
                 return false;
             }
             finally
@@ -1355,6 +1413,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "AddFbPage");
                 return false;
             }
             finally
@@ -1398,6 +1457,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "UpFbPage");
                 return false;
             }
             finally
@@ -1457,6 +1517,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "AddFbGUI"); 
                 return false;
             }
             finally
@@ -1484,11 +1545,11 @@ namespace Facebook
                 cmd = new SqlCommand();
                 cmd.Connection = connection;
                 //id, uid, urd, createdate
-                cmd.CommandText = " Update [FbPage] Set name=@name, description=@description, email=@email, icon=@icon, member_request_count=@member_request_count, owner=@owner, privacy=@privacy, updated_time=@updated_time "
+                cmd.CommandText = " Update [FbGUI] Set name=@name, description=@description, email=@email, icon=@icon, member_request_count=@member_request_count, owner=@owner, privacy=@privacy, updated_time=@updated_time "
                                 + " where UID='" + record.uid + "'";
                 cmd.CommandType = CommandType.Text;
 
-                cmd.Parameters.AddWithValue("@UID", record.uid);
+                //cmd.Parameters.AddWithValue("@UID", record.uid);
                 cmd.Parameters.AddWithValue("@name", record.name);
                 cmd.Parameters.AddWithValue("@description", record.description);
                 cmd.Parameters.AddWithValue("@email", record.email);
@@ -1506,6 +1567,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "UpFbGUI");
                 return false;
             }
             finally
@@ -1572,6 +1634,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "LoadNhomUID");
                 throw ex;
             }
             finally
@@ -1626,6 +1689,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "AddNhomUID");
                 return false;
             }
             finally
@@ -1677,6 +1741,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "UpNhomUID");
                 return false;
             }
             finally
@@ -1719,6 +1784,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "UpNhomUIDByUid");
                 return false;
             }
             finally
@@ -1784,8 +1850,12 @@ namespace Facebook
                 cmd = new SqlCommand();
                 cmd.Connection = cnn;
                 //--- Insert Record
-                cmd.CommandText = "Insert into FbFeed(UID, feedId, [from], story, picture, link, name, description, actions, privacy, [type], status_type, object_id, created_time, update_time, is_hidden, is_expired, likes, comments) OUTPUT inserted.id " +
-                                  " values(@UID, @feedId, @from, @story, @picture, @link, @name, @description, @actions, @privacy, @type, @status_type, @object_id, @created_time, @update_time, @is_hidden, @is_expired, @likes, @comments);";
+
+
+
+
+        cmd.CommandText = "Insert into FbFeed(UID, feedId, [from],    message, message_tags, with_tags, story,  story_tags, picture, link, name, description, actions, privacy, [type], status_type, object_id, created_time, update_time, is_hidden, is_expired, likes, comments) OUTPUT inserted.id " +
+                                        " values(@UID, @feedId, @from,@message,@message_tags,@with_tags, @story,@story_tags, @picture, @link, @name, @description, @actions, @privacy, @type, @status_type, @object_id, @created_time, @update_time, @is_hidden, @is_expired, @likes, @comments);";
 
                 cmd.Parameters.AddWithValue("@UID", record.uid);
                 cmd.Parameters.AddWithValue("@feedId", record.feedid);
@@ -1793,12 +1863,24 @@ namespace Facebook
                     cmd.Parameters.AddWithValue("@from", SqlXml.Null);
                 else
                     cmd.Parameters.AddWithValue("@from", ConvertType.GetXMLFromObject(record.from));
-
+                cmd.Parameters.AddWithValue("@message", Utilities.clearString(record.message));
+                if (record.message_tags == null)
+                    cmd.Parameters.AddWithValue("@message_tags", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@message_tags", ConvertType.GetXMLFromObject(record.message_tags));
+                if (record.story_tags == null)
+                    cmd.Parameters.AddWithValue("@story_tags", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@story_tags", ConvertType.GetXMLFromObject(record.story_tags));
                 cmd.Parameters.AddWithValue("@story", record.story);
+                if (record.with_tags == null)
+                    cmd.Parameters.AddWithValue("@with_tags", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@with_tags", ConvertType.GetXMLFromObject(record.with_tags));
                 cmd.Parameters.AddWithValue("@picture", record.picture);
                 cmd.Parameters.AddWithValue("@link", record.link);
                 cmd.Parameters.AddWithValue("@name", record.name);
-                cmd.Parameters.AddWithValue("@description", record.description);
+                cmd.Parameters.AddWithValue("@description", Utilities.clearString(record.description));
                 if (record.actions == null)
                     cmd.Parameters.AddWithValue("@actions", SqlXml.Null);
                 else
@@ -1832,6 +1914,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "AddFbFeed");
                 return false;
             }
             finally
@@ -1858,15 +1941,28 @@ namespace Facebook
                 // Create command to update GeneralGuessGroup record
                 cmd = new SqlCommand();
                 cmd.Connection = connection;
-                cmd.CommandText = " Update [FbFeed] Set [from]=@from, story=@story, picture=@picture, link=@link, name=@name, description=@description, actions=@actions, privacy=@privacy, type=@type, status_type=@status_type, object_id=@object_id, created_time=@created_time, update_time=@update_time, is_hidden=@is_hidden, is_expired=@is_expired, likes=@likes, comments=@comments "
-                                + " where UID='" + record.uid + "' and feedId= '"+record.feedid+"'";
+                cmd.CommandText = " Update [FbFeed] Set [from]=@from, message=@message,message_tags=@message_tags,with_tags=@with_tags,story=@story,story_tags=@story_tags, picture=@picture, link=@link, name=@name, description=@description, actions=@actions, privacy=@privacy, type=@type, status_type=@status_type, object_id=@object_id, created_time=@created_time, update_time=@update_time, is_hidden=@is_hidden, is_expired=@is_expired, likes=@likes, comments=@comments "
+                                + " where feedId= '"+record.feedid+"'";
                 cmd.CommandType = CommandType.Text;
 
                 if (record.from == null)
                     cmd.Parameters.AddWithValue("@from", SqlXml.Null);
                 else
                     cmd.Parameters.AddWithValue("@from", ConvertType.GetXMLFromObject(record.from));
+                cmd.Parameters.AddWithValue("@message", record.message);
+                if (record.message_tags == null)
+                    cmd.Parameters.AddWithValue("@message_tags", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@message_tags", ConvertType.GetXMLFromObject(record.message_tags));
+                if (record.story_tags == null)
+                    cmd.Parameters.AddWithValue("@story_tags", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@story_tags", ConvertType.GetXMLFromObject(record.story_tags));
                 cmd.Parameters.AddWithValue("@story", record.story);
+                if (record.with_tags == null)
+                    cmd.Parameters.AddWithValue("@with_tags", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@with_tags", ConvertType.GetXMLFromObject(record.with_tags));
                 cmd.Parameters.AddWithValue("@picture", record.picture);
                 cmd.Parameters.AddWithValue("@link", record.link);
                 cmd.Parameters.AddWithValue("@name", record.name);
@@ -1901,6 +1997,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "UpFbFeed");
                 return false;
             }
             finally
@@ -1936,8 +2033,8 @@ namespace Facebook
                 cmd.CommandText = " Insert into FbLike(uid, feedid, likeid, first_name, last_name, username, gender, link, location, locale, updated_time, education, favorite_athletes, favorite_teams,                relationship_status, work, can_post, category,    category_list, cover,     has_added_app, is_published, likes, name, talking_about_count, were_here_count) OUTPUT inserted.id " +
                                   " values(            @uid, @feedid, @likeid, @first_name, @last_name, @username, @gender, @link, @location, @locale, @updated_time, @education, @favorite_athletes, @favorite_teams, @relationship_status, @work, @can_post, @category, @category_list, @cover, @has_added_app, @is_published, @likes, @name, @talking_about_count, @were_here_count);";
 
-                //cmd.CommandText = " Insert into FbLike(uid, feedid, likeid, first_name,last_name, username, gender, link,location) OUTPUT inserted.id " +
-                //                 " values(            @uid, @feedid, @likeid, @first_name, @last_name, @username, @gender, @link,@location);";
+                //cmd.CommandText = " Insert into FbLike(uid, feedid, likeid, first_name,last_name,  gender, link) OUTPUT inserted.id " +
+                //                 " values(            @uid, @feedid, @likeid, @first_name, @last_name,  @gender, @link);";
 
                 cmd.Parameters.AddWithValue("@uid", record.uid);
                 cmd.Parameters.AddWithValue("@feedid", record.feedid);
@@ -1999,6 +2096,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "AddFbLike");
                 return false;
             }
             finally
@@ -2084,6 +2182,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "UpFbLike");
                 return false;
             }
             finally
@@ -2119,7 +2218,7 @@ namespace Facebook
                 cmd.Parameters.AddWithValue("@uid", record.uid);
                 cmd.Parameters.AddWithValue("@feedid", record.feedid);
                 cmd.Parameters.AddWithValue("@commendId", record.commendId);
-                cmd.Parameters.AddWithValue("@message", record.message);
+                cmd.Parameters.AddWithValue("@message",Utilities.clearString(record.message));
                 if (record.from == null)
                     cmd.Parameters.AddWithValue("@from", SqlGuid.Null);
                 else
@@ -2137,6 +2236,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "AddFbComments");
                 return false;
             }
             finally
@@ -2165,13 +2265,9 @@ namespace Facebook
                 cmd = new SqlCommand();
                 cmd.Connection = connection;
                 cmd.CommandText = "Update [FbComments] Set  message =@message, [from]=@from "
-                                    + " where uid='" + record.uid + "' and feedid='" + record.feedid + "' and commendId='" + record.commendId + "'";
-
-
-                //cmd.Parameters.AddWithValue("@uid", record.uid);
-               // cmd.Parameters.AddWithValue("@feedid", record.feedid);
-                //cmd.Parameters.AddWithValue("@commendId", record.commendId);
-                cmd.Parameters.AddWithValue("@message", record.message);
+                                    + " where commendId='" + record.commendId + "'";
+                
+                cmd.Parameters.AddWithValue("@message",Utilities.clearString(record.message));
                 if (record.from == null)
                     cmd.Parameters.AddWithValue("@from", SqlGuid.Null);
                 else
@@ -2183,6 +2279,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "UpFbComments");
                 return false;
             }
             finally

@@ -173,6 +173,9 @@ namespace Facebook
             }
         }
 
+        public static string clearString(string strWithTabs) {
+            return  strWithTabs.Replace("\t", "").Replace("\r","").Replace("\n","").ToString();
+        }
     }
 
     public class Log
@@ -303,7 +306,8 @@ namespace Facebook
                 {
 
                     strToken = Facebook.Token(arrControl);
-                    if (strToken == "") {
+                    if (strToken == "")
+                    {
                         TheardFacebookWriter.hasProcess = false;
                         return;
                     };
@@ -313,7 +317,7 @@ namespace Facebook
                                                         Facebook.SelectMyGUIOfUser()
                         , strToken);
 
-                    string json = Facebook.GetHtmlFB(requestUriString);
+                    string json = Facebook.GetHtmlFB(requestUriString, strToken);
                     if (model.IsLoai == 0)
                     {
                         FbUID resultsFbUID = JsonConvert.DeserializeObject<FbUID>(json);
@@ -332,7 +336,7 @@ namespace Facebook
                                 SQLDatabase.UpFbUID(resultsFbUID);
                             }
                         }
-                        lblMessage2.Text = string.Format("Quét Thông Tin UID: {0}-{1}", resultsFbUID.uid,resultsFbUID.name);
+                        lblMessage2.Text = string.Format("Quét Thông Tin UID: {0}-{1}", resultsFbUID.uid, resultsFbUID.name);
                         lblMessage2.Update();
                     }
                     else if (model.IsLoai == 1)
@@ -372,7 +376,7 @@ namespace Facebook
                         lblMessage2.Update();
                     }
 
-                   
+
                 }
                 #endregion
 
@@ -390,20 +394,17 @@ namespace Facebook
                                   model.IsLoai == 0 ? "friends" : "members",
                                   model.IsLoai == 0 ? Facebook.SelectFbFriend() : Facebook.SelectFbFriend(), strToken);
 
-                    string json = Facebook.GetHtmlFB(requestUriString);
+                    string json = Facebook.GetHtmlFB(requestUriString, strToken);
                     ListFbFriend resultsFbFrend = JsonConvert.DeserializeObject<ListFbFriend>(json);
                     foreach (FbFriend item in resultsFbFrend.FbFriend)
                     {
-                        DataTable tbFbUID = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbFriend where uid='{0}'", item.uid));
+                        item.uid = model.UID;
+                        DataTable tbFbUID = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbFriend where Uid='{0}' and FriendUid='{1}'",item.uid ,item.FriendUid));
                         if (ConvertType.ToInt(tbFbUID.Rows[0][0]) == 0)
-                        {
                             SQLDatabase.AddFbFriend(item);
-                        }
                         else
-                        {
                             SQLDatabase.UpdateFbFriend(item);
-                        }
-                        lblMessage2.Text = string.Format("Quét {0} -> {1}", model.IsLoai==0 ? "bạn bè" : "thành viên",item.name);
+                        lblMessage2.Text = string.Format("Quét {0} ->Id: {1} -Name: {2}", model.IsLoai == 0 ? "bạn bè" : "thành viên",item.FriendUid ,item.name);
                         lblMessage2.Update();
                     }
                 }
@@ -418,113 +419,213 @@ namespace Facebook
                         TheardFacebookWriter.hasProcess = false;
                         return;
                     };
-
-                    string requestUriString = string.Format(@"https://graph.facebook.com/{0}/feed?&access_token={1}", model.UID, strToken);
-                    string json = Facebook.GetHtmlFB(requestUriString);
-                    ListFbFeed resultsFbFeed = JsonConvert.DeserializeObject<ListFbFeed>(json);
-                    foreach (FbFeed item in resultsFbFeed.FbFeed)
-                    {
-                        string temp = item.uid;
-                        item.uid = temp.Split('_').FirstOrDefault();
-                        item.feedid = temp.Split('_').LastOrDefault();
-
+                    string requestUriString = string.Format(@"https://graph.facebook.com/{0}/feed?limit=500&access_token={1}", model.UID, strToken);
+                    ListFbFeed modeFeed = GetFbFeed(requestUriString,strToken);
+                    foreach (var mFeed in modeFeed.FbFeed){
+                        mFeed.feedid = mFeed.uid;
+                        mFeed.uid = model.UID;
                         /********************************************************/
-                        DataTable tbFbFeed = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbFeed where uid='{0}' and [feedId]='{1}'", item.uid, item.feedid));
+                        DataTable tbFbFeed = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbFeed where [feedId]='{0}'", mFeed.feedid));
                         if (ConvertType.ToInt(tbFbFeed.Rows[0][0]) == 0)
-                            SQLDatabase.AddFbFeed(item);
+                            SQLDatabase.AddFbFeed(mFeed);
                         else
-                            SQLDatabase.UpFbFeed(item);
+                            SQLDatabase.UpFbFeed(mFeed);
 
-                        /*tìm số lần like cũa tần bài viến*/
-                        strToken = Facebook.Token(arrControl);
-                        if (strToken == "")
+                        lblMessage2.Text = string.Format("Quét Feed ->mã bài {0} | Nội dung: {1}", mFeed.feedid, mFeed.message);
+                        lblMessage2.Update();
+
+                        #region Like
+                        if (model.IsLoai == 0) // chỉ có trường hợp user
                         {
-                            TheardFacebookWriter.hasProcess = false;
-                            return;
-                        };
-                        string requestUriLike = string.Format(@"https://graph.facebook.com/{0}/likes?limit=500&access_token={1}", item.feedid, strToken);
-                        string jsonLike = Facebook.GetHtmlFB(requestUriLike);
-                        if (jsonLike != "")
-                        {
-                            Likes resultsLikes = JsonConvert.DeserializeObject<Likes>(jsonLike);
-                            if (resultsLikes.like.Count() != 0)
+                            strToken = Facebook.Token(arrControl);
+                            if (strToken == "")
                             {
-                                string dsstrLike = "";
-                                foreach (like item1 in resultsLikes.like)
-                                {
-                                    dsstrLike += item1.id + ",";
-                                }
-                                dsstrLike = dsstrLike.Substring(0, dsstrLike.Length - 1);
-
-                                strToken = Facebook.Token(arrControl);
-                                if (strToken == "")
-                                {
-                                    TheardFacebookWriter.hasProcess = false;
-                                    return;
-                                };
-                                string strdsLike = string.Format(@"https://graph.facebook.com/?ids={0}&access_token={1}", dsstrLike, strToken);
-                                string jsonLikechitiet = Facebook.GetHtmlFB(strdsLike);
-                                Dictionary<string, FbLike> resultsLikechitiets = JsonConvert.DeserializeObject<Dictionary<string, FbLike>>(jsonLikechitiet);
-                                foreach (KeyValuePair<string, FbLike> itemLike in resultsLikechitiets)
-                                {
-                                    itemLike.Value.uid = item.uid;
-                                    itemLike.Value.likeid = itemLike.Key;
-                                    itemLike.Value.feedid = item.feedid;
-                                    DataTable tbFbLike = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbLike where uid='{0}' and [feedId]='{1}' and likeid='{2}'", itemLike.Value.uid, itemLike.Value.feedid, itemLike.Value.likeid));
-                                    if (ConvertType.ToInt(tbFbLike.Rows[0][0]) == 0)
-                                        SQLDatabase.AddFbLike(itemLike.Value);
-                                    else
-                                        SQLDatabase.UpFbLike(itemLike.Value);
-
-                                    lblMessage2.Text = string.Format("Quét Like ->mã bài: {0} | user like:{1} ", itemLike.Value.feedid, itemLike.Value.likeid);
-                                    lblMessage2.Update();
-                                }
-                            }
-                        }
-                        /************Tìm thông tin comment****************/
-                        strToken = Facebook.Token(arrControl);
-                        if (strToken == "")
-                        {
-                            TheardFacebookWriter.hasProcess = false;
-                            return;
-                        };
-                        string requestComment = string.Format(@"https://graph.facebook.com/{0}/comments?limit=500&fields=message,from.location,from.birthday,from.email,from.gender,from.name,from.mobile_phone,from.email&access_token={1}", item.feedid, strToken);
-                        string jsonComment = Facebook.GetHtmlFB(requestComment);
-                        if (jsonComment != "")
-                        {
-                            ListFbComments resultsComment = JsonConvert.DeserializeObject<ListFbComments>(jsonComment);
-                            foreach (FbComments itemComment in resultsComment.fbComments)
+                                TheardFacebookWriter.hasProcess = false;
+                                return;
+                            };
+                            string requestUriLike = string.Format(@"https://graph.facebook.com/{0}/likes?limit=200&access_token={1}", mFeed.feedid, strToken);
+                            Dictionary<string, FbLike> resultsLikechitiets = GetLike(requestUriLike, arrControl, strToken);
+                            foreach (KeyValuePair<string, FbLike> itemLike in resultsLikechitiets)
                             {
-                                itemComment.uid = item.uid;
-                                itemComment.feedid = item.feedid;
-                                itemComment.commendId = itemComment.commendId.Split('_').LastOrDefault();
-
-                                DataTable tbFbCommnet = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbComments where uid='{0}' and [feedId]='{1}' and commendId='{2}'", itemComment.uid, itemComment.feedid, itemComment.commendId));
-                                if (ConvertType.ToInt(tbFbCommnet.Rows[0][0]) == 0)
-                                    SQLDatabase.AddFbComments(itemComment);
+                                itemLike.Value.uid = model.UID;
+                                itemLike.Value.likeid = itemLike.Key;
+                                itemLike.Value.feedid = mFeed.feedid;
+                                DataTable tbFbLike = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbLike where uid='{0}' and [feedId]='{1}' and likeid='{2}'", itemLike.Value.uid, itemLike.Value.feedid, itemLike.Value.likeid));
+                                if (ConvertType.ToInt(tbFbLike.Rows[0][0]) == 0)
+                                    SQLDatabase.AddFbLike(itemLike.Value);
                                 else
-                                    SQLDatabase.UpFbComments(itemComment);
+                                    SQLDatabase.UpFbLike(itemLike.Value);
 
-
-                                lblMessage2.Text = string.Format("Quét comment ->mã bài {0}_{1} | Nội dung: {2}", itemComment.feedid, itemComment.commendId, itemComment.message);
+                                lblMessage2.Text = string.Format("Quét Like ->mã bài: {0} | user like:{1} ", itemLike.Value.feedid, itemLike.Value.likeid);
                                 lblMessage2.Update();
                             }
                         }
-                    }
-                }
-                #endregion
+                        #endregion
 
-               
+                        #region Comment
+                        strToken = Facebook.Token(arrControl);
+                        if (strToken == "")
+                        {
+                            TheardFacebookWriter.hasProcess = false;
+                            return;
+                        };
+                        string requestComment = string.Format(@"https://graph.facebook.com/{0}/comments?limit=500&access_token={1}", mFeed.feedid, strToken);
+                        ListFbComments modeComment = GetFbCommend(requestComment, strToken);
+                        foreach (FbComments itemComment in modeComment.fbComments)
+                        {
+                            itemComment.uid = mFeed.uid;
+                            itemComment.feedid = mFeed.feedid;
+
+                            DataTable tbFbCommnet = SQLDatabase.ExcDataTable(string.Format("select count(*) from FbComments where commendId='{0}'", itemComment.commendId));
+                            if (ConvertType.ToInt(tbFbCommnet.Rows[0][0]) == 0)
+                                SQLDatabase.AddFbComments(itemComment);
+                            else
+                                SQLDatabase.UpFbComments(itemComment);
+
+
+                            lblMessage2.Text = string.Format("Quét comment ->mã bài {0}_{1} | Nội dung: {2}", itemComment.feedid, itemComment.commendId, itemComment.message);
+                            lblMessage2.Update();
+                        }
+                        #endregion
+                    }
+
+                    #endregion
+                }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "getwebBrowser");
             }
         }
+        public static void AddRange<T>(this ICollection<T> target, IEnumerable<T> source)
+        {
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+            foreach (var element in source)
+                target.Add(element);
+        }
+
+
+        public static Dictionary<string, FbLike> GetLike(string requestUriString, object arrControl, string token)
+        {
+            Dictionary<string, FbLike> resul = new Dictionary<string, FbLike>();
+            Likes model = new Likes();
+            model.like = new List<like>();
+            bool flag = true;
+            try
+            {
+                while (flag)
+                {
+                    string json = Facebook.GetHtmlFB(requestUriString, token);
+                    if (json != "")
+                    {
+                        Likes resultsComment = JsonConvert.DeserializeObject<Likes>(json);
+                        if (resultsComment.like.Count == 0) break;
+                        Pagings paging = JsonConvert.DeserializeObject<Pagings>(json);
+                        /*******************************/
+                        string dsUIDLike = "";
+                        foreach (like item1 in resultsComment.like)
+                        {
+                            dsUIDLike += item1.id + ",";
+                        }
+                        dsUIDLike = dsUIDLike.Substring(0, dsUIDLike.Length - 1);
+                        string strToken = Facebook.Token(arrControl);
+                        if (strToken == "")
+                        {
+                            TheardFacebookWriter.hasProcess = false;
+                            return resul;
+                        };
+
+                        string strdsLike = string.Format(@"https://graph.facebook.com/?ids={0}&access_token={1}", dsUIDLike, strToken);
+                        string jsonLikechitiet = Facebook.GetHtmlFB(strdsLike, token);
+                        Dictionary<string, FbLike> resultsLikechitiets = JsonConvert.DeserializeObject<Dictionary<string, FbLike>>(jsonLikechitiet);
+                        foreach (var newAnimal in resultsLikechitiets)
+                            resul.Add(newAnimal.Key, newAnimal.Value);
+
+                        /*******************************/
+                        if (paging.Paging.Next != null)
+                            requestUriString = paging.Paging.Next;
+                        else
+                            flag = false;
+
+                    }
+                }
+                return resul;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "GetFbLike");
+                return resul;
+            }
+        }
+
+        public static ListFbFeed GetFbFeed(string requestUriString,string token)
+        {
+            ListFbFeed model = new ListFbFeed();
+            model.FbFeed = new List<FbFeed>();
+            bool flag = true;
+            try
+            {
+                while (flag)
+                {
+                    string json = Facebook.GetHtmlFB(requestUriString,token);
+                    ListFbFeed resultsFbFeed = JsonConvert.DeserializeObject<ListFbFeed>(json);
+                    if (resultsFbFeed.FbFeed.Count() == 0) return model ;
+                    Pagings paging = JsonConvert.DeserializeObject<Pagings>(json);
+                    /*******************************/
+                    model.FbFeed.AddRange(resultsFbFeed.FbFeed);
+                    /*******************************/
+                    if (paging.Paging != null)
+                        requestUriString = paging.Paging.Next;
+                    else
+                        flag = false;
+                }
+                return model;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "GetFbFeed");
+                return model;
+            }
+        }
+
+        public static ListFbComments GetFbCommend(string requestUriString,string token)
+        {
+            ListFbComments model = new ListFbComments();
+            model.fbComments = new List<FbComments>();
+            bool flag = true;
+            try
+            {
+                while (flag)
+                {
+                    string jsonComment = Facebook.GetHtmlFB(requestUriString,token);
+                    if (jsonComment != "")
+                    {
+                        ListFbComments resultsComment = JsonConvert.DeserializeObject<ListFbComments>(jsonComment);
+                        if (resultsComment.fbComments.Count == 0) break;
+                        Pagings paging = JsonConvert.DeserializeObject<Pagings>(jsonComment);
+                        /********************************/
+                        model.fbComments.AddRange(resultsComment.fbComments);
+                        /*******************************/
+                        if (paging.Paging.Next != null)
+                            requestUriString = paging.Paging.Next;
+                        else
+                            flag = false;
+                    }
+                }
+                return model;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "GetFbCommend");
+                return model;
+            }
+        }
+
     }
-
-
-
 
     public static class Helpers
     {
