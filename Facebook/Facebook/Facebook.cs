@@ -406,7 +406,7 @@ namespace Facebook
                 string loc = "//a[@class='accessible_elem']";
                 HtmlNode nodeloc = documentNode.SelectNodes(loc).Where(p => p.OuterHtml.Contains("https://www.facebook.com/profile.php?id=")).FirstOrDefault();
                 string url1 = nodeloc.Attributes["href"].Value;
-
+                url1 = url1.IndexOf("&amp;") == 0 ? url1 : url1.Substring(0, url1.IndexOf("&amp;"));
 
                 string html3 = WebToolkit.GetHtml(url1);
                 string[] xx = html3.Split(new char[] { '\n', '\r' });
@@ -513,7 +513,6 @@ namespace Facebook
 
             return string.Join(",", lstMyUid);
         }
-
         public static string SelectMyPageOfUser()
         {
             List<string> lstMyUid = new List<string>();
@@ -524,8 +523,6 @@ namespace Facebook
 
             return string.Join(",", lstMyUid);
         }
-
-        
         public static string SelectFbFriend() {
             List<string> lstMyUid = new List<string>();
             lstMyUid.Add("id");
@@ -561,6 +558,49 @@ namespace Facebook
             lstMyUid.Add("third_party_id");
             lstMyUid.Add("website");
             lstMyUid.Add("work");
+
+            return string.Join(",", lstMyUid);
+        }
+
+        public static string Selectcomments()
+        {
+            List<string> lstMyUid = new List<string>();
+            lstMyUid.Add("id");
+            lstMyUid.Add("message");
+
+            /*from*/
+            lstMyUid.Add("from.name");
+            lstMyUid.Add("from.first_name");
+            lstMyUid.Add("from.last_name");
+            lstMyUid.Add("from.name_format");
+            lstMyUid.Add("from.name");
+            lstMyUid.Add("from.mobile_phone");
+            lstMyUid.Add("from.birthday");
+            lstMyUid.Add("from.email");
+            lstMyUid.Add("from.gender");
+            lstMyUid.Add("from.location");
+            lstMyUid.Add("from.age_range");
+            lstMyUid.Add("from.cover");
+            lstMyUid.Add("from.devices");
+            lstMyUid.Add("from.education");
+            lstMyUid.Add("from.favorite_athletes");
+            lstMyUid.Add("from.favorite_teams");
+            lstMyUid.Add("from.hometown");
+            lstMyUid.Add("from.install_type");
+            lstMyUid.Add("from.installed");
+            lstMyUid.Add("from.interested_in");
+            lstMyUid.Add("from.is_verified");
+            lstMyUid.Add("from.languages");
+            lstMyUid.Add("from.link");
+            lstMyUid.Add("from.locale");
+            lstMyUid.Add("from.political");
+            lstMyUid.Add("from.quotes");
+            lstMyUid.Add("from.relationship_status");
+            lstMyUid.Add("from.religion");
+            lstMyUid.Add("from.sports");
+            lstMyUid.Add("from.third_party_id");
+            lstMyUid.Add("from.website");
+            lstMyUid.Add("from.work");
 
             return string.Join(",", lstMyUid);
         }

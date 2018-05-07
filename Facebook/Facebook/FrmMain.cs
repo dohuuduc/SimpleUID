@@ -49,7 +49,7 @@ namespace Facebook
                 }
                 int n = ConvertType.ToInt(tb.Rows.Count);
                 chkShowAllAccount.Text = string.Format("(All) - Danh Sách Account {0}/{1}", n, ConvertType.ToInt(tbTong.Rows[0][0]));
-                BindAccount(GridAccount.Rows[0]);
+                if(n!=0) BindAccount(GridAccount.Rows[0]);
             }
             catch (Exception ex)
             {
@@ -708,6 +708,11 @@ namespace Facebook
         private void quétToolStripMenuItem_Click(object sender, EventArgs e)
         {
             btnQuet_Click(null, null);
+        }
+
+        private void uIDVàNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

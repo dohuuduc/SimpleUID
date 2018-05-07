@@ -332,7 +332,33 @@ namespace Facebook
         public string email { get; set; }
         public string gender { get; set; }
         public location location { get; set; }
-
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string name_format { get; set; }
+        public string mobile_phone { get; set; }
+        public string birthday { get; set; }
+        public age_range age_range { get; set; }
+        public cover cover { get; set; }
+        public List<devices> devices { get; set; }
+        public List<education> education { get; set; }
+        public List<favorite_athletes> favorite_athletes { get; set; }
+        public List<favorite_teams> favorite_teams { get; set; }
+        public Hometown hometown { get; set; }
+        public string install_type { get; set; }
+        public string installed { get; set; }
+        public List<string> interested_in { get; set; }
+        public bool is_verified { get;set; }
+        public List<Languages> languages { get; set; }
+        public string link { get; set; }
+        public string locale { get; set; }
+        public string political { get; set; }
+        public string quotes { get; set; }
+        public string relationship_status { get; set; }
+        public string religion { get; set; } 
+        public List<sports> sports { get; set; }
+        public string third_party_id { get; set; }
+        public string website { get; set; }
+        public List<work> work { get; set; }
     }
     public class ListFbFriend {
         [JsonProperty("data")]

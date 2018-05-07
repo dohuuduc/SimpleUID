@@ -431,7 +431,7 @@ namespace Facebook
                         else
                             SQLDatabase.UpFbFeed(mFeed);
 
-                        lblMessage2.Text = string.Format("Quét Feed ->mã bài {0} | Nội dung: {1}", mFeed.feedid, mFeed.message);
+                        lblMessage2.Text = string.Format("Quét Feed ->mã bài {0} \n Nội dung: {1}", mFeed.feedid, mFeed.message);
                         lblMessage2.Update();
 
                         #region Like
@@ -456,7 +456,7 @@ namespace Facebook
                                 else
                                     SQLDatabase.UpFbLike(itemLike.Value);
 
-                                lblMessage2.Text = string.Format("Quét Like ->mã bài: {0} | user like:{1} ", itemLike.Value.feedid, itemLike.Value.likeid);
+                                lblMessage2.Text = string.Format("Quét Like ->mã bài: {0} | user like:{1} \n Link: {2}", itemLike.Value.feedid, itemLike.Value.likeid,itemLike.Value.link);
                                 lblMessage2.Update();
                             }
                         }
@@ -469,7 +469,7 @@ namespace Facebook
                             TheardFacebookWriter.hasProcess = false;
                             return;
                         };
-                        string requestComment = string.Format(@"https://graph.facebook.com/{0}/comments?limit=500&access_token={1}", mFeed.feedid, strToken);
+                        string requestComment = string.Format(@"https://graph.facebook.com/{0}/comments?limit=500&fields={1}&access_token={2}", mFeed.feedid, Facebook.Selectcomments(), strToken);
                         ListFbComments modeComment = GetFbCommend(requestComment, strToken);
                         foreach (FbComments itemComment in modeComment.fbComments)
                         {
@@ -483,7 +483,7 @@ namespace Facebook
                                 SQLDatabase.UpFbComments(itemComment);
 
 
-                            lblMessage2.Text = string.Format("Quét comment ->mã bài {0}_{1} | Nội dung: {2}", itemComment.feedid, itemComment.commendId, itemComment.message);
+                            lblMessage2.Text = string.Format("Quét comment ->mã bài {0}_{1} \nNội dung: {2}", itemComment.feedid, itemComment.commendId, itemComment.message);
                             lblMessage2.Update();
                         }
                         #endregion
