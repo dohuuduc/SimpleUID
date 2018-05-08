@@ -78,15 +78,13 @@ namespace Facebook
         private void BindUID() {
             try
             {
-               
-
-                 DataTable tb = SQLDatabase.ExcDataTable(" select id,ROW_NUMBER() OVER (ORDER BY OrderID) AS stt,REPLACE(Name,'| Facebook','') as Name, UID, URD,REPLACE(URD,'www.facebook.com','...') as URD2 ,IsLoai, CASE " +
+                 DataTable tb = SQLDatabase.ExcDataTable(" select id,ROW_NUMBER() OVER (ORDER BY CreateDate desc) AS stt,REPLACE(Name,'| Facebook','') as Name, UID, URD,REPLACE(URD,'www.facebook.com','...') as URD2 ,IsLoai, CASE " +
                                                         " WHEN IsLoai = 0 THEN N'Người Dùng'"+
                                                         " WHEN IsLoai = 1 THEN N'Trang'"+
                                                         " WHEN IsLoai = 2 THEN N'Nhóm'"+
                                                         "    ELSE NULL "+
                                                         " END AS 'LoaiFb'" +
-                                                        " from NhomUID where [ParentId] in (select id from NhomUID where name = 'admin')");
+                                                        " from NhomUID where [ParentId] in (select id from NhomUID where name = 'admin') order by CreateDate desc");
                 gridUID.DataSource = tb;
                 foreach (DataGridViewRow row in gridUID.Rows)
                 {
