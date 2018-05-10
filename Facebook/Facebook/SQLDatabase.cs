@@ -440,6 +440,17 @@ namespace Facebook
             this.work = null;
     }
     }
+
+    public class FbPageSearch {
+        public string id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public string website { get; set; }
+        public string about { get; set; }
+        public location location { get; set; }
+        public cover cover { get; set; }
+        public string mission { get; set; }
+    }
     public class sports {
         public string id { get; set; }
         public string name { get; set; }
@@ -1889,7 +1900,7 @@ namespace Facebook
                     cmd.Parameters.AddWithValue("@from", SqlXml.Null);
                 else
                     cmd.Parameters.AddWithValue("@from", ConvertType.GetXMLFromObject(record.from));
-                cmd.Parameters.AddWithValue("@message", Utilities.clearString(record.message));
+                cmd.Parameters.AddWithValue("@message", record.message);
                 if (record.message_tags == null)
                     cmd.Parameters.AddWithValue("@message_tags", SqlXml.Null);
                 else
@@ -1906,7 +1917,7 @@ namespace Facebook
                 cmd.Parameters.AddWithValue("@picture", record.picture);
                 cmd.Parameters.AddWithValue("@link", record.link);
                 cmd.Parameters.AddWithValue("@name", record.name);
-                cmd.Parameters.AddWithValue("@description", Utilities.clearString(record.description));
+                cmd.Parameters.AddWithValue("@description", record.description);
                 if (record.actions == null)
                     cmd.Parameters.AddWithValue("@actions", SqlXml.Null);
                 else
@@ -2244,7 +2255,7 @@ namespace Facebook
                 cmd.Parameters.AddWithValue("@uid", record.uid);
                 cmd.Parameters.AddWithValue("@feedid", record.feedid);
                 cmd.Parameters.AddWithValue("@commendId", record.commendId);
-                cmd.Parameters.AddWithValue("@message",Utilities.clearString(record.message));
+                cmd.Parameters.AddWithValue("@message",record.message);
                 if (record.from == null)
                     cmd.Parameters.AddWithValue("@from", SqlGuid.Null);
                 else
@@ -2293,7 +2304,7 @@ namespace Facebook
                 cmd.CommandText = "Update [FbComments] Set  message =@message, [from]=@from "
                                     + " where commendId='" + record.commendId + "'";
                 
-                cmd.Parameters.AddWithValue("@message",Utilities.clearString(record.message));
+                cmd.Parameters.AddWithValue("@message",record.message);
                 if (record.from == null)
                     cmd.Parameters.AddWithValue("@from", SqlGuid.Null);
                 else

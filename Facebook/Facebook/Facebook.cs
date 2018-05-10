@@ -35,7 +35,6 @@ namespace Facebook
         public string id { get; set; }
         public string name { get; set; }
     }
-
     public class Cover {
         public string id { get; set; }
         public int cover_id { get; set; }
@@ -64,8 +63,6 @@ namespace Facebook
         public string website { get; set; }/*The URL of the Page's website*/
         public int talking_about_count { get; set; } /*The number of people talking about this Page*/
     }
-
-
     public class Age_range {
         public int max { get; set; }
         public int min { get; set; }

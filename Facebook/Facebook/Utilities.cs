@@ -173,8 +173,9 @@ namespace Facebook
             }
         }
 
-        public static string clearString(string strWithTabs) {
-            return  strWithTabs.Replace("\t", "").Replace("\r","").Replace("\n","").ToString();
+        public static string clearString(string strWithTabs)
+        {
+            return strWithTabs.Replace("\t", "").Replace("\r", "").Replace("\n", "").ToString();
         }
     }
 
