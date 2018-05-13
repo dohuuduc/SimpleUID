@@ -93,10 +93,12 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.chbExpCommen = new System.Windows.Forms.CheckBox();
             this.chbExpTheoDoi = new System.Windows.Forms.CheckBox();
             this.chbExpLike = new System.Windows.Forms.CheckBox();
             this.chbExpFriend = new System.Windows.Forms.CheckBox();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblMessage1 = new System.Windows.Forms.Label();
             this.lblMessage2 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -129,8 +131,6 @@
             this.btnQuet = new System.Windows.Forms.Button();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.chbExpCommen = new System.Windows.Forms.CheckBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.panel1.SuspendLayout();
             this.grDsUID.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUID)).BeginInit();
@@ -714,6 +714,18 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Đối Tượng Báo Cáo";
             // 
+            // chbExpCommen
+            // 
+            this.chbExpCommen.AutoSize = true;
+            this.chbExpCommen.Checked = true;
+            this.chbExpCommen.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbExpCommen.Location = new System.Drawing.Point(204, 42);
+            this.chbExpCommen.Name = "chbExpCommen";
+            this.chbExpCommen.Size = new System.Drawing.Size(114, 17);
+            this.chbExpCommen.TabIndex = 6;
+            this.chbExpCommen.Text = "Bài Viết /Comment";
+            this.chbExpCommen.UseVisualStyleBackColor = true;
+            // 
             // chbExpTheoDoi
             // 
             this.chbExpTheoDoi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -762,6 +774,14 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(645, 73);
             this.panel5.TabIndex = 4;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(5, 41);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(613, 21);
+            this.progressBar1.TabIndex = 4;
+            this.progressBar1.Visible = false;
             // 
             // lblMessage1
             // 
@@ -1121,25 +1141,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(659, 516);
             this.panel2.TabIndex = 2;
-            // 
-            // chbExpCommen
-            // 
-            this.chbExpCommen.AutoSize = true;
-            this.chbExpCommen.Checked = true;
-            this.chbExpCommen.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbExpCommen.Location = new System.Drawing.Point(204, 42);
-            this.chbExpCommen.Name = "chbExpCommen";
-            this.chbExpCommen.Size = new System.Drawing.Size(114, 17);
-            this.chbExpCommen.TabIndex = 6;
-            this.chbExpCommen.Text = "Bài Viết /Comment";
-            this.chbExpCommen.UseVisualStyleBackColor = true;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(5, 41);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(613, 21);
-            this.progressBar1.TabIndex = 4;
             // 
             // FrmMain123
             // 

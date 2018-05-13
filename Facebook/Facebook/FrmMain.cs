@@ -838,6 +838,7 @@ namespace Facebook
                     par = new ParameterizedThreadStart(ProcessXuatFile);
                     theardProcess = new Thread(par);
 
+                    progressBar1.Visible = true;
                     arr = new ArrayList();
                     arr.Add(lblMessage1);
                     arr.Add(lblMessage2);
@@ -885,17 +886,15 @@ namespace Facebook
 
                     if (chbExpFriend.Checked)
                     {
-                        DataTable table = SQLDatabase.ExcDataTable(string.Format("[spExportFriend] {0}", model.UID));
-                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_DsFriend_" + DateTime.Now.ToString("dd_MM_yyyy");
-                        ExcelAdapter excel = new ExcelAdapter(filePath + "\\" + fileName);
-                        excel.CreateAndWrite(table, "Sheet", 1);
+                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Follow_" + DateTime.Now.ToString("dd_MM_yyyy");
+                        SQLDatabase.ExcNonQuery(string.Format("[spExportFriend] '{0}','{1}','{2}'", model.UID, _strdatabasename, filePath + "\\" + fileName));
                     }
                     if (chbExpTheoDoi.Checked)
                     {
-                        DataTable table = SQLDatabase.ExcDataTable(string.Format("[spExportFollow] {0}", model.UID));
+                        //DataTable table = SQLDatabase.ExcDataTable(string.Format("[spExportFollow] {0}", model.UID));
                         string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Follow_" + DateTime.Now.ToString("dd_MM_yyyy");
-                        ExcelAdapter excel = new ExcelAdapter(filePath + "\\" + fileName);
-                        excel.CreateAndWrite(table, "Sheet", 1);
+                        //ExcelAdapter excel = new ExcelAdapter(filePath + "\\" + fileName);
+                        SQLDatabase.ExcNonQuery(string.Format("[spExportFriend] {0},{1},{2}",model.UID, _strdatabasename, filePath + "\\" + fileName));
                     }
                     if (chbExpLike.Checked)
                     {
@@ -917,6 +916,8 @@ namespace Facebook
                 }
                 lblMessage1.Text = "Hoàn thành xuất số liệu.";
                 lblMessage2.Text = ".....";
+                progressBar1.Visible = false;
+                progressBar1.Update();
 
             }
             catch (Exception ex)
