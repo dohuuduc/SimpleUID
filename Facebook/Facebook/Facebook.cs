@@ -155,6 +155,7 @@ namespace Facebook
     }
     class Facebook
     {
+        private static LogWriter writer;
         public static string Token(object arrControl) {
            
 
@@ -184,18 +185,36 @@ namespace Facebook
                 fbAccount.maxx = ConvertType.ToInt(tb.Rows[0]["maxx"].ToString());
 
                 /*update UI*/
-                txtToken.Text = fbAccount.token;
-                lblQuataDaDung.Text = string.Format("{0:#,#.}",fbAccount.SoLuong.ToString());
-                lblQuataConLai.Text = string.Format("{0:#,#.}", fbAccount.maxx - fbAccount.SoLuong);
-                txtToken.Update();
-                lblQuataDaDung.Update();
-                lblQuataConLai.Update();
+
+                txtToken.Invoke((Action)delegate
+                {
+                    txtToken.Text = fbAccount.token;
+                    txtToken.Update();
+                });
+
+                lblQuataDaDung.Invoke((Action)delegate
+                {
+                    lblQuataDaDung.Text = string.Format("{0:#,#.}", fbAccount.SoLuong);
+                    lblQuataDaDung.Update();
+                });
+
+                lblQuataConLai.Invoke((Action)delegate
+                {
+                    lblQuataConLai.Text = string.Format("{0:#,#.}", fbAccount.maxx - fbAccount.SoLuong);
+                    lblQuataConLai.Update();
+                });
+
+                lblSluongGoi.Invoke((Action)delegate
+                {
+                    lblSluongGoi.Text = string.Format("{0:#,#.}", fbAccount.maxx);
+                    lblSluongGoi.Update();
+                });
+
                 return fbAccount.token;
             }
             catch (Exception ex)
             {
-
-                return "" ;
+                return fbAccount.token;
             }
         }
         public static NhomUID ConvertUrdToNhom(string strUrd)
@@ -203,7 +222,14 @@ namespace Facebook
             try
             {
                 NhomUID nhom = new NhomUID();
-                string html = WebToolkit.GetHtml(strUrd);
+                string html = "";
+
+                if(strUrd.Contains("https://www.facebook.com/profile.php"))
+                    html = WebToolkit.GetHtmlChuyenHtmlKhac(strUrd);
+                else
+                    html = WebToolkit.GetHtml(strUrd);
+
+
                 List<string> arrToken1 = html.Split(new char[] { '{' }).Where(p=>p.Contains("entity_id")).ToList();
                 string arrToken2 = Regex.Split(arrToken1.FirstOrDefault(), "{").Where(p => p.Contains("entity_id")).FirstOrDefault();
                 string arrToken3 = arrToken2.Split(new char[] { ';' }).Where(p => p.Contains("entity_id")).FirstOrDefault();
@@ -241,6 +267,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+               
                 return null;
             }
         }
@@ -458,6 +485,7 @@ namespace Facebook
             catch
             {
                 result = "";
+                writer.WriteToLog(string.Format("{0}:-{1}", "GetHtmlFB", Url));
             }
             Log(Url,token);
             return result;
@@ -558,7 +586,6 @@ namespace Facebook
 
             return string.Join(",", lstMyUid);
         }
-
         public static string Selectcomments()
         {
             List<string> lstMyUid = new List<string>();
@@ -601,6 +628,49 @@ namespace Facebook
 
             return string.Join(",", lstMyUid);
         }
+
+        public static string SelectPage()
+        {
+            List<string> lstMyUid = new List<string>();
+            lstMyUid.Add("id");
+            lstMyUid.Add("name");
+            lstMyUid.Add("link");
+            lstMyUid.Add("description");
+            lstMyUid.Add("website");
+            lstMyUid.Add("about");
+            lstMyUid.Add("location");
+            lstMyUid.Add("cover");
+            lstMyUid.Add("mission");
+
+            return string.Join(",", lstMyUid);
+        }
+
+        public static string SelectUser()
+        {
+            List<string> lstMyUid = new List<string>();
+            lstMyUid.Add("id");
+            lstMyUid.Add("name");
+            lstMyUid.Add("link");
+            lstMyUid.Add("about");
+            lstMyUid.Add("location");
+            lstMyUid.Add("cover");
+            lstMyUid.Add("education");
+            lstMyUid.Add("work");
+
+            return string.Join(",", lstMyUid);
+        }
+
+        public static string SelectGroup()
+        {
+            List<string> lstMyUid = new List<string>();
+            lstMyUid.Add("id");
+            lstMyUid.Add("name");
+            lstMyUid.Add("cover");
+            lstMyUid.Add("description");
+
+            return string.Join(",", lstMyUid);
+        }
+
 
     }
 

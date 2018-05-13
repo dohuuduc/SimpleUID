@@ -20,8 +20,8 @@ namespace Facebook
         private void FrmCauHinh_Load(object sender, EventArgs e)
         {
             cauHinh = SQLDatabase.LoadCauHinh("select * from cauhinh");
-            txtsysLimitCallApi.Text = cauHinh.sysLimitCallApi.ToString();
-            txtsysTimeSleep.Text = cauHinh.sysTimeSleep.ToString();
+            txtsysLimitCallApi.Value = ConvertType.ToDecimal(cauHinh.sysLimitCallApi);
+            txtsysTimeSleep.Value = ConvertType.ToDecimal(cauHinh.sysTimeSleep);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -82,6 +82,9 @@ namespace Facebook
                     SQLDatabase.ExcNonQuery("delete from [dbo].[FbLike]");
                     SQLDatabase.ExcNonQuery("delete from [dbo].[FbComments]");
 
+                }
+                if (chkForword.Checked) {
+                    SQLDatabase.ExcNonQuery("delete from [dbo].[FbFollow]");
                 }
                 return true;
             }

@@ -36,17 +36,18 @@
             this.chkFriend = new System.Windows.Forms.CheckBox();
             this.chkUID = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtsysTimeSleep = new System.Windows.Forms.NumericUpDown();
+            this.txtsysLimitCallApi = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.txtsysLimitCallApi = new System.Windows.Forms.NumericUpDown();
-            this.txtsysTimeSleep = new System.Windows.Forms.NumericUpDown();
+            this.chkForword = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtsysLimitCallApi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsysTimeSleep)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsysLimitCallApi)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -56,7 +57,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(426, 268);
+            this.tabControl1.Size = new System.Drawing.Size(426, 250);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -66,27 +67,28 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(418, 242);
+            this.tabPage1.Size = new System.Drawing.Size(418, 224);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Account Facebook";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkForword);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.chkBaiViet);
             this.groupBox2.Controls.Add(this.chkFriend);
             this.groupBox2.Controls.Add(this.chkUID);
             this.groupBox2.Location = new System.Drawing.Point(8, 127);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(392, 106);
+            this.groupBox2.Size = new System.Drawing.Size(392, 90);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Clear Data";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(297, 73);
+            this.button2.Location = new System.Drawing.Point(297, 62);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 4;
@@ -97,7 +99,7 @@
             // chkBaiViet
             // 
             this.chkBaiViet.AutoSize = true;
-            this.chkBaiViet.Location = new System.Drawing.Point(29, 79);
+            this.chkBaiViet.Location = new System.Drawing.Point(223, 19);
             this.chkBaiViet.Name = "chkBaiViet";
             this.chkBaiViet.Size = new System.Drawing.Size(149, 17);
             this.chkBaiViet.TabIndex = 2;
@@ -107,7 +109,7 @@
             // chkFriend
             // 
             this.chkFriend.AutoSize = true;
-            this.chkFriend.Location = new System.Drawing.Point(29, 56);
+            this.chkFriend.Location = new System.Drawing.Point(28, 42);
             this.chkFriend.Name = "chkFriend";
             this.chkFriend.Size = new System.Drawing.Size(126, 17);
             this.chkFriend.TabIndex = 1;
@@ -117,7 +119,7 @@
             // chkUID
             // 
             this.chkUID.AutoSize = true;
-            this.chkUID.Location = new System.Drawing.Point(29, 33);
+            this.chkUID.Location = new System.Drawing.Point(28, 19);
             this.chkUID.Name = "chkUID";
             this.chkUID.Size = new System.Drawing.Size(143, 17);
             this.chkUID.TabIndex = 0;
@@ -137,6 +139,51 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông Tin Facebook";
+            // 
+            // txtsysTimeSleep
+            // 
+            this.txtsysTimeSleep.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.txtsysTimeSleep.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.txtsysTimeSleep.Location = new System.Drawing.Point(252, 47);
+            this.txtsysTimeSleep.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.txtsysTimeSleep.Name = "txtsysTimeSleep";
+            this.txtsysTimeSleep.Size = new System.Drawing.Size(120, 22);
+            this.txtsysTimeSleep.TabIndex = 6;
+            this.txtsysTimeSleep.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtsysTimeSleep.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            // 
+            // txtsysLimitCallApi
+            // 
+            this.txtsysLimitCallApi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.txtsysLimitCallApi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.txtsysLimitCallApi.Location = new System.Drawing.Point(252, 20);
+            this.txtsysLimitCallApi.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            this.txtsysLimitCallApi.Minimum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.txtsysLimitCallApi.Name = "txtsysLimitCallApi";
+            this.txtsysLimitCallApi.Size = new System.Drawing.Size(120, 22);
+            this.txtsysLimitCallApi.TabIndex = 5;
+            this.txtsysLimitCallApi.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtsysLimitCallApi.Value = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             // 
             // label2
             // 
@@ -166,56 +213,21 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // txtsysLimitCallApi
+            // chkForword
             // 
-            this.txtsysLimitCallApi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.txtsysLimitCallApi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.txtsysLimitCallApi.Location = new System.Drawing.Point(252, 20);
-            this.txtsysLimitCallApi.Maximum = new decimal(new int[] {
-            15000,
-            0,
-            0,
-            0});
-            this.txtsysLimitCallApi.Minimum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.txtsysLimitCallApi.Name = "txtsysLimitCallApi";
-            this.txtsysLimitCallApi.Size = new System.Drawing.Size(120, 22);
-            this.txtsysLimitCallApi.TabIndex = 5;
-            this.txtsysLimitCallApi.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtsysLimitCallApi.Value = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            // 
-            // txtsysTimeSleep
-            // 
-            this.txtsysTimeSleep.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.txtsysTimeSleep.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.txtsysTimeSleep.Location = new System.Drawing.Point(252, 47);
-            this.txtsysTimeSleep.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.txtsysTimeSleep.Name = "txtsysTimeSleep";
-            this.txtsysTimeSleep.Size = new System.Drawing.Size(120, 22);
-            this.txtsysTimeSleep.TabIndex = 6;
-            this.txtsysTimeSleep.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtsysTimeSleep.Value = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
+            this.chkForword.AutoSize = true;
+            this.chkForword.Location = new System.Drawing.Point(223, 42);
+            this.chkForword.Name = "chkForword";
+            this.chkForword.Size = new System.Drawing.Size(70, 17);
+            this.chkForword.TabIndex = 5;
+            this.chkForword.Text = "Theo Dõi";
+            this.chkForword.UseVisualStyleBackColor = true;
             // 
             // FrmCauHinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 268);
+            this.ClientSize = new System.Drawing.Size(426, 250);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -229,8 +241,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtsysLimitCallApi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsysTimeSleep)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsysLimitCallApi)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -250,5 +262,6 @@
         private System.Windows.Forms.CheckBox chkUID;
         private System.Windows.Forms.NumericUpDown txtsysLimitCallApi;
         private System.Windows.Forms.NumericUpDown txtsysTimeSleep;
+        private System.Windows.Forms.CheckBox chkForword;
     }
 }

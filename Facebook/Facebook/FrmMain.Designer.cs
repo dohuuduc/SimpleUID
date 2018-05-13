@@ -49,9 +49,7 @@
             this.resetUIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.asToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lọcTrùngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.xoáUIDLỗiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xoáUIDThôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearThôngTinUidToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xuấtFileToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,19 +92,19 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.radExportGroup = new System.Windows.Forms.RadioButton();
-            this.radExportPage = new System.Windows.Forms.RadioButton();
-            this.radExportUser = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.chbExpUid = new System.Windows.Forms.CheckBox();
-            this.chbExpFeed = new System.Windows.Forms.CheckBox();
+            this.chbExpTheoDoi = new System.Windows.Forms.CheckBox();
+            this.chbExpLike = new System.Windows.Forms.CheckBox();
             this.chbExpFriend = new System.Windows.Forms.CheckBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.lblMessage1 = new System.Windows.Forms.Label();
             this.lblMessage2 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.txtFbLoai = new System.Windows.Forms.TextBox();
             this.txtFbLink = new System.Windows.Forms.TextBox();
@@ -124,13 +122,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.grDoituongquet = new System.Windows.Forms.GroupBox();
+            this.chkfollow = new System.Windows.Forms.CheckBox();
             this.chkMe = new System.Windows.Forms.CheckBox();
             this.chkBaiViet = new System.Windows.Forms.CheckBox();
             this.chkBanBe = new System.Windows.Forms.CheckBox();
             this.btnQuet = new System.Windows.Forms.Button();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
+            this.chbExpCommen = new System.Windows.Forms.CheckBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.panel1.SuspendLayout();
             this.grDsUID.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUID)).BeginInit();
@@ -145,7 +145,6 @@
             this.panel6.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -217,7 +216,6 @@
             this.gridUID.Size = new System.Drawing.Size(405, 328);
             this.gridUID.TabIndex = 0;
             this.gridUID.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridUID_CellClick);
-            this.gridUID.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridUID_CellDoubleClick);
             this.gridUID.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridUID_CellMouseDown);
             // 
             // Err
@@ -286,11 +284,10 @@
             this.resetUIDToolStripMenuItem,
             this.toolStripMenuItem1,
             this.asToolStripMenuItem,
-            this.lọcTrùngToolStripMenuItem,
             this.zToolStripMenuItem,
             this.xuấtFileToolStripMenuItem2});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 180);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 158);
             // 
             // quétToolStripMenuItem
             // 
@@ -327,30 +324,14 @@
             this.asToolStripMenuItem.Text = "Import UID";
             this.asToolStripMenuItem.Click += new System.EventHandler(this.asToolStripMenuItem_Click);
             // 
-            // lọcTrùngToolStripMenuItem
-            // 
-            this.lọcTrùngToolStripMenuItem.Name = "lọcTrùngToolStripMenuItem";
-            this.lọcTrùngToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.lọcTrùngToolStripMenuItem.Text = "Lộc Trùng";
-            this.lọcTrùngToolStripMenuItem.Click += new System.EventHandler(this.lọcTrùngToolStripMenuItem_Click);
-            // 
             // zToolStripMenuItem
             // 
             this.zToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.xoáUIDLỗiToolStripMenuItem,
             this.xoáUIDThôngTinToolStripMenuItem,
             this.clearThôngTinUidToolStripMenuItem});
             this.zToolStripMenuItem.Name = "zToolStripMenuItem";
             this.zToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.zToolStripMenuItem.Text = "Xoá UID";
-            this.zToolStripMenuItem.Click += new System.EventHandler(this.zToolStripMenuItem_Click);
-            // 
-            // xoáUIDLỗiToolStripMenuItem
-            // 
-            this.xoáUIDLỗiToolStripMenuItem.Name = "xoáUIDLỗiToolStripMenuItem";
-            this.xoáUIDLỗiToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.xoáUIDLỗiToolStripMenuItem.Text = "UID Lỗi";
-            this.xoáUIDLỗiToolStripMenuItem.Click += new System.EventHandler(this.xoáUIDLỗiToolStripMenuItem_Click);
             // 
             // xoáUIDThôngTinToolStripMenuItem
             // 
@@ -646,43 +627,40 @@
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 169);
+            this.panel3.Location = new System.Drawing.Point(3, 144);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(645, 318);
+            this.panel3.Size = new System.Drawing.Size(645, 343);
             this.panel3.TabIndex = 3;
             // 
             // panel6
             // 
             this.panel6.Controls.Add(this.groupBox3);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 95);
+            this.panel6.Location = new System.Drawing.Point(0, 104);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(645, 163);
+            this.panel6.Size = new System.Drawing.Size(645, 166);
             this.panel6.TabIndex = 5;
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.groupBox7);
             this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(645, 163);
+            this.groupBox3.Size = new System.Drawing.Size(645, 166);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Xuất File";
             // 
             // groupBox7
             // 
-            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox7.Controls.Add(this.checkBox1);
             this.groupBox7.Controls.Add(this.button2);
-            this.groupBox7.Location = new System.Drawing.Point(354, 19);
+            this.groupBox7.Location = new System.Drawing.Point(6, 19);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(286, 100);
+            this.groupBox7.Size = new System.Drawing.Size(240, 69);
             this.groupBox7.TabIndex = 8;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Đối Tượng Chuẩn Hoá";
@@ -702,9 +680,9 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(205, 71);
+            this.button2.Location = new System.Drawing.Point(100, 42);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(128, 23);
             this.button2.TabIndex = 7;
             this.button2.Text = "Chuẩn Hoá";
             this.button2.UseVisualStyleBackColor = true;
@@ -713,99 +691,61 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(559, 134);
+            this.button1.Location = new System.Drawing.Point(513, 94);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(123, 23);
             this.button1.TabIndex = 6;
             this.button1.Text = "Xuất File";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.radExportGroup);
-            this.groupBox5.Controls.Add(this.radExportPage);
-            this.groupBox5.Controls.Add(this.radExportUser);
-            this.groupBox5.Location = new System.Drawing.Point(6, 19);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(192, 100);
-            this.groupBox5.TabIndex = 5;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Type Uid";
-            // 
-            // radExportGroup
-            // 
-            this.radExportGroup.AutoSize = true;
-            this.radExportGroup.Location = new System.Drawing.Point(18, 69);
-            this.radExportGroup.Name = "radExportGroup";
-            this.radExportGroup.Size = new System.Drawing.Size(53, 17);
-            this.radExportGroup.TabIndex = 2;
-            this.radExportGroup.Text = "Nhóm";
-            this.radExportGroup.UseVisualStyleBackColor = true;
-            // 
-            // radExportPage
-            // 
-            this.radExportPage.AutoSize = true;
-            this.radExportPage.Checked = true;
-            this.radExportPage.Location = new System.Drawing.Point(18, 44);
-            this.radExportPage.Name = "radExportPage";
-            this.radExportPage.Size = new System.Drawing.Size(53, 17);
-            this.radExportPage.TabIndex = 1;
-            this.radExportPage.TabStop = true;
-            this.radExportPage.Text = "Trang";
-            this.radExportPage.UseVisualStyleBackColor = true;
-            // 
-            // radExportUser
-            // 
-            this.radExportUser.AutoSize = true;
-            this.radExportUser.Location = new System.Drawing.Point(18, 19);
-            this.radExportUser.Name = "radExportUser";
-            this.radExportUser.Size = new System.Drawing.Size(67, 17);
-            this.radExportUser.TabIndex = 0;
-            this.radExportUser.Text = "Cá Nhân";
-            this.radExportUser.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.chbExpUid);
-            this.groupBox4.Controls.Add(this.chbExpFeed);
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.chbExpCommen);
+            this.groupBox4.Controls.Add(this.chbExpTheoDoi);
+            this.groupBox4.Controls.Add(this.chbExpLike);
             this.groupBox4.Controls.Add(this.chbExpFriend);
-            this.groupBox4.Location = new System.Drawing.Point(204, 19);
+            this.groupBox4.Location = new System.Drawing.Point(253, 19);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(144, 100);
+            this.groupBox4.Size = new System.Drawing.Size(392, 69);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Đối Tượng Qúet";
+            this.groupBox4.Text = "Đối Tượng Báo Cáo";
             // 
-            // chbExpUid
+            // chbExpTheoDoi
             // 
-            this.chbExpUid.AutoSize = true;
-            this.chbExpUid.Checked = true;
-            this.chbExpUid.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbExpUid.Location = new System.Drawing.Point(16, 19);
-            this.chbExpUid.Name = "chbExpUid";
-            this.chbExpUid.Size = new System.Drawing.Size(101, 17);
-            this.chbExpUid.TabIndex = 3;
-            this.chbExpUid.Text = "Chính UID/GUI";
-            this.chbExpUid.UseVisualStyleBackColor = true;
+            this.chbExpTheoDoi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chbExpTheoDoi.AutoSize = true;
+            this.chbExpTheoDoi.Checked = true;
+            this.chbExpTheoDoi.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbExpTheoDoi.Location = new System.Drawing.Point(13, 42);
+            this.chbExpTheoDoi.Name = "chbExpTheoDoi";
+            this.chbExpTheoDoi.Size = new System.Drawing.Size(70, 17);
+            this.chbExpTheoDoi.TabIndex = 5;
+            this.chbExpTheoDoi.Text = "Theo Dõi";
+            this.chbExpTheoDoi.UseVisualStyleBackColor = true;
             // 
-            // chbExpFeed
+            // chbExpLike
             // 
-            this.chbExpFeed.AutoSize = true;
-            this.chbExpFeed.Checked = true;
-            this.chbExpFeed.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbExpFeed.Location = new System.Drawing.Point(16, 70);
-            this.chbExpFeed.Name = "chbExpFeed";
-            this.chbExpFeed.Size = new System.Drawing.Size(111, 17);
-            this.chbExpFeed.TabIndex = 2;
-            this.chbExpFeed.Text = "Bài Viết/Comment";
-            this.chbExpFeed.UseVisualStyleBackColor = true;
+            this.chbExpLike.AutoSize = true;
+            this.chbExpLike.Checked = true;
+            this.chbExpLike.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbExpLike.Location = new System.Drawing.Point(204, 19);
+            this.chbExpLike.Name = "chbExpLike";
+            this.chbExpLike.Size = new System.Drawing.Size(90, 17);
+            this.chbExpLike.TabIndex = 2;
+            this.chbExpLike.Text = "Bài Viết /Like";
+            this.chbExpLike.UseVisualStyleBackColor = true;
             // 
             // chbExpFriend
             // 
+            this.chbExpFriend.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.chbExpFriend.AutoSize = true;
             this.chbExpFriend.Checked = true;
             this.chbExpFriend.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbExpFriend.Location = new System.Drawing.Point(16, 44);
+            this.chbExpFriend.Location = new System.Drawing.Point(13, 19);
             this.chbExpFriend.Name = "chbExpFriend";
             this.chbExpFriend.Size = new System.Drawing.Size(121, 17);
             this.chbExpFriend.TabIndex = 0;
@@ -814,12 +754,13 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.progressBar1);
             this.panel5.Controls.Add(this.lblMessage1);
             this.panel5.Controls.Add(this.lblMessage2);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(0, 258);
+            this.panel5.Location = new System.Drawing.Point(0, 270);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(645, 60);
+            this.panel5.Size = new System.Drawing.Size(645, 73);
             this.panel5.TabIndex = 4;
             // 
             // lblMessage1
@@ -828,7 +769,7 @@
             this.lblMessage1.AutoSize = true;
             this.lblMessage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblMessage1.ForeColor = System.Drawing.Color.Red;
-            this.lblMessage1.Location = new System.Drawing.Point(8, 0);
+            this.lblMessage1.Location = new System.Drawing.Point(-1, 11);
             this.lblMessage1.Name = "lblMessage1";
             this.lblMessage1.Size = new System.Drawing.Size(93, 15);
             this.lblMessage1.TabIndex = 1;
@@ -841,7 +782,7 @@
             this.lblMessage2.AutoSize = true;
             this.lblMessage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblMessage2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblMessage2.Location = new System.Drawing.Point(8, 24);
+            this.lblMessage2.Location = new System.Drawing.Point(2, 23);
             this.lblMessage2.Name = "lblMessage2";
             this.lblMessage2.Size = new System.Drawing.Size(22, 15);
             this.lblMessage2.TabIndex = 3;
@@ -853,11 +794,14 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(645, 95);
+            this.panel4.Size = new System.Drawing.Size(645, 104);
             this.panel4.TabIndex = 3;
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.button6);
+            this.groupBox6.Controls.Add(this.button5);
+            this.groupBox6.Controls.Add(this.button4);
             this.groupBox6.Controls.Add(this.button3);
             this.groupBox6.Controls.Add(this.label8);
             this.groupBox6.Controls.Add(this.txtFbLoai);
@@ -870,16 +814,60 @@
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox6.Location = new System.Drawing.Point(0, 0);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(645, 95);
+            this.groupBox6.Size = new System.Drawing.Size(645, 104);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Thông tin UID";
+            // 
+            // button6
+            // 
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.Location = new System.Drawing.Point(106, 75);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(128, 23);
+            this.button6.TabIndex = 11;
+            this.button6.Text = "Thêm UID";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Location = new System.Drawing.Point(513, 75);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(123, 23);
+            this.button5.TabIndex = 10;
+            this.button5.Text = "Xoá UID Lỗi ";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Location = new System.Drawing.Point(337, 75);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(128, 23);
+            this.button4.TabIndex = 9;
+            this.button4.Text = "Lộc Trùng UID";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(596, 39);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(40, 34);
+            this.button3.TabIndex = 8;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label8
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(471, 61);
+            this.label8.Location = new System.Drawing.Point(471, 50);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(27, 13);
             this.label8.TabIndex = 7;
@@ -888,7 +876,7 @@
             // txtFbLoai
             // 
             this.txtFbLoai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFbLoai.Location = new System.Drawing.Point(513, 58);
+            this.txtFbLoai.Location = new System.Drawing.Point(513, 47);
             this.txtFbLoai.Name = "txtFbLoai";
             this.txtFbLoai.ReadOnly = true;
             this.txtFbLoai.Size = new System.Drawing.Size(77, 20);
@@ -899,7 +887,7 @@
             this.txtFbLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFbLink.ForeColor = System.Drawing.Color.Blue;
-            this.txtFbLink.Location = new System.Drawing.Point(106, 58);
+            this.txtFbLink.Location = new System.Drawing.Point(106, 47);
             this.txtFbLink.Name = "txtFbLink";
             this.txtFbLink.ReadOnly = true;
             this.txtFbLink.Size = new System.Drawing.Size(359, 20);
@@ -908,7 +896,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 61);
+            this.label7.Location = new System.Drawing.Point(11, 50);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(82, 13);
             this.label7.TabIndex = 4;
@@ -918,7 +906,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(471, 32);
+            this.label6.Location = new System.Drawing.Point(471, 21);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(18, 13);
             this.label6.TabIndex = 3;
@@ -927,7 +915,7 @@
             // txtFbId
             // 
             this.txtFbId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFbId.Location = new System.Drawing.Point(513, 29);
+            this.txtFbId.Location = new System.Drawing.Point(513, 18);
             this.txtFbId.Name = "txtFbId";
             this.txtFbId.ReadOnly = true;
             this.txtFbId.Size = new System.Drawing.Size(123, 20);
@@ -937,7 +925,7 @@
             // 
             this.txtFbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFbName.Location = new System.Drawing.Point(106, 29);
+            this.txtFbName.Location = new System.Drawing.Point(106, 18);
             this.txtFbName.Name = "txtFbName";
             this.txtFbName.ReadOnly = true;
             this.txtFbName.Size = new System.Drawing.Size(359, 20);
@@ -946,7 +934,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 32);
+            this.label5.Location = new System.Drawing.Point(11, 21);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 13);
             this.label5.TabIndex = 0;
@@ -961,7 +949,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(645, 166);
+            this.groupBox1.Size = new System.Drawing.Size(645, 141);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Token";
@@ -976,20 +964,19 @@
             this.grQuataAcc.Controls.Add(this.lblQuataDaDung);
             this.grQuataAcc.Controls.Add(this.label3);
             this.grQuataAcc.Controls.Add(this.label4);
-            this.grQuataAcc.Location = new System.Drawing.Point(156, 59);
+            this.grQuataAcc.Location = new System.Drawing.Point(280, 59);
             this.grQuataAcc.Name = "grQuataAcc";
-            this.grQuataAcc.Size = new System.Drawing.Size(486, 101);
+            this.grQuataAcc.Size = new System.Drawing.Size(362, 67);
             this.grQuataAcc.TabIndex = 6;
             this.grQuataAcc.TabStop = false;
             this.grQuataAcc.Text = "Quata Account";
             // 
             // lblQuataConLai
             // 
-            this.lblQuataConLai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblQuataConLai.AutoSize = true;
             this.lblQuataConLai.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblQuataConLai.ForeColor = System.Drawing.Color.Blue;
-            this.lblQuataConLai.Location = new System.Drawing.Point(174, 16);
+            this.lblQuataConLai.Location = new System.Drawing.Point(201, 30);
             this.lblQuataConLai.Name = "lblQuataConLai";
             this.lblQuataConLai.Size = new System.Drawing.Size(36, 20);
             this.lblQuataConLai.TabIndex = 8;
@@ -997,12 +984,14 @@
             // 
             // Labale2
             // 
+            this.Labale2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.Labale2.AutoSize = true;
-            this.Labale2.Location = new System.Drawing.Point(8, 43);
+            this.Labale2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.Labale2.Location = new System.Drawing.Point(6, 33);
             this.Labale2.Name = "Labale2";
-            this.Labale2.Size = new System.Drawing.Size(53, 13);
+            this.Labale2.Size = new System.Drawing.Size(58, 15);
             this.Labale2.TabIndex = 7;
-            this.Labale2.Text = "Đã Dùng:";
+            this.Labale2.Text = "Sử Dụng:";
             // 
             // lblQataLimit
             // 
@@ -1010,7 +999,7 @@
             this.lblQataLimit.AutoSize = true;
             this.lblQataLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblQataLimit.ForeColor = System.Drawing.Color.Black;
-            this.lblQataLimit.Location = new System.Drawing.Point(174, 67);
+            this.lblQataLimit.Location = new System.Drawing.Point(312, 27);
             this.lblQataLimit.Name = "lblQataLimit";
             this.lblQataLimit.Size = new System.Drawing.Size(36, 20);
             this.lblQataLimit.TabIndex = 3;
@@ -1018,50 +1007,64 @@
             // 
             // lblQuataDaDung
             // 
-            this.lblQuataDaDung.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblQuataDaDung.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblQuataDaDung.AutoSize = true;
-            this.lblQuataDaDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblQuataDaDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblQuataDaDung.ForeColor = System.Drawing.Color.DarkOliveGreen;
-            this.lblQuataDaDung.Location = new System.Drawing.Point(174, 41);
+            this.lblQuataDaDung.Location = new System.Drawing.Point(61, 33);
             this.lblQuataDaDung.Name = "lblQuataDaDung";
-            this.lblQuataDaDung.Size = new System.Drawing.Size(36, 20);
+            this.lblQuataDaDung.Size = new System.Drawing.Size(39, 20);
             this.lblQuataDaDung.TabIndex = 6;
             this.lblQuataDaDung.Text = "120";
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 69);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label3.Location = new System.Drawing.Point(252, 30);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(101, 13);
+            this.label3.Size = new System.Drawing.Size(58, 15);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Giới Hạn Cho Phép:";
+            this.label3.Text = "Top Max:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 18);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label4.Location = new System.Drawing.Point(145, 33);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.Size = new System.Drawing.Size(52, 15);
             this.label4.TabIndex = 5;
             this.label4.Text = "Còn Lại:";
             // 
             // grDoituongquet
             // 
+            this.grDoituongquet.Controls.Add(this.chkfollow);
             this.grDoituongquet.Controls.Add(this.chkMe);
             this.grDoituongquet.Controls.Add(this.chkBaiViet);
             this.grDoituongquet.Controls.Add(this.chkBanBe);
             this.grDoituongquet.Location = new System.Drawing.Point(6, 59);
             this.grDoituongquet.Name = "grDoituongquet";
-            this.grDoituongquet.Size = new System.Drawing.Size(144, 100);
+            this.grDoituongquet.Size = new System.Drawing.Size(268, 67);
             this.grDoituongquet.TabIndex = 1;
             this.grDoituongquet.TabStop = false;
             this.grDoituongquet.Text = "Đối Tượng Qúet";
             // 
+            // chkfollow
+            // 
+            this.chkfollow.AutoSize = true;
+            this.chkfollow.Location = new System.Drawing.Point(129, 44);
+            this.chkfollow.Name = "chkfollow";
+            this.chkfollow.Size = new System.Drawing.Size(70, 17);
+            this.chkfollow.TabIndex = 4;
+            this.chkfollow.Text = "Theo Dõi";
+            this.chkfollow.UseVisualStyleBackColor = true;
+            // 
             // chkMe
             // 
             this.chkMe.AutoSize = true;
-            this.chkMe.Location = new System.Drawing.Point(16, 19);
+            this.chkMe.Location = new System.Drawing.Point(8, 19);
             this.chkMe.Name = "chkMe";
             this.chkMe.Size = new System.Drawing.Size(101, 17);
             this.chkMe.TabIndex = 3;
@@ -1071,17 +1074,17 @@
             // chkBaiViet
             // 
             this.chkBaiViet.AutoSize = true;
-            this.chkBaiViet.Location = new System.Drawing.Point(16, 70);
+            this.chkBaiViet.Location = new System.Drawing.Point(129, 17);
             this.chkBaiViet.Name = "chkBaiViet";
-            this.chkBaiViet.Size = new System.Drawing.Size(111, 17);
+            this.chkBaiViet.Size = new System.Drawing.Size(143, 17);
             this.chkBaiViet.TabIndex = 2;
-            this.chkBaiViet.Text = "Bài Viết/Comment";
+            this.chkBaiViet.Text = "Bài Viết/Comment + Like";
             this.chkBaiViet.UseVisualStyleBackColor = true;
             // 
             // chkBanBe
             // 
             this.chkBanBe.AutoSize = true;
-            this.chkBanBe.Location = new System.Drawing.Point(16, 44);
+            this.chkBanBe.Location = new System.Drawing.Point(8, 45);
             this.chkBanBe.Name = "chkBanBe";
             this.chkBanBe.Size = new System.Drawing.Size(121, 17);
             this.chkBanBe.TabIndex = 0;
@@ -1119,16 +1122,24 @@
             this.panel2.Size = new System.Drawing.Size(659, 516);
             this.panel2.TabIndex = 2;
             // 
-            // button3
+            // chbExpCommen
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(596, 55);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(40, 34);
-            this.button3.TabIndex = 8;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.chbExpCommen.AutoSize = true;
+            this.chbExpCommen.Checked = true;
+            this.chbExpCommen.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbExpCommen.Location = new System.Drawing.Point(204, 42);
+            this.chbExpCommen.Name = "chbExpCommen";
+            this.chbExpCommen.Size = new System.Drawing.Size(114, 17);
+            this.chbExpCommen.TabIndex = 6;
+            this.chbExpCommen.Text = "Bài Viết /Comment";
+            this.chbExpCommen.UseVisualStyleBackColor = true;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(5, 41);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(613, 21);
+            this.progressBar1.TabIndex = 4;
             // 
             // FrmMain123
             // 
@@ -1161,8 +1172,6 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -1230,9 +1239,7 @@
         private System.Windows.Forms.ToolStripMenuItem làmTươiToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem cấuHìnhToolStripMenuItem;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.ToolStripMenuItem xoáUIDLỗiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem xoáUIDThôngTinToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem lọcTrùngToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearThôngTinUidToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quétToolStripMenuItem;
         private System.Windows.Forms.Label lblMessage1;
@@ -1249,13 +1256,8 @@
         private System.Windows.Forms.ToolStripMenuItem phoneEmailToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uIDVàNameToolStripMenuItem;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.RadioButton radExportGroup;
-        private System.Windows.Forms.RadioButton radExportPage;
-        private System.Windows.Forms.RadioButton radExportUser;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.CheckBox chbExpUid;
-        private System.Windows.Forms.CheckBox chbExpFeed;
+        private System.Windows.Forms.CheckBox chbExpLike;
         private System.Windows.Forms.CheckBox chbExpFriend;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdate;
@@ -1285,6 +1287,13 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtFbLoai;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.CheckBox chkfollow;
+        private System.Windows.Forms.CheckBox chbExpTheoDoi;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.CheckBox chbExpCommen;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 

@@ -362,7 +362,10 @@ namespace Facebook
     }
     public class ListFbFriend {
         [JsonProperty("data")]
-        public FbFriend[] FbFriend { get; set; }
+        public List<FbFriend> FbFriend { get; set; }
+        public ListFbFriend() {
+            this.FbFriend = new List<FbFriend>();
+        }
     }
 
     public class FbFriend
@@ -408,8 +411,8 @@ namespace Facebook
             this.uid = "";
             this.FriendUid = "";
             this.name = "";
-            this.first_name = "";
-            this.last_name = "";
+            this.first_name = " ";
+            this.last_name = " ";
             this.name_format = "";
             this.mobile_phone = "";
             this.birthday = "";
@@ -441,15 +444,62 @@ namespace Facebook
     }
     }
 
+    public class ListFbPageSearch {
+        [JsonProperty("data")]
+        public List<FbPageSearch> FbPageSearch { get; set; }
+        public ListFbPageSearch()
+        {
+            this.FbPageSearch = new List<FbPageSearch>();
+        }
+    }
     public class FbPageSearch {
         public string id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
+        public string link { get; set; }
         public string website { get; set; }
         public string about { get; set; }
         public location location { get; set; }
         public cover cover { get; set; }
         public string mission { get; set; }
+    }
+
+    public class ListFbUserSearch { 
+        [JsonProperty("data")]
+        public List<FbUserSearch> FbUserSearch { get; set; }
+        public ListFbUserSearch()
+        {
+            this.FbUserSearch = new List<FbUserSearch>();
+        }
+    }
+
+   
+
+    public class FbUserSearch
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public string link { get; set; }
+        public location location { get; set; }
+        public cover cover { get; set; }
+        public List<education> education { get; set; }
+        public List<work> work { get; set; }
+    }
+    public class ListFbGroupSearch
+    {
+        [JsonProperty("data")]
+        public List<FbGroupSearch> FbGroupSearch { get; set; }
+        public ListFbGroupSearch()
+        {
+            this.FbGroupSearch = new List<FbGroupSearch>();
+        }
+    }
+    public class FbGroupSearch
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public cover cover { get; set; }
+        public string description { get; set; }
     }
     public class sports {
         public string id { get; set; }
@@ -516,6 +566,19 @@ namespace Facebook
         public string type { get; set; }
         [JsonProperty("school")]
         public school school { get; set; }
+        [JsonProperty("concentration")]
+        public List<concentration> concentration { get; set; }
+        [JsonProperty("classes")]
+        public List<classes> classes { get; set; }
+        
+    }
+    public class concentration {
+        public string id { get; set; }
+        public string name { get; set; }
+    }
+    public class classes {
+        public string id { get; set; }
+        public string name { get; set; }
     }
     public class school {
         public string id { get; set; }
@@ -587,6 +650,15 @@ namespace Facebook
         public int IsLoai { get; set; }
         public int OrderID { get; set; }
         public DateTime CreateDate { get; set; }
+        public NhomUID() {
+            this.Name = "";
+            this.UID = "";
+            this.URD = "";
+            this.Note = "";
+            this.IsActi = false;
+            this.IsLoai = 0;
+            this.OrderID = 0;
+        }
     }
     public class work {
         public string id { get; set; }
@@ -603,7 +675,15 @@ namespace Facebook
     public class location {
         public string id { get; set; }
         public string name { get; set; }
+        public string city { get; set; }
+        public string country { get; set; }
+        public string latitude { get; set; }
+        public string located_in { get; set; }
+        public string longitude { get; set; }
+        public string street { get; set; }
+        public string zip { get; set; }
     }
+    
     public class CauHinh
     {
         public int sysLimitCallApi { get; set; }
@@ -1011,7 +1091,7 @@ namespace Facebook
         #endregion
 
         #region FbFriend
-      
+
         public static bool AddFbFriend(FbFriend record)
         {
             SqlConnection cnn = null;
@@ -1031,7 +1111,7 @@ namespace Facebook
                 cmd.Connection = cnn;
                 //--- Insert Record
 
-                cmd.CommandText = "Insert into FbFriend(UID,FriendUid, first_name, last_name, name_format, name, mobile_phone, birthday, email, gender, location, age_range, cover, devices, education, favorite_athletes, favorite_teams, hometown, install_type, installed, interested_in, is_verified, languages, link, locale, political, quotes, relationship_status, religion, sports, third_party_id, website, work) OUTPUT inserted.id " +
+                cmd.CommandText = "Insert into FbFriend(UID,FriendUid, first_name, last_name, name_format, [name], mobile_phone, birthday, email, gender, location, age_range, cover, devices, education, favorite_athletes, favorite_teams, hometown, install_type, installed, interested_in, is_verified, languages, link, locale, political, quotes, relationship_status, religion, sports, third_party_id, website, work) OUTPUT inserted.id " +
                                   " values(@UID,@FriendUid, @first_name, @last_name, @name_format, @name, @mobile_phone, @birthday, @email, @gender, @location, @age_range, @cover, @devices, @education, @favorite_athletes, @favorite_teams, @hometown, @install_type, @installed, @interested_in, @is_verified, @languages, @link, @locale, @political, @quotes, @relationship_status, @religion, @sports, @third_party_id, @website, @work);";
 
                 cmd.Parameters.AddWithValue("@uid", record.uid);
@@ -1044,7 +1124,7 @@ namespace Facebook
                 cmd.Parameters.AddWithValue("@birthday", record.birthday);
                 cmd.Parameters.AddWithValue("@email", record.email);
                 cmd.Parameters.AddWithValue("@gender", record.gender);
-             
+
                 if (record.location == null)
                     cmd.Parameters.AddWithValue("@location", SqlXml.Null);
                 else
@@ -1120,7 +1200,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "AddFbFriend");
+                //MessageBox.Show(ex.Message, "AddFbFriend");
                 return false;
             }
             finally
@@ -1231,7 +1311,240 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "UpdateFbFriend");
+                //MessageBox.Show(ex.Message, "UpdateFbFriend");
+                return false;
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+        }
+
+        #endregion
+
+        #region FbFollow
+
+        public static bool AddFbFollow(FbFriend record)
+        {
+            SqlConnection cnn = null;
+            SqlCommand cmd = null;
+
+            try
+            {
+                if (record == null)
+                    return false;
+
+                cnn = new SqlConnection();
+                cnn.ConnectionString = ConnectionString;
+                cnn.FireInfoMessageEventOnUserErrors = false;
+                cnn.Open();
+
+                cmd = new SqlCommand();
+                cmd.Connection = cnn;
+                //--- Insert Record
+
+                cmd.CommandText = "Insert into FbFollow(UID,FollowUid, first_name, last_name, name_format, name, mobile_phone, birthday, email, gender, location, age_range, cover, devices, education, favorite_athletes, favorite_teams, hometown, install_type, installed, interested_in, is_verified, languages, link, locale, political, quotes, relationship_status, religion, sports, third_party_id, website, work) OUTPUT inserted.id " +
+                                  " values(@UID,@FollowUid, @first_name, @last_name, @name_format, @name, @mobile_phone, @birthday, @email, @gender, @location, @age_range, @cover, @devices, @education, @favorite_athletes, @favorite_teams, @hometown, @install_type, @installed, @interested_in, @is_verified, @languages, @link, @locale, @political, @quotes, @relationship_status, @religion, @sports, @third_party_id, @website, @work);";
+
+                cmd.Parameters.AddWithValue("@uid", record.uid);
+                cmd.Parameters.AddWithValue("@FollowUid", record.FriendUid);
+                cmd.Parameters.AddWithValue("@name", record.name);
+                cmd.Parameters.AddWithValue("@first_name", record.first_name);
+                cmd.Parameters.AddWithValue("@last_name", record.last_name);
+                cmd.Parameters.AddWithValue("@name_format", record.name_format);
+                cmd.Parameters.AddWithValue("@mobile_phone", record.mobile_phone);
+                cmd.Parameters.AddWithValue("@birthday", record.birthday);
+                cmd.Parameters.AddWithValue("@email", record.email);
+                cmd.Parameters.AddWithValue("@gender", record.gender);
+
+                if (record.location == null)
+                    cmd.Parameters.AddWithValue("@location", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@location", ConvertType.GetXMLFromObject(record.location));
+
+                if (record.age_range == null)
+                    cmd.Parameters.AddWithValue("@age_range", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@age_range", ConvertType.GetXMLFromObject(record.age_range));
+
+                if (record.cover == null)
+                    cmd.Parameters.AddWithValue("@cover", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@cover", ConvertType.GetXMLFromObject(record.cover));
+
+                if (record.devices == null)
+                    cmd.Parameters.AddWithValue("@devices", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@devices", ConvertType.GetXMLFromObject(record.devices));
+
+                if (record.education == null)
+                    cmd.Parameters.AddWithValue("@education", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@education", ConvertType.GetXMLFromObject(record.education));
+
+                if (record.favorite_athletes == null)
+                    cmd.Parameters.AddWithValue("@favorite_athletes", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@favorite_athletes", ConvertType.GetXMLFromObject(record.favorite_athletes));
+                if (record.favorite_teams == null)
+                    cmd.Parameters.AddWithValue("@favorite_teams", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@favorite_teams", ConvertType.GetXMLFromObject(record.favorite_teams));
+                if (record.hometown == null)
+                    cmd.Parameters.AddWithValue("@hometown", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@hometown", ConvertType.GetXMLFromObject(record.hometown));
+                cmd.Parameters.AddWithValue("@install_type", record.install_type);
+                cmd.Parameters.AddWithValue("@installed", record.installed);
+                if (record.interested_in == null)
+                    cmd.Parameters.AddWithValue("@interested_in", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@interested_in", ConvertType.GetXMLFromObject(record.interested_in));
+                cmd.Parameters.AddWithValue("@is_verified", record.is_verified);
+                if (record.languages == null)
+                    cmd.Parameters.AddWithValue("@languages", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@languages", ConvertType.GetXMLFromObject(record.languages));
+                cmd.Parameters.AddWithValue("@link", record.link);
+                cmd.Parameters.AddWithValue("@locale", record.locale);
+                cmd.Parameters.AddWithValue("@political", record.political);
+                cmd.Parameters.AddWithValue("@quotes", record.quotes);
+                cmd.Parameters.AddWithValue("@relationship_status", record.relationship_status);
+                cmd.Parameters.AddWithValue("@religion", record.religion);
+                if (record.sports == null)
+                    cmd.Parameters.AddWithValue("@sports", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@sports", ConvertType.GetXMLFromObject(record.sports));
+                cmd.Parameters.AddWithValue("@third_party_id", record.third_party_id);
+                cmd.Parameters.AddWithValue("@website", record.website);
+                if (record.work == null)
+                    cmd.Parameters.AddWithValue("@work", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@work", ConvertType.GetXMLFromObject(record.work));
+                Guid guid = (Guid)cmd.ExecuteScalar();
+
+                if (guid == null || guid == Guid.Empty)
+                    return false;
+
+                record.id = new Guid(guid.ToString());
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "AddFbFollow");
+                return false;
+            }
+            finally
+            {
+                if (cnn.State == ConnectionState.Open)
+                    cnn.Close();
+            }
+        }
+
+        public static bool UpdateFbFollow(FbFriend record)
+        {
+            SqlConnection connection = null;
+            SqlCommand cmd = null;
+
+            try
+            {
+                if (record == null)
+                    return false;
+
+                // Make connection to database
+                connection = new SqlConnection();
+                connection.ConnectionString = ConnectionString;
+                connection.FireInfoMessageEventOnUserErrors = false;
+                connection.Open();
+                // Create command to update GeneralGuessGroup record
+                cmd = new SqlCommand();
+                cmd.Connection = connection;
+                cmd.CommandText = " Update [FbFollow] Set first_name=@first_name, last_name=@last_name, name_format=@name_format, name=@name, mobile_phone=@mobile_phone, birthday=@birthday, email=@email, gender=@gender, location=@location, age_range=@age_range, cover=@cover, devices=@devices, education=@education, favorite_athletes=@favorite_athletes, favorite_teams=@favorite_teams, hometown=@hometown, install_type=@install_type, installed=@installed, interested_in=@interested_in, is_verified=@is_verified, languages=@languages, link=@link, locale=@locale, political=@political, quotes=@quotes, relationship_status=@relationship_status, religion=@religion, sports=@sports, third_party_id=@third_party_id, website=@website, work=@work"
+                                + " where uid='" + record.uid + "' and FollowUid='" + record.FriendUid + "'";
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.AddWithValue("@name", record.name);
+                cmd.Parameters.AddWithValue("@first_name", record.first_name);
+                cmd.Parameters.AddWithValue("@last_name", record.last_name);
+                cmd.Parameters.AddWithValue("@name_format", record.name_format);
+                cmd.Parameters.AddWithValue("@mobile_phone", record.mobile_phone);
+                cmd.Parameters.AddWithValue("@birthday", record.birthday);
+                cmd.Parameters.AddWithValue("@email", record.email);
+                cmd.Parameters.AddWithValue("@gender", record.gender);
+
+                if (record.location == null)
+                    cmd.Parameters.AddWithValue("@location", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@location", ConvertType.GetXMLFromObject(record.location));
+
+                if (record.age_range == null)
+                    cmd.Parameters.AddWithValue("@age_range", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@age_range", ConvertType.GetXMLFromObject(record.age_range));
+
+                if (record.cover == null)
+                    cmd.Parameters.AddWithValue("@cover", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@cover", ConvertType.GetXMLFromObject(record.cover));
+
+                if (record.devices == null)
+                    cmd.Parameters.AddWithValue("@devices", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@devices", ConvertType.GetXMLFromObject(record.devices));
+
+                if (record.education == null)
+                    cmd.Parameters.AddWithValue("@education", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@education", ConvertType.GetXMLFromObject(record.education));
+
+                if (record.favorite_athletes == null)
+                    cmd.Parameters.AddWithValue("@favorite_athletes", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@favorite_athletes", ConvertType.GetXMLFromObject(record.favorite_athletes));
+                if (record.favorite_teams == null)
+                    cmd.Parameters.AddWithValue("@favorite_teams", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@favorite_teams", ConvertType.GetXMLFromObject(record.favorite_teams));
+                if (record.hometown == null)
+                    cmd.Parameters.AddWithValue("@hometown", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@hometown", ConvertType.GetXMLFromObject(record.hometown));
+                cmd.Parameters.AddWithValue("@install_type", record.install_type);
+                cmd.Parameters.AddWithValue("@installed", record.installed);
+                if (record.interested_in == null)
+                    cmd.Parameters.AddWithValue("@interested_in", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@interested_in", ConvertType.GetXMLFromObject(record.interested_in));
+                cmd.Parameters.AddWithValue("@is_verified", record.is_verified);
+                if (record.languages == null)
+                    cmd.Parameters.AddWithValue("@languages", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@languages", ConvertType.GetXMLFromObject(record.languages));
+                cmd.Parameters.AddWithValue("@link", record.link);
+                cmd.Parameters.AddWithValue("@locale", record.locale);
+                cmd.Parameters.AddWithValue("@political", record.political);
+                cmd.Parameters.AddWithValue("@quotes", record.quotes);
+                cmd.Parameters.AddWithValue("@relationship_status", record.relationship_status);
+                cmd.Parameters.AddWithValue("@religion", record.religion);
+                if (record.sports == null)
+                    cmd.Parameters.AddWithValue("@sports", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@sports", ConvertType.GetXMLFromObject(record.sports));
+                cmd.Parameters.AddWithValue("@third_party_id", record.third_party_id);
+                cmd.Parameters.AddWithValue("@website", record.website);
+                if (record.work == null)
+                    cmd.Parameters.AddWithValue("@work", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@work", ConvertType.GetXMLFromObject(record.work));
+
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "UpdateFollowUid");
                 return false;
             }
             finally

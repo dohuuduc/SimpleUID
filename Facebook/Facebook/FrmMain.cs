@@ -49,7 +49,7 @@ namespace Facebook
                 }
                 int n = ConvertType.ToInt(tb.Rows.Count);
                 chkShowAllAccount.Text = string.Format("(All) - Danh Sách Account {0}/{1}", n, ConvertType.ToInt(tbTong.Rows[0][0]));
-                if(n!=0) BindAccount(GridAccount.Rows[0]);
+                if (n != 0) BindAccount(GridAccount.Rows[0]);
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace Facebook
             try
             {
                 txtToken.Text = row.Cells["token"].Value.ToString();
-                lblQataLimit.Text = string.Format("{0:#,#.}",ConvertType.ToInt(row.Cells["gioihan"].Value));
+                lblQataLimit.Text = string.Format("{0:#,#.}", ConvertType.ToInt(row.Cells["gioihan"].Value));
                 lblQuataDaDung.Text = string.Format("{0:#,#.}", ConvertType.ToInt(row.Cells["dagoi"].Value));
                 lblQuataConLai.Text = string.Format("{0:#,#.}", ConvertType.ToInt(row.Cells["conlai"].Value));
 
@@ -75,17 +75,23 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "BindAccount");
             }
         }
-        private void BindUID() {
+        private void BindUID()
+        {
             try
             {
-                 DataTable tb = SQLDatabase.ExcDataTable(" select id,ROW_NUMBER() OVER (ORDER BY CreateDate desc) AS stt,REPLACE(Name,'| Facebook','') as Name, UID, URD,REPLACE(URD,'www.facebook.com','...') as URD2 ,IsLoai, CASE " +
-                                                        " WHEN IsLoai = 0 THEN N'Người Dùng'"+
-                                                        " WHEN IsLoai = 1 THEN N'Trang'"+
-                                                        " WHEN IsLoai = 2 THEN N'Nhóm'"+
-                                                        "    ELSE NULL "+
-                                                        " END AS 'LoaiFb'" +
-                                                        " from NhomUID where [ParentId] in (select id from NhomUID where name = 'admin') order by CreateDate desc");
-                gridUID.DataSource = tb;
+                DataTable tb = SQLDatabase.ExcDataTable(" select id,ROW_NUMBER() OVER (ORDER BY CreateDate desc) AS stt,REPLACE(Name,'| Facebook','') as Name, UID, URD,REPLACE(URD,'www.facebook.com','...') as URD2 ,IsLoai, CASE " +
+                                                       " WHEN IsLoai = 0 THEN N'Người Dùng'" +
+                                                       " WHEN IsLoai = 1 THEN N'Trang'" +
+                                                       " WHEN IsLoai = 2 THEN N'Nhóm'" +
+                                                       "    ELSE NULL " +
+                                                       " END AS 'LoaiFb'" +
+                                                       " from NhomUID where [ParentId] in (select id from NhomUID where name = 'admin') order by CreateDate desc");
+
+                gridUID.Invoke((Action)delegate
+                {
+                    gridUID.DataSource = tb;
+                });
+
                 foreach (DataGridViewRow row in gridUID.Rows)
                 {
                     DataGridViewImageCell cell = row.Cells[0] as DataGridViewImageCell;
@@ -93,11 +99,17 @@ namespace Facebook
                     {
                         cell.Value = (System.Drawing.Image)Properties.Resources.Error;
                     }
-                    else {
+                    else
+                    {
                         cell.Value = (System.Drawing.Image)Properties.Resources.ok;
                     }
                 }
-                grDsUID.Text = string.Format("Danh Sách UID: {0}",tb.Rows.Count);
+
+                grDsUID.Invoke((Action)delegate
+                {
+                    grDsUID.Text = string.Format("Danh Sách UID: {0}", tb.Rows.Count);
+                });
+
                 _mySelectedRowUid = gridUID.SelectedRows;
             }
             catch (Exception ex)
@@ -136,11 +148,7 @@ namespace Facebook
         }
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            FrmAddUID frm = new FrmAddUID();
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                BindUID();
-            }
+            button6_Click(null, null);
         }
         private void thêmAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -180,7 +188,8 @@ namespace Facebook
         }
         private void resetTokenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_mySelectedRowAcc != null) {
+            if (_mySelectedRowAcc != null)
+            {
                 string account = _mySelectedRowAcc.Cells["account"].Value.ToString();
                 string password = _mySelectedRowAcc.Cells["password"].Value.ToString();
 
@@ -199,7 +208,7 @@ namespace Facebook
             try
             {
                 if (_mySelectedRowAcc == null) return;
-                DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá account '{0}' ?",_mySelectedRowAcc.Cells["account"].Value), "Warning",MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá account '{0}' ?", _mySelectedRowAcc.Cells["account"].Value), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     SQLDatabase.DelFbAccount(new FbAccount() { account = _mySelectedRowAcc.Cells["account"].Value.ToString() });
@@ -213,10 +222,7 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "xoáAccountToolStripMenuItem_Click");
             }
         }
-        private void gridUID_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
         private void gridUID_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             try
@@ -228,16 +234,13 @@ namespace Facebook
 
                 throw;
             }
-            
+
         }
         private void GridAccount_MouseDown(object sender, MouseEventArgs e)
         {
             _mySelectedRowAcc = GridAccount.SelectedRows[0];
         }
-        private void zToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
+
         private void resetUIDToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -248,13 +251,16 @@ namespace Facebook
                 string urd = _mySelectedRowUid[0].Cells["URD"].Value.ToString();
                 if (uid == "" && urd == "") return;
                 DialogResult result = MessageBox.Show(string.Format("Bạn có muốn reset lại UID đang chọn không?"), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes){
-                    NhomUID model = SQLDatabase.LoadNhomUID(string.Format("select * from NhomUID where id='{0}'",id)).FirstOrDefault();
-                    NhomUID mo= new NhomUID();
-                    if (uid != ""){
+                if (result == DialogResult.Yes)
+                {
+                    NhomUID model = SQLDatabase.LoadNhomUID(string.Format("select * from NhomUID where id='{0}'", id)).FirstOrDefault();
+                    NhomUID mo = new NhomUID();
+                    if (uid != "")
+                    {
                         (new Waiting(() => mo = Facebook.ConvertUidToNhom(uid))).ShowDialog();
                     }
-                    else {
+                    else
+                    {
                         (new Waiting(() => mo = Facebook.ConvertUrdToNhom(uid))).ShowDialog();
                     }
                     model.UID = mo.UID == "" ? model.UID : mo.UID;
@@ -305,7 +311,8 @@ namespace Facebook
                         {
                             model = Facebook.ConvertUrdToNhom(item["UID_URD"].ToString());
                         }
-                        else {
+                        else
+                        {
                             model = Facebook.ConvertUidToNhom(item["UID_URD"].ToString());
                         }
                         model.ParentId = NhomChaId;
@@ -329,7 +336,7 @@ namespace Facebook
                 string fileName = "MauFacebook" + DateTime.Now.ToString("dd_MM_yyyy");
                 bool temp = false;
                 new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName), "Vui Lòng Chờ").ShowDialog();
-                if(temp)
+                if (temp)
                     MessageBox.Show("Đã xuất thành công file.\n File:" + fileName, "Thông Báo");
             }
             catch (Exception ex)
@@ -360,14 +367,16 @@ namespace Facebook
         {
             try
             {
-                if (_mySelectedRowUid == null) return;
+                if (gridUID.SelectedRows.Count == 0) return;
                 DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá tất cả thông tin và Uid đang chọn không? '{0}' ?", _mySelectedRowUid[0].Cells["name1"].Value), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    SQLDatabase.ExcNonQuery(string.Format("[spDelDmGroupUIDAndInfo] '{0}'", _mySelectedRowUid[0].Cells["id"].Value));
-                    MessageBox.Show(string.Format("Xoá thành công uid '{0}'", _mySelectedRowUid[0].Cells["name1"].Value), "Thông Báo");
-                    _mySelectedRowUid = null;
-                    BindUID();
+                    new Waiting((MethodInvoker)delegate
+                    {
+                        foreach (DataGridViewRow row in gridUID.SelectedRows)
+                            SQLDatabase.ExcNonQuery(string.Format("[spDelDmGroupUIDAndInfo] '{0}'", row.Cells["id"].Value));
+                        BindUID();
+                    }, "Vui Lòng Chờ").ShowDialog();
                 }
 
             }
@@ -376,50 +385,7 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "zToolStripMenuItem_Click");
             }
         }
-        private void lọcTrùngToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                NhomUID model = SQLDatabase.LoadNhomUID("Select * from NhomUID where name='admin'").FirstOrDefault();
-                DialogResult result = MessageBox.Show(string.Format("Bạn có muốn lộc trùng!!! "), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
-                {
-                    
-                    bool temp=false;
-                    new Waiting(() => temp = SQLDatabase.ExcNonQuery(string.Format("[spLocTrungNhomUID] '{0}'", model.id)), "Vui Lòng Chờ").ShowDialog();
-                    if (temp)
-                        MessageBox.Show("Đã lộc trùng danh sách UID", "Thông Báo");
-                    BindUID();
-                }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "zToolStripMenuItem_Click");
-            }
-        }
-        private void xoáUIDLỗiToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                NhomUID model = SQLDatabase.LoadNhomUID("Select * from NhomUID where name='admin'").FirstOrDefault();
-                DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá UID đang bị lổi (Thiếu UID)!!! "), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
-                {
-
-                    bool temp = false;
-                    new Waiting(() => temp = SQLDatabase.ExcNonQuery(string.Format("[spDelDmGroupUIDErr] '{0}'", model.id)), "Vui Lòng Chờ").ShowDialog();
-                    if (temp)
-                        MessageBox.Show("Đã xoá tất cả UID bị lổi", "Thông Báo");
-                    BindUID();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "zToolStripMenuItem_Click");
-            }
-        }
         private void btnQuet_Click(object sender, EventArgs e)
         {
             ParameterizedThreadStart par;
@@ -431,8 +397,9 @@ namespace Facebook
                     MessageBox.Show("Vui lòng chọn Uid bạn cần quét: \n 1- Chính Uid \n 2- Bạn bè, thành viên \n 3- Bài viết, like, comments", "Thông báo");
                     return;
                 }
-                if (!chkMe.Checked && !chkBaiViet.Checked && !chkBanBe.Checked) {
-                    MessageBox.Show("Vui lòng chọn quét thông tin nào? \n Bạn bè, Thành viên, bài viết.", "Thông báo");
+                if (!chkMe.Checked && !chkBaiViet.Checked && !chkBanBe.Checked && !chkfollow.Checked)
+                {
+                    MessageBox.Show("Vui lòng chọn quét thông tin nào? \n Bạn bè, Thành viên, bài viết, theo dõi", "Thông báo");
                     return;
                 }
                 if (btnQuet.Text == "Start")
@@ -463,14 +430,14 @@ namespace Facebook
                 arr = new ArrayList();
                 arr.Add(lblMessage1);
                 arr.Add(lblMessage2);
-                arr.Add(lblQuataDaDung);
+                arr.Add(lblQataLimit);
                 arr.Add(txtToken);
                 arr.Add(chkMe);
                 arr.Add(chkBanBe);
                 arr.Add(chkBaiViet);
                 arr.Add(lblQuataDaDung);
                 arr.Add(lblQuataConLai);
-                
+                arr.Add(chkfollow);
 
                 theardProcess.IsBackground = true;
                 theardProcess.Start(arr);
@@ -489,13 +456,14 @@ namespace Facebook
                 ArrayList arr1 = (ArrayList)arrControl;
                 Label lblMessage1 = (Label)arr1[0];
                 Label lblMessage2 = (Label)arr1[1];
-                Label lblSluongGoi = (Label)arr1[2];
+                Label lblQataLimit = (Label)arr1[2];
                 TextBox txtToken = (TextBox)arr1[3];
                 CheckBox chkMe = (CheckBox)arr1[4];
                 CheckBox chkBanBe = (CheckBox)arr1[5];
                 CheckBox chkBaiViet = (CheckBox)arr1[6];
-                Label lblQuataDaDung =(Label)arr1[7];
+                Label lblQuataDaDung = (Label)arr1[7];
                 Label lblQuataConLai = (Label)arr1[8];
+                CheckBox chkfollow = (CheckBox)arr1[9];
 
                 List<NhomUID> listQuet = new List<NhomUID>();
 
@@ -521,7 +489,7 @@ namespace Facebook
                         /**************************Code here********************/
                         NhomUID model = listQuet.FirstOrDefault();
 
-                        lblMessage1.Text = string.Format("Đang xử lý: {0} -Id: {1}", model.Name , model.UID);
+                        lblMessage1.Text = string.Format("Đang xử lý: {0} -Id: {1}", model.Name, model.UID);
                         lblMessage1.Update();
 
                         txtFbId.Text = model.UID;
@@ -544,9 +512,10 @@ namespace Facebook
                         listQuet.Remove(model);
                     }
                 }
-               
+
                 /*===================================================================*/
                 lblMessage1.Text = TheardFacebookWriter.hasProcess ? "Hoàn thành load số liệu." : "Tạm dừng do người dùng, hoặc do hết Quata!!!";
+                lblMessage2.Text = ".....";
                 btnQuet.Text = "Start";
                 TheardFacebookWriter.hasProcess = false;
 
@@ -580,11 +549,9 @@ namespace Facebook
             }
         }
 
-        private void xuấtFileToolStripMenuItem1_Click(object sender, EventArgs e)
+
+        private string strDanhSachXuat()
         {
-            
-        }
-        private string strDanhSachXuat() {
             string strdk = "";
             foreach (DataGridViewRow row in gridUID.SelectedRows)
             {
@@ -599,7 +566,7 @@ namespace Facebook
         }
 
 
-       
+
 
 
         private void phoneEmailToolStripMenuItem_Click(object sender, EventArgs e)
@@ -615,8 +582,9 @@ namespace Facebook
                     folderpath = fbd.SelectedPath;
                 }
 
-                string filePath = folderpath =="" ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop): folderpath;
-                new Waiting((MethodInvoker)delegate {
+                string filePath = folderpath == "" ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : folderpath;
+                new Waiting((MethodInvoker)delegate
+                {
                     foreach (DataGridViewRow row in gridUID.SelectedRows)
                     {
                         DataRow myRow = (row.DataBoundItem as DataRowView).Row;
@@ -660,16 +628,17 @@ namespace Facebook
         {
             try
             {
-                if (_mySelectedRowUid == null) return;
-                DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá tất cả thông tin từ Uid đang chọn không? '{0}' ?", _mySelectedRowUid[0].Cells["name1"].Value), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (gridUID.SelectedRows.Count == 0) return;
+                DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá tất cả thông tin và Uid đang chọn không? "), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    SQLDatabase.ExcNonQuery(string.Format("[spDelInfo] '{0}'", _mySelectedRowUid[0].Cells["id"].Value));
-                    MessageBox.Show(string.Format("Xoá thành công uid '{0}'", _mySelectedRowUid[0].Cells["name1"].Value), "Thông Báo");
-                    _mySelectedRowUid = null;
-                    BindUID();
+                    new Waiting((MethodInvoker)delegate
+                    {
+                        foreach (DataGridViewRow row in gridUID.SelectedRows)
+                            SQLDatabase.ExcNonQuery(string.Format("[spDelInfo] '{0}'", row.Cells["id"].Value));
+                        BindUID();
+                    }, "Vui Lòng Chờ").ShowDialog();
                 }
-
             }
             catch (Exception ex)
             {
@@ -696,7 +665,8 @@ namespace Facebook
                 }
 
                 string filePath = folderpath == "" ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : folderpath;
-                new Waiting((MethodInvoker)delegate {
+                new Waiting((MethodInvoker)delegate
+                {
                     foreach (DataGridViewRow row in gridUID.SelectedRows)
                     {
                         DataRow myRow = (row.DataBoundItem as DataRowView).Row;
@@ -705,7 +675,7 @@ namespace Facebook
                         model.Name = myRow["name"].ToString();
 
                         DataTable table = SQLDatabase.ExcDataTable(string.Format("[spXuatFileNhanhUID] {0}", model.UID));
-                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".","")) + "_uid_name_" + DateTime.Now.ToString("dd_MM_yyyy");
+                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_uid_name_" + DateTime.Now.ToString("dd_MM_yyyy");
                         ExcelAdapter excel = new ExcelAdapter(filePath + "\\" + fileName);
                         excel.CreateAndWrite(table, "Sheet", 1);
                     }
@@ -742,7 +712,7 @@ namespace Facebook
 
                 throw;
             }
-                
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -759,21 +729,199 @@ namespace Facebook
             }
         }
 
-        
+
 
         private void button3_Click(object sender, EventArgs e)
         {
             try
             {
-                FrmSearch1 frm = new FrmSearch1();
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-                }
+                FrmSearch frm = new FrmSearch();
+                frm.ShowDialog();
+                BindUID();
             }
             catch (Exception)
             {
 
                 throw;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                NhomUID model = SQLDatabase.LoadNhomUID("Select * from NhomUID where name='admin'").FirstOrDefault();
+                DialogResult result = MessageBox.Show(string.Format("Bạn có muốn lộc trùng!!! "), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+
+                    bool temp = false;
+                    new Waiting(() => temp = SQLDatabase.ExcNonQuery(string.Format("[spLocTrungNhomUID] '{0}'", model.id)), "Vui Lòng Chờ").ShowDialog();
+                    if (temp)
+                        MessageBox.Show("Đã lộc trùng danh sách UID", "Thông Báo");
+                    BindUID();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "zToolStripMenuItem_Click");
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                NhomUID model = SQLDatabase.LoadNhomUID("Select * from NhomUID where name='admin'").FirstOrDefault();
+                DialogResult result = MessageBox.Show(string.Format("Bạn có muốn xoá UID đang bị lổi (Thiếu UID)!!! "), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+
+                    bool temp = false;
+                    new Waiting(() => temp = SQLDatabase.ExcNonQuery(string.Format("[spDelDmGroupUIDErr] '{0}'", model.id)), "Vui Lòng Chờ").ShowDialog();
+                    if (temp)
+                        MessageBox.Show("Đã xoá tất cả UID bị lổi", "Thông Báo");
+                    BindUID();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "zToolStripMenuItem_Click");
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            FrmAddUID frm = new FrmAddUID();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                BindUID();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ParameterizedThreadStart par;
+                ArrayList arr;
+                try
+                {
+                    if (_mySelectedRowUid.Count == 0)
+                    {
+                        MessageBox.Show("Vui lòng chọn Uid bạn xuất file", "Thông báo");
+                        return;
+                    }
+                    if (!chbExpFriend.Checked && !chbExpTheoDoi.Checked && !chbExpLike.Checked && !chbExpCommen.Checked)
+                    {
+                        MessageBox.Show("Vui lòng chọn xuất thông tin nào? \n Bạn bè, Thành viên, bài viết, theo dõi, like, comment", "Thông báo");
+                        return;
+                    }
+
+                    string folderpath = "";
+                    FolderBrowserDialog fbd = new FolderBrowserDialog();
+                    DialogResult dr = fbd.ShowDialog();
+
+                    if (dr == DialogResult.OK)
+                    {
+                        folderpath = fbd.SelectedPath;
+                    }
+
+                    string filePath = folderpath == "" ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : folderpath;
+
+
+                    /*Cấu hình controll*/
+                    Control.CheckForIllegalCrossThreadCalls = false;
+
+                    par = new ParameterizedThreadStart(ProcessXuatFile);
+                    theardProcess = new Thread(par);
+
+                    arr = new ArrayList();
+                    arr.Add(lblMessage1);
+                    arr.Add(lblMessage2);
+                    arr.Add(progressBar1);
+                    arr.Add(filePath);
+
+                    theardProcess.IsBackground = true;
+                    theardProcess.Start(arr);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "button2_Click");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Thông Báo");
+            }
+        }
+        private void ProcessXuatFile(object arrControl)
+        {
+            try
+            {
+                //----- Add control process from
+
+                ArrayList arr1 = (ArrayList)arrControl;
+                Label lblMessage1 = (Label)arr1[0];
+                Label lblMessage2 = (Label)arr1[1];
+                ProgressBar progressBar1 = (ProgressBar)arr1[2];
+                string filePath = (string)arr1[3];
+
+                progressBar1.Maximum = gridUID.SelectedRows.Count;
+                progressBar1.Value = 0;
+                lblMessage2.Text = "0% Hoàn thành...";
+                lblMessage2.Update();
+
+                int i = 0;
+                foreach (DataGridViewRow row in gridUID.SelectedRows)
+                {
+                    DataRow myRow = (row.DataBoundItem as DataRowView).Row;
+                    NhomUID model = new NhomUID();
+                    model.UID = myRow["UID"].ToString();
+                    model.Name = myRow["name"].ToString();
+
+                    if (chbExpFriend.Checked)
+                    {
+                        DataTable table = SQLDatabase.ExcDataTable(string.Format("[spExportFriend] {0}", model.UID));
+                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_DsFriend_" + DateTime.Now.ToString("dd_MM_yyyy");
+                        ExcelAdapter excel = new ExcelAdapter(filePath + "\\" + fileName);
+                        excel.CreateAndWrite(table, "Sheet", 1);
+                    }
+                    if (chbExpTheoDoi.Checked)
+                    {
+                        DataTable table = SQLDatabase.ExcDataTable(string.Format("[spExportFollow] {0}", model.UID));
+                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Follow_" + DateTime.Now.ToString("dd_MM_yyyy");
+                        ExcelAdapter excel = new ExcelAdapter(filePath + "\\" + fileName);
+                        excel.CreateAndWrite(table, "Sheet", 1);
+                    }
+                    if (chbExpLike.Checked)
+                    {
+                        DataTable table = SQLDatabase.ExcDataTable(string.Format("[spExportLike] {0}", model.UID));
+                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Like_" + DateTime.Now.ToString("dd_MM_yyyy");
+                        ExcelAdapter excel = new ExcelAdapter(filePath + "\\" + fileName);
+                        excel.CreateAndWrite(table, "Sheet", 1);
+                    }
+                    if (chbExpCommen.Checked)
+                    {
+                        DataTable table = SQLDatabase.ExcDataTable(string.Format("[spExportComment] {0}", model.UID));
+                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Commen_" + DateTime.Now.ToString("dd_MM_yyyy");
+                        ExcelAdapter excel = new ExcelAdapter(filePath + "\\" + fileName);
+                        excel.CreateAndWrite(table, "Sheet", 1);
+                    }
+                    i++;
+                    progressBar1.Text = Math.Round((i / (double)gridUID.SelectedRows.Count) * 100, 0) + "% Hoàn thành...";
+                    progressBar1.Update();
+                }
+                lblMessage1.Text = "Hoàn thành xuất số liệu.";
+                lblMessage2.Text = ".....";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ProcessXuatFile");
             }
         }
     }

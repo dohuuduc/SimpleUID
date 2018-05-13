@@ -230,6 +230,7 @@ namespace Web
             //this is the important bit...
             wcRapper.Headers.Add("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.4) Gecko/20060508 Firefox/1.5.0.4");
             wcRapper.Headers.Add("Accept-Language", "en-us,en;q=0.5");
+            wcRapper.Encoding = System.Text.Encoding.UTF8;
             //end of the important bit...
 
             return wcRapper.DownloadString(url);
