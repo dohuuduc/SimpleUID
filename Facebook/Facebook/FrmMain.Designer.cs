@@ -88,6 +88,9 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radText = new System.Windows.Forms.RadioButton();
+            this.radExcel = new System.Windows.Forms.RadioButton();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -144,6 +147,7 @@
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -216,7 +220,6 @@
             this.gridUID.Size = new System.Drawing.Size(405, 328);
             this.gridUID.TabIndex = 0;
             this.gridUID.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridUID_CellClick);
-            this.gridUID.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridUID_CellMouseDown);
             // 
             // Err
             // 
@@ -412,7 +415,6 @@
             this.GridAccount.TabIndex = 1;
             this.GridAccount.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridAccount_CellClick);
             this.GridAccount.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridAccount_CellDoubleClick);
-            this.GridAccount.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GridAccount_MouseDown);
             // 
             // dataGridViewImageColumn1
             // 
@@ -643,6 +645,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.groupBox2);
             this.groupBox3.Controls.Add(this.groupBox7);
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.groupBox4);
@@ -653,6 +656,39 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Xuất File";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.radText);
+            this.groupBox2.Controls.Add(this.radExcel);
+            this.groupBox2.Location = new System.Drawing.Point(252, 19);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(128, 69);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Dạng file";
+            // 
+            // radText
+            // 
+            this.radText.AutoSize = true;
+            this.radText.Location = new System.Drawing.Point(73, 29);
+            this.radText.Name = "radText";
+            this.radText.Size = new System.Drawing.Size(40, 17);
+            this.radText.TabIndex = 1;
+            this.radText.Text = "Txt";
+            this.radText.UseVisualStyleBackColor = true;
+            // 
+            // radExcel
+            // 
+            this.radExcel.AutoSize = true;
+            this.radExcel.Checked = true;
+            this.radExcel.Location = new System.Drawing.Point(16, 29);
+            this.radExcel.Name = "radExcel";
+            this.radExcel.Size = new System.Drawing.Size(51, 17);
+            this.radExcel.TabIndex = 0;
+            this.radExcel.TabStop = true;
+            this.radExcel.Text = "Excel";
+            this.radExcel.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
@@ -707,19 +743,20 @@
             this.groupBox4.Controls.Add(this.chbExpTheoDoi);
             this.groupBox4.Controls.Add(this.chbExpLike);
             this.groupBox4.Controls.Add(this.chbExpFriend);
-            this.groupBox4.Location = new System.Drawing.Point(253, 19);
+            this.groupBox4.Location = new System.Drawing.Point(387, 19);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(392, 69);
+            this.groupBox4.Size = new System.Drawing.Size(255, 69);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Đối Tượng Báo Cáo";
             // 
             // chbExpCommen
             // 
+            this.chbExpCommen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chbExpCommen.AutoSize = true;
             this.chbExpCommen.Checked = true;
             this.chbExpCommen.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbExpCommen.Location = new System.Drawing.Point(204, 42);
+            this.chbExpCommen.Location = new System.Drawing.Point(146, 42);
             this.chbExpCommen.Name = "chbExpCommen";
             this.chbExpCommen.Size = new System.Drawing.Size(114, 17);
             this.chbExpCommen.TabIndex = 6;
@@ -728,11 +765,10 @@
             // 
             // chbExpTheoDoi
             // 
-            this.chbExpTheoDoi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chbExpTheoDoi.AutoSize = true;
             this.chbExpTheoDoi.Checked = true;
             this.chbExpTheoDoi.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbExpTheoDoi.Location = new System.Drawing.Point(13, 42);
+            this.chbExpTheoDoi.Location = new System.Drawing.Point(19, 42);
             this.chbExpTheoDoi.Name = "chbExpTheoDoi";
             this.chbExpTheoDoi.Size = new System.Drawing.Size(70, 17);
             this.chbExpTheoDoi.TabIndex = 5;
@@ -741,10 +777,11 @@
             // 
             // chbExpLike
             // 
+            this.chbExpLike.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chbExpLike.AutoSize = true;
             this.chbExpLike.Checked = true;
             this.chbExpLike.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbExpLike.Location = new System.Drawing.Point(204, 19);
+            this.chbExpLike.Location = new System.Drawing.Point(146, 19);
             this.chbExpLike.Name = "chbExpLike";
             this.chbExpLike.Size = new System.Drawing.Size(90, 17);
             this.chbExpLike.TabIndex = 2;
@@ -753,11 +790,10 @@
             // 
             // chbExpFriend
             // 
-            this.chbExpFriend.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.chbExpFriend.AutoSize = true;
             this.chbExpFriend.Checked = true;
             this.chbExpFriend.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbExpFriend.Location = new System.Drawing.Point(13, 19);
+            this.chbExpFriend.Location = new System.Drawing.Point(19, 19);
             this.chbExpFriend.Name = "chbExpFriend";
             this.chbExpFriend.Size = new System.Drawing.Size(121, 17);
             this.chbExpFriend.TabIndex = 0;
@@ -777,9 +813,11 @@
             // 
             // progressBar1
             // 
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(5, 41);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(613, 21);
+            this.progressBar1.Size = new System.Drawing.Size(631, 21);
             this.progressBar1.TabIndex = 4;
             this.progressBar1.Visible = false;
             // 
@@ -993,18 +1031,18 @@
             // 
             // lblQuataConLai
             // 
+            this.lblQuataConLai.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblQuataConLai.AutoSize = true;
-            this.lblQuataConLai.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblQuataConLai.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblQuataConLai.ForeColor = System.Drawing.Color.Blue;
-            this.lblQuataConLai.Location = new System.Drawing.Point(201, 30);
+            this.lblQuataConLai.Location = new System.Drawing.Point(191, 34);
             this.lblQuataConLai.Name = "lblQuataConLai";
-            this.lblQuataConLai.Size = new System.Drawing.Size(36, 20);
+            this.lblQuataConLai.Size = new System.Drawing.Size(29, 16);
             this.lblQuataConLai.TabIndex = 8;
             this.lblQuataConLai.Text = "120";
             // 
             // Labale2
             // 
-            this.Labale2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.Labale2.AutoSize = true;
             this.Labale2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.Labale2.Location = new System.Drawing.Point(6, 33);
@@ -1017,23 +1055,22 @@
             // 
             this.lblQataLimit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblQataLimit.AutoSize = true;
-            this.lblQataLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblQataLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.lblQataLimit.ForeColor = System.Drawing.Color.Black;
-            this.lblQataLimit.Location = new System.Drawing.Point(312, 27);
+            this.lblQataLimit.Location = new System.Drawing.Point(309, 33);
             this.lblQataLimit.Name = "lblQataLimit";
-            this.lblQataLimit.Size = new System.Drawing.Size(36, 20);
+            this.lblQataLimit.Size = new System.Drawing.Size(29, 16);
             this.lblQataLimit.TabIndex = 3;
             this.lblQataLimit.Text = "120";
             // 
             // lblQuataDaDung
             // 
-            this.lblQuataDaDung.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblQuataDaDung.AutoSize = true;
-            this.lblQuataDaDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblQuataDaDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.lblQuataDaDung.ForeColor = System.Drawing.Color.DarkOliveGreen;
             this.lblQuataDaDung.Location = new System.Drawing.Point(61, 33);
             this.lblQuataDaDung.Name = "lblQuataDaDung";
-            this.lblQuataDaDung.Size = new System.Drawing.Size(39, 20);
+            this.lblQuataDaDung.Size = new System.Drawing.Size(29, 16);
             this.lblQuataDaDung.TabIndex = 6;
             this.lblQuataDaDung.Text = "120";
             // 
@@ -1042,7 +1079,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label3.Location = new System.Drawing.Point(252, 30);
+            this.label3.Location = new System.Drawing.Point(256, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 15);
             this.label3.TabIndex = 4;
@@ -1050,9 +1087,10 @@
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label4.Location = new System.Drawing.Point(145, 33);
+            this.label4.Location = new System.Drawing.Point(144, 34);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 15);
             this.label4.TabIndex = 5;
@@ -1171,6 +1209,8 @@
             this.panel3.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -1295,6 +1335,9 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.CheckBox chbExpCommen;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton radText;
+        private System.Windows.Forms.RadioButton radExcel;
     }
 }
 

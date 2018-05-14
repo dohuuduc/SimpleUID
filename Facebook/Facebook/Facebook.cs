@@ -475,6 +475,7 @@ namespace Facebook
                 httpWebRequest.Accept = "application/json, text/plain, */*";
                 httpWebRequest.Headers.Add("Accept-Language: vi-VN,vi;q=0.8,fr-FR;q=0.6,fr;q=0.4,en-US;q=0.2,en;q=0.2,ja;q=0.2,de;q=0.2");
                 httpWebRequest.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36";
+                httpWebRequest.Timeout = 30000;/*tạm bời long*/
                 WebResponse response = httpWebRequest.GetResponse();
                 StreamReader streamReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
                 string text = streamReader.ReadToEnd();

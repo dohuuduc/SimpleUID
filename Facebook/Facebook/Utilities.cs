@@ -649,7 +649,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "ListFbFriend");
+                //MessageBox.Show(ex.Message, "ListFbFriend");
                 return model;
             }
         }
@@ -1623,7 +1623,7 @@ namespace Facebook
                     //format cho toan bo sheet
                     COMExcel.Range Sheet = (COMExcel.Range)exSheet.Range[exSheet.Cells[1, 1], exSheet.Cells[rowCount + 1, colCount]];
                     Sheet.Borders.Color = System.Drawing.Color.Black.ToArgb();
-                    Sheet.WrapText = true;
+                    Sheet.WrapText = false;
 
                     // Save file
                     exBook.SaveAs(this.SFilePath, COMExcel.XlFileFormat.xlWorkbookNormal,
