@@ -238,8 +238,48 @@ namespace Web
             //string reqHTML = wcRapper.DownloadString(string.Format("https://www.facebook.com/profile.php?id={0}", uid));
         }
 
+        public static string GetHtml2(string url, ref int solanlap)
+        {
+            Stream stream = null;
+            StringBuilder output = new StringBuilder();
+            while (stream == null)
+            {
+                try
+                {
 
-        
+                    StreamReader reader;
+                    HttpWebResponse resp = null;
+                    HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create(url);
+                    resp = (HttpWebResponse)myReq.GetResponse();
+
+                    stream = resp.GetResponseStream();
+                    stream.ReadTimeout = 10000;
+                    reader = new StreamReader(resp.GetResponseStream());
+                    output.Clear();
+                    output.Append(reader.ReadToEnd());
+
+
+                }
+                catch (WebException ex)
+                {
+                    if (ex.ToString().Contains("time"))
+                    {
+                        if (solanlap <= 3)
+                        {
+                            solanlap = solanlap + 1;
+                            GetHtml2(url, ref solanlap);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    return "";
+                }
+            }
+
+            return System.Net.WebUtility.HtmlDecode(output.ToString());
+        }
+
 
         public static string GetLocation(string url, string data = null, WebHeaderCollection headerCollection = null)
         {

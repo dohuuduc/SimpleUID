@@ -31,6 +31,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkForword = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.chkBaiViet = new System.Windows.Forms.CheckBox();
             this.chkFriend = new System.Windows.Forms.CheckBox();
@@ -41,23 +42,35 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.chkForword = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numGoiLai = new System.Windows.Forms.NumericUpDown();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.gridQuocGia = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ma1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isAct = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Order = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtsysTimeSleep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsysLimitCallApi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numGoiLai)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridQuocGia)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(426, 250);
+            this.tabControl1.Size = new System.Drawing.Size(462, 271);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -67,7 +80,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(418, 224);
+            this.tabPage1.Size = new System.Drawing.Size(454, 245);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Account Facebook";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -79,16 +92,26 @@
             this.groupBox2.Controls.Add(this.chkBaiViet);
             this.groupBox2.Controls.Add(this.chkFriend);
             this.groupBox2.Controls.Add(this.chkUID);
-            this.groupBox2.Location = new System.Drawing.Point(8, 127);
+            this.groupBox2.Location = new System.Drawing.Point(8, 150);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(392, 90);
+            this.groupBox2.Size = new System.Drawing.Size(438, 90);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Clear Data";
             // 
+            // chkForword
+            // 
+            this.chkForword.AutoSize = true;
+            this.chkForword.Location = new System.Drawing.Point(283, 42);
+            this.chkForword.Name = "chkForword";
+            this.chkForword.Size = new System.Drawing.Size(70, 17);
+            this.chkForword.TabIndex = 5;
+            this.chkForword.Text = "Theo Dõi";
+            this.chkForword.UseVisualStyleBackColor = true;
+            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(297, 62);
+            this.button2.Location = new System.Drawing.Point(357, 61);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 4;
@@ -99,7 +122,7 @@
             // chkBaiViet
             // 
             this.chkBaiViet.AutoSize = true;
-            this.chkBaiViet.Location = new System.Drawing.Point(223, 19);
+            this.chkBaiViet.Location = new System.Drawing.Point(283, 19);
             this.chkBaiViet.Name = "chkBaiViet";
             this.chkBaiViet.Size = new System.Drawing.Size(149, 17);
             this.chkBaiViet.TabIndex = 2;
@@ -128,6 +151,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.numGoiLai);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtsysTimeSleep);
             this.groupBox1.Controls.Add(this.txtsysLimitCallApi);
             this.groupBox1.Controls.Add(this.label2);
@@ -135,7 +160,7 @@
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Location = new System.Drawing.Point(8, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(392, 115);
+            this.groupBox1.Size = new System.Drawing.Size(438, 138);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông Tin Facebook";
@@ -144,7 +169,7 @@
             // 
             this.txtsysTimeSleep.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtsysTimeSleep.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.txtsysTimeSleep.Location = new System.Drawing.Point(252, 47);
+            this.txtsysTimeSleep.Location = new System.Drawing.Point(312, 42);
             this.txtsysTimeSleep.Maximum = new decimal(new int[] {
             180,
             0,
@@ -164,7 +189,7 @@
             // 
             this.txtsysLimitCallApi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtsysLimitCallApi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.txtsysLimitCallApi.Location = new System.Drawing.Point(252, 20);
+            this.txtsysLimitCallApi.Location = new System.Drawing.Point(312, 15);
             this.txtsysLimitCallApi.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -190,9 +215,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(11, 51);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 13);
+            this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Thời Gian Giửa 2 Lần Gọi";
+            this.label2.Text = "Timer Out";
             // 
             // label1
             // 
@@ -205,7 +230,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(297, 75);
+            this.button1.Location = new System.Drawing.Point(357, 103);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -213,21 +238,103 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // chkForword
+            // label3
             // 
-            this.chkForword.AutoSize = true;
-            this.chkForword.Location = new System.Drawing.Point(223, 42);
-            this.chkForword.Name = "chkForword";
-            this.chkForword.Size = new System.Drawing.Size(70, 17);
-            this.chkForword.TabIndex = 5;
-            this.chkForword.Text = "Theo Dõi";
-            this.chkForword.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 80);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Gọi Lại:";
+            // 
+            // numGoiLai
+            // 
+            this.numGoiLai.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.numGoiLai.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.numGoiLai.Location = new System.Drawing.Point(312, 75);
+            this.numGoiLai.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numGoiLai.Name = "numGoiLai";
+            this.numGoiLai.Size = new System.Drawing.Size(120, 22);
+            this.numGoiLai.TabIndex = 8;
+            this.numGoiLai.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numGoiLai.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.gridQuocGia);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(454, 245);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Quốc Gia";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // gridQuocGia
+            // 
+            this.gridQuocGia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridQuocGia.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.ma1,
+            this.name,
+            this.isAct,
+            this.Order});
+            this.gridQuocGia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridQuocGia.Location = new System.Drawing.Point(3, 3);
+            this.gridQuocGia.MultiSelect = false;
+            this.gridQuocGia.Name = "gridQuocGia";
+            this.gridQuocGia.RowHeadersVisible = false;
+            this.gridQuocGia.Size = new System.Drawing.Size(448, 239);
+            this.gridQuocGia.TabIndex = 0;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.Visible = false;
+            // 
+            // ma1
+            // 
+            this.ma1.DataPropertyName = "ma";
+            this.ma1.HeaderText = "Mã";
+            this.ma1.Name = "ma1";
+            // 
+            // name
+            // 
+            this.name.DataPropertyName = "name";
+            this.name.HeaderText = "Tên Quốc Gia";
+            this.name.Name = "name";
+            this.name.Width = 200;
+            // 
+            // isAct
+            // 
+            this.isAct.DataPropertyName = "isAct";
+            this.isAct.HeaderText = "Act";
+            this.isAct.Name = "isAct";
+            this.isAct.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.isAct.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.isAct.Width = 30;
+            // 
+            // Order
+            // 
+            this.Order.DataPropertyName = "Order";
+            this.Order.HeaderText = "VTrí";
+            this.Order.Name = "Order";
+            this.Order.Width = 50;
             // 
             // FrmCauHinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 250);
+            this.ClientSize = new System.Drawing.Size(462, 271);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -243,6 +350,9 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtsysTimeSleep)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsysLimitCallApi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numGoiLai)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridQuocGia)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -263,5 +373,14 @@
         private System.Windows.Forms.NumericUpDown txtsysLimitCallApi;
         private System.Windows.Forms.NumericUpDown txtsysTimeSleep;
         private System.Windows.Forms.CheckBox chkForword;
+        private System.Windows.Forms.NumericUpDown numGoiLai;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataGridView gridQuocGia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ma1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isAct;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order;
     }
 }

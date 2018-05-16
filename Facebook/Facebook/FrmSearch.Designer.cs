@@ -62,6 +62,24 @@
             this.tabPagePage = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.gridPage = new System.Windows.Forms.DataGridView();
+            this.chkAllPage = new System.Windows.Forms.CheckBox();
+            this.tabPageUser = new System.Windows.Forms.TabPage();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.gridUser = new System.Windows.Forms.DataGridView();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.chkAllUser = new System.Windows.Forms.CheckBox();
+            this.tabPageGroup = new System.Windows.Forms.TabPage();
+            this.gridGroup = new System.Windows.Forms.DataGridView();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkUser = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.idUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.nameUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.linkUser = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.hocvan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.location = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.work = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkPage = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.idPage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.avata = new System.Windows.Forms.DataGridViewImageColumn();
@@ -74,30 +92,12 @@
             this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mission = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.website = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.chkAllPage = new System.Windows.Forms.CheckBox();
-            this.tabPageUser = new System.Windows.Forms.TabPage();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.gridUser = new System.Windows.Forms.DataGridView();
-            this.checkUser = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.idUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.nameUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.linkUser = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.hocvan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.location = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.work = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.chkAllUser = new System.Windows.Forms.CheckBox();
-            this.tabPageGroup = new System.Windows.Forms.TabPage();
-            this.gridGroup = new System.Windows.Forms.DataGridView();
             this.checkNhom = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.idGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.nameGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewLinkColumn2 = new System.Windows.Forms.DataGridViewLinkColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LimitTopSearch)).BeginInit();
             this.panel2.SuspendLayout();
@@ -193,11 +193,11 @@
             // lblQuataConLai
             // 
             this.lblQuataConLai.AutoSize = true;
-            this.lblQuataConLai.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblQuataConLai.ForeColor = System.Drawing.Color.Blue;
-            this.lblQuataConLai.Location = new System.Drawing.Point(237, 44);
+            this.lblQuataConLai.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblQuataConLai.ForeColor = System.Drawing.Color.Red;
+            this.lblQuataConLai.Location = new System.Drawing.Point(256, 44);
             this.lblQuataConLai.Name = "lblQuataConLai";
-            this.lblQuataConLai.Size = new System.Drawing.Size(36, 20);
+            this.lblQuataConLai.Size = new System.Drawing.Size(29, 16);
             this.lblQuataConLai.TabIndex = 14;
             this.lblQuataConLai.Text = "120";
             // 
@@ -207,19 +207,19 @@
             this.Labale2.AutoSize = true;
             this.Labale2.Location = new System.Drawing.Point(72, 46);
             this.Labale2.Name = "Labale2";
-            this.Labale2.Size = new System.Drawing.Size(52, 13);
+            this.Labale2.Size = new System.Drawing.Size(69, 13);
             this.Labale2.TabIndex = 13;
-            this.Labale2.Text = "Sử Dụng:";
+            this.Labale2.Text = "Đã Sử Dụng:";
             // 
             // lblQataLimit
             // 
             this.lblQataLimit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblQataLimit.AutoSize = true;
-            this.lblQataLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblQataLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblQataLimit.ForeColor = System.Drawing.Color.Black;
-            this.lblQataLimit.Location = new System.Drawing.Point(388, 43);
+            this.lblQataLimit.Location = new System.Drawing.Point(387, 44);
             this.lblQataLimit.Name = "lblQataLimit";
-            this.lblQataLimit.Size = new System.Drawing.Size(36, 20);
+            this.lblQataLimit.Size = new System.Drawing.Size(29, 16);
             this.lblQataLimit.TabIndex = 9;
             this.lblQataLimit.Text = "120";
             // 
@@ -227,11 +227,11 @@
             // 
             this.lblQuataDaDung.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblQuataDaDung.AutoSize = true;
-            this.lblQuataDaDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblQuataDaDung.ForeColor = System.Drawing.Color.DarkOliveGreen;
-            this.lblQuataDaDung.Location = new System.Drawing.Point(123, 43);
+            this.lblQuataDaDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblQuataDaDung.ForeColor = System.Drawing.Color.Blue;
+            this.lblQuataDaDung.Location = new System.Drawing.Point(136, 45);
             this.lblQuataDaDung.Name = "lblQuataDaDung";
-            this.lblQuataDaDung.Size = new System.Drawing.Size(36, 20);
+            this.lblQuataDaDung.Size = new System.Drawing.Size(29, 16);
             this.lblQuataDaDung.TabIndex = 12;
             this.lblQuataDaDung.Text = "120";
             // 
@@ -241,14 +241,14 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(330, 46);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
+            this.label3.Size = new System.Drawing.Size(51, 13);
             this.label3.TabIndex = 10;
-            this.label3.Text = "Top Max:";
+            this.label3.Text = "Giới Hạn:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(185, 48);
+            this.label4.Location = new System.Drawing.Point(213, 46);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 11;
@@ -278,11 +278,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 19);
+            this.label1.Location = new System.Drawing.Point(4, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 13);
+            this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Tìm Kiếm";
+            this.label1.Text = "Tìm Kiếm FB";
             // 
             // panel2
             // 
@@ -295,8 +295,8 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPagePage);
             this.tabControl1.Controls.Add(this.tabPageUser);
+            this.tabControl1.Controls.Add(this.tabPagePage);
             this.tabControl1.Controls.Add(this.tabPageGroup);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -314,7 +314,7 @@
             this.tabPagePage.Padding = new System.Windows.Forms.Padding(3);
             this.tabPagePage.Size = new System.Drawing.Size(1218, 581);
             this.tabPagePage.TabIndex = 0;
-            this.tabPagePage.Text = "Trang";
+            this.tabPagePage.Text = "Fanpage";
             this.tabPagePage.UseVisualStyleBackColor = true;
             // 
             // panel3
@@ -354,109 +354,6 @@
             this.gridPage.Size = new System.Drawing.Size(1212, 558);
             this.gridPage.TabIndex = 0;
             // 
-            // checkPage
-            // 
-            this.checkPage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.checkPage.DataPropertyName = "check";
-            this.checkPage.Frozen = true;
-            this.checkPage.HeaderText = "#";
-            this.checkPage.Name = "checkPage";
-            this.checkPage.Width = 31;
-            // 
-            // idPage
-            // 
-            this.idPage.DataPropertyName = "idPage";
-            this.idPage.HeaderText = "id";
-            this.idPage.Name = "idPage";
-            this.idPage.Visible = false;
-            // 
-            // avata
-            // 
-            this.avata.DataPropertyName = "avata";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle1.NullValue")));
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(2);
-            this.avata.DefaultCellStyle = dataGridViewCellStyle1;
-            this.avata.FillWeight = 50F;
-            this.avata.HeaderText = "Avata";
-            this.avata.Image = ((System.Drawing.Image)(resources.GetObject("avata.Image")));
-            this.avata.MinimumWidth = 200;
-            this.avata.Name = "avata";
-            this.avata.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.avata.Width = 250;
-            // 
-            // namePage
-            // 
-            this.namePage.DataPropertyName = "name";
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.namePage.DefaultCellStyle = dataGridViewCellStyle2;
-            this.namePage.HeaderText = "Tên Trang";
-            this.namePage.Name = "namePage";
-            this.namePage.Width = 150;
-            // 
-            // linkPage
-            // 
-            this.linkPage.DataPropertyName = "link";
-            this.linkPage.HeaderText = "Link Fb";
-            this.linkPage.Name = "linkPage";
-            this.linkPage.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.linkPage.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.linkPage.Width = 250;
-            // 
-            // street
-            // 
-            this.street.DataPropertyName = "street";
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.street.DefaultCellStyle = dataGridViewCellStyle3;
-            this.street.HeaderText = "Địa Chỉ";
-            this.street.Name = "street";
-            this.street.Width = 200;
-            // 
-            // about
-            // 
-            this.about.DataPropertyName = "about";
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.about.DefaultCellStyle = dataGridViewCellStyle4;
-            this.about.HeaderText = "Giới Thiệu";
-            this.about.Name = "about";
-            this.about.Width = 200;
-            // 
-            // city
-            // 
-            this.city.DataPropertyName = "city";
-            this.city.HeaderText = "Thành Phố";
-            this.city.Name = "city";
-            // 
-            // country
-            // 
-            this.country.DataPropertyName = "country";
-            this.country.HeaderText = "Quốc Gia";
-            this.country.Name = "country";
-            // 
-            // description
-            // 
-            this.description.DataPropertyName = "description";
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.description.DefaultCellStyle = dataGridViewCellStyle5;
-            this.description.HeaderText = "Miêu Tả ";
-            this.description.Name = "description";
-            this.description.Width = 150;
-            // 
-            // mission
-            // 
-            this.mission.DataPropertyName = "mission";
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mission.DefaultCellStyle = dataGridViewCellStyle6;
-            this.mission.HeaderText = "Khẩu Hiệu";
-            this.mission.Name = "mission";
-            // 
-            // website
-            // 
-            this.website.DataPropertyName = "website";
-            this.website.HeaderText = "website";
-            this.website.Name = "website";
-            this.website.Width = 200;
-            // 
             // chkAllPage
             // 
             this.chkAllPage.AutoSize = true;
@@ -478,7 +375,7 @@
             this.tabPageUser.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageUser.Size = new System.Drawing.Size(1218, 581);
             this.tabPageUser.TabIndex = 1;
-            this.tabPageUser.Text = "Mọi Người";
+            this.tabPageUser.Text = "User";
             this.tabPageUser.UseVisualStyleBackColor = true;
             // 
             // panel5
@@ -514,83 +411,6 @@
             this.gridUser.Size = new System.Drawing.Size(1212, 559);
             this.gridUser.TabIndex = 2;
             // 
-            // checkUser
-            // 
-            this.checkUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.checkUser.DataPropertyName = "check";
-            this.checkUser.Frozen = true;
-            this.checkUser.HeaderText = "#";
-            this.checkUser.Name = "checkUser";
-            this.checkUser.Width = 31;
-            // 
-            // idUser
-            // 
-            this.idUser.DataPropertyName = "id";
-            this.idUser.HeaderText = "id";
-            this.idUser.Name = "idUser";
-            this.idUser.Visible = false;
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewImageColumn1.DataPropertyName = "avata";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle7.NullValue")));
-            dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(2);
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridViewImageColumn1.FillWeight = 10F;
-            this.dataGridViewImageColumn1.HeaderText = "Avata";
-            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
-            this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.dataGridViewImageColumn1.MinimumWidth = 100;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // nameUser
-            // 
-            this.nameUser.DataPropertyName = "name";
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.nameUser.DefaultCellStyle = dataGridViewCellStyle8;
-            this.nameUser.HeaderText = "Tên Người";
-            this.nameUser.Name = "nameUser";
-            this.nameUser.Width = 200;
-            // 
-            // linkUser
-            // 
-            this.linkUser.DataPropertyName = "link";
-            this.linkUser.HeaderText = "Link Fb";
-            this.linkUser.Name = "linkUser";
-            this.linkUser.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.linkUser.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.linkUser.Width = 250;
-            // 
-            // hocvan
-            // 
-            this.hocvan.DataPropertyName = "hocvan";
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.hocvan.DefaultCellStyle = dataGridViewCellStyle9;
-            this.hocvan.HeaderText = "Học Vấn";
-            this.hocvan.Name = "hocvan";
-            this.hocvan.Width = 200;
-            // 
-            // location
-            // 
-            this.location.DataPropertyName = "location";
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.location.DefaultCellStyle = dataGridViewCellStyle10;
-            this.location.HeaderText = "Quên Quán";
-            this.location.Name = "location";
-            this.location.Width = 200;
-            // 
-            // work
-            // 
-            this.work.DataPropertyName = "work";
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.work.DefaultCellStyle = dataGridViewCellStyle11;
-            this.work.HeaderText = "Công Việc";
-            this.work.Name = "work";
-            this.work.Width = 150;
-            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.chkAllUser);
@@ -620,7 +440,7 @@
             this.tabPageGroup.Name = "tabPageGroup";
             this.tabPageGroup.Size = new System.Drawing.Size(1218, 581);
             this.tabPageGroup.TabIndex = 2;
-            this.tabPageGroup.Text = "Nhóm";
+            this.tabPageGroup.Text = "Group";
             this.tabPageGroup.UseVisualStyleBackColor = true;
             // 
             // gridGroup
@@ -644,6 +464,207 @@
             this.gridGroup.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridGroup.Size = new System.Drawing.Size(1218, 558);
             this.gridGroup.TabIndex = 3;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.checkBox1);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(1218, 23);
+            this.panel6.TabIndex = 0;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox1.Location = new System.Drawing.Point(0, 0);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(1218, 23);
+            this.checkBox1.TabIndex = 4;
+            this.checkBox1.Text = "Chọn All";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // checkUser
+            // 
+            this.checkUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.checkUser.DataPropertyName = "check";
+            this.checkUser.Frozen = true;
+            this.checkUser.HeaderText = "#";
+            this.checkUser.Name = "checkUser";
+            this.checkUser.Width = 31;
+            // 
+            // idUser
+            // 
+            this.idUser.DataPropertyName = "id";
+            this.idUser.HeaderText = "id";
+            this.idUser.Name = "idUser";
+            this.idUser.Visible = false;
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewImageColumn1.DataPropertyName = "avata";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle1.NullValue")));
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(2);
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewImageColumn1.FillWeight = 10F;
+            this.dataGridViewImageColumn1.HeaderText = "Hình Ảnh";
+            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
+            this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dataGridViewImageColumn1.MinimumWidth = 100;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // nameUser
+            // 
+            this.nameUser.DataPropertyName = "name";
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.nameUser.DefaultCellStyle = dataGridViewCellStyle2;
+            this.nameUser.HeaderText = "Tên Facebook";
+            this.nameUser.Name = "nameUser";
+            this.nameUser.Width = 200;
+            // 
+            // linkUser
+            // 
+            this.linkUser.DataPropertyName = "link";
+            this.linkUser.HeaderText = "Link FB";
+            this.linkUser.Name = "linkUser";
+            this.linkUser.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.linkUser.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.linkUser.Width = 250;
+            // 
+            // hocvan
+            // 
+            this.hocvan.DataPropertyName = "hocvan";
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.hocvan.DefaultCellStyle = dataGridViewCellStyle3;
+            this.hocvan.HeaderText = "Học Vấn";
+            this.hocvan.Name = "hocvan";
+            this.hocvan.Width = 200;
+            // 
+            // location
+            // 
+            this.location.DataPropertyName = "location";
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.location.DefaultCellStyle = dataGridViewCellStyle4;
+            this.location.HeaderText = "Quê Quán";
+            this.location.Name = "location";
+            this.location.Width = 200;
+            // 
+            // work
+            // 
+            this.work.DataPropertyName = "work";
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.work.DefaultCellStyle = dataGridViewCellStyle5;
+            this.work.HeaderText = "Công Việc";
+            this.work.Name = "work";
+            this.work.Width = 150;
+            // 
+            // checkPage
+            // 
+            this.checkPage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.checkPage.DataPropertyName = "check";
+            this.checkPage.Frozen = true;
+            this.checkPage.HeaderText = "#";
+            this.checkPage.Name = "checkPage";
+            this.checkPage.Width = 31;
+            // 
+            // idPage
+            // 
+            this.idPage.DataPropertyName = "idPage";
+            this.idPage.HeaderText = "id";
+            this.idPage.Name = "idPage";
+            this.idPage.Visible = false;
+            // 
+            // avata
+            // 
+            this.avata.DataPropertyName = "avata";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle6.NullValue")));
+            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(2);
+            this.avata.DefaultCellStyle = dataGridViewCellStyle6;
+            this.avata.FillWeight = 50F;
+            this.avata.HeaderText = "Hình Ảnh";
+            this.avata.Image = ((System.Drawing.Image)(resources.GetObject("avata.Image")));
+            this.avata.MinimumWidth = 200;
+            this.avata.Name = "avata";
+            this.avata.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.avata.Width = 250;
+            // 
+            // namePage
+            // 
+            this.namePage.DataPropertyName = "name";
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.namePage.DefaultCellStyle = dataGridViewCellStyle7;
+            this.namePage.HeaderText = "Tên Facebook";
+            this.namePage.Name = "namePage";
+            this.namePage.Width = 150;
+            // 
+            // linkPage
+            // 
+            this.linkPage.DataPropertyName = "link";
+            this.linkPage.HeaderText = "Link FB";
+            this.linkPage.Name = "linkPage";
+            this.linkPage.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.linkPage.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.linkPage.Width = 250;
+            // 
+            // street
+            // 
+            this.street.DataPropertyName = "street";
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.street.DefaultCellStyle = dataGridViewCellStyle8;
+            this.street.HeaderText = "Địa Chỉ";
+            this.street.Name = "street";
+            this.street.Width = 200;
+            // 
+            // about
+            // 
+            this.about.DataPropertyName = "about";
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.about.DefaultCellStyle = dataGridViewCellStyle9;
+            this.about.HeaderText = "Giới Thiệu";
+            this.about.Name = "about";
+            this.about.Width = 200;
+            // 
+            // city
+            // 
+            this.city.DataPropertyName = "city";
+            this.city.HeaderText = "Tỉnh";
+            this.city.Name = "city";
+            // 
+            // country
+            // 
+            this.country.DataPropertyName = "country";
+            this.country.HeaderText = "Quốc Gia";
+            this.country.Name = "country";
+            // 
+            // description
+            // 
+            this.description.DataPropertyName = "description";
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.description.DefaultCellStyle = dataGridViewCellStyle10;
+            this.description.HeaderText = "Miêu Tả ";
+            this.description.Name = "description";
+            this.description.Width = 150;
+            // 
+            // mission
+            // 
+            this.mission.DataPropertyName = "mission";
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mission.DefaultCellStyle = dataGridViewCellStyle11;
+            this.mission.HeaderText = "Khẩu Hiệu";
+            this.mission.Name = "mission";
+            // 
+            // website
+            // 
+            this.website.DataPropertyName = "website";
+            this.website.HeaderText = "Website";
+            this.website.Name = "website";
+            this.website.Width = 200;
             // 
             // checkNhom
             // 
@@ -670,7 +691,7 @@
             dataGridViewCellStyle12.Padding = new System.Windows.Forms.Padding(2);
             this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewImageColumn2.FillWeight = 10F;
-            this.dataGridViewImageColumn2.HeaderText = "Avata";
+            this.dataGridViewImageColumn2.HeaderText = "Hình Ảnh";
             this.dataGridViewImageColumn2.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn2.Image")));
             this.dataGridViewImageColumn2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
             this.dataGridViewImageColumn2.MinimumWidth = 100;
@@ -682,14 +703,14 @@
             this.nameGroup.DataPropertyName = "name";
             dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.nameGroup.DefaultCellStyle = dataGridViewCellStyle13;
-            this.nameGroup.HeaderText = "Tên Người";
+            this.nameGroup.HeaderText = "Tên Facebook";
             this.nameGroup.Name = "nameGroup";
             this.nameGroup.Width = 250;
             // 
             // dataGridViewLinkColumn2
             // 
             this.dataGridViewLinkColumn2.DataPropertyName = "link";
-            this.dataGridViewLinkColumn2.HeaderText = "Link Fb";
+            this.dataGridViewLinkColumn2.HeaderText = "Link FB";
             this.dataGridViewLinkColumn2.Name = "dataGridViewLinkColumn2";
             this.dataGridViewLinkColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewLinkColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -700,30 +721,9 @@
             this.dataGridViewTextBoxColumn5.DataPropertyName = "description";
             dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle14;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Miêu Tả";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Giới Thiệu";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.Width = 450;
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.checkBox1);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel6.Location = new System.Drawing.Point(0, 0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1218, 23);
-            this.panel6.TabIndex = 0;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox1.Location = new System.Drawing.Point(0, 0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(1218, 23);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "Chọn All";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // FrmSearch
             // 
@@ -797,12 +797,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn hocvan;
         private System.Windows.Forms.DataGridViewTextBoxColumn location;
         private System.Windows.Forms.DataGridViewTextBoxColumn work;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn checkNhom;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idGroup;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameGroup;
-        private System.Windows.Forms.DataGridViewLinkColumn dataGridViewLinkColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn checkPage;
         private System.Windows.Forms.DataGridViewTextBoxColumn idPage;
         private System.Windows.Forms.DataGridViewImageColumn avata;
@@ -815,5 +809,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn description;
         private System.Windows.Forms.DataGridViewTextBoxColumn mission;
         private System.Windows.Forms.DataGridViewLinkColumn website;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn checkNhom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idGroup;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameGroup;
+        private System.Windows.Forms.DataGridViewLinkColumn dataGridViewLinkColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
     }
 }

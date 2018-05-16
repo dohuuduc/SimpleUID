@@ -120,8 +120,7 @@ namespace Facebook
         }
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            //SQLDatabase.ExcNonQuery("select* from FbLog where CONVERT(date, GETDATE()) > CONVERT(date, create_date)");
-
+            SQLDatabase.ExcNonQuery("select* from FbLog where CONVERT(date, GETDATE()) > CONVERT(date, create_date)");
             _cauHinh = SQLDatabase.LoadCauHinh("select * from cauhinh");
             BindAccount();
             BindUID();

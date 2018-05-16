@@ -628,7 +628,9 @@ namespace Facebook
                         TheardFacebookWriter.hasProcess = false;
                         return model;
                     };
-                    string json = Facebook.GetHtmlFB(requestUriString, token);
+                    //string json = Facebook.GetHtmlFB(requestUriString, token);
+                    int lap = 0;
+                    string json = Web.WebToolkit.GetHtml2(requestUriString,ref lap);
                     if (json != "")
                     {
                         ListFbFriend resultsFbFeed = JsonConvert.DeserializeObject<ListFbFriend>(json);
