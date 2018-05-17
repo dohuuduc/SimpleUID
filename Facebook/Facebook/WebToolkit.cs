@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Facebook;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,9 @@ using System.IO;
 using System.Net;
 using System.Net.Mime;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Web
 {
@@ -238,10 +241,13 @@ namespace Web
             //string reqHTML = wcRapper.DownloadString(string.Format("https://www.facebook.com/profile.php?id={0}", uid));
         }
 
-        public static string GetHtml2(string url, ref int solanlap)
+        public static string GetHtml(string url, ref int solanlap, System.Windows.Forms.Label lblMessage2, string token)
         {
             Stream stream = null;
             StringBuilder output = new StringBuilder();
+
+            CauHinh cauHinh = SQLDatabase.LoadCauHinh("select * from cauhinh");
+
             while (stream == null)
             {
                 try
@@ -253,21 +259,26 @@ namespace Web
                     resp = (HttpWebResponse)myReq.GetResponse();
 
                     stream = resp.GetResponseStream();
-                    stream.ReadTimeout = 10000;
+                    stream.ReadTimeout = cauHinh.TimerOut;
                     reader = new StreamReader(resp.GetResponseStream());
                     output.Clear();
                     output.Append(reader.ReadToEnd());
 
+                    
+                    lblMessage2.Text = string.Format("{0}-Load:{1}",solanlap >1 ? string.Format("Quét Lần:{0}",solanlap):"",url.Replace("https://graph.facebook.com", "..."));
+                    lblMessage2.Update();
+
+                    Log(url, token);
 
                 }
                 catch (WebException ex)
                 {
                     if (ex.ToString().Contains("time"))
                     {
-                        if (solanlap <= 3)
+                        if (solanlap <= cauHinh.GoiLai)
                         {
                             solanlap = solanlap + 1;
-                            GetHtml2(url, ref solanlap);
+                            GetHtml(url, ref solanlap,  lblMessage2, token);
                         }
                     }
                 }
@@ -279,7 +290,18 @@ namespace Web
 
             return System.Net.WebUtility.HtmlDecode(output.ToString());
         }
-
+        public static void Log(string url, string token)
+        {
+            try
+            {
+                Facebook.FbAccount model = SQLDatabase.LoadFbAccount(string.Format("select * from FbAccount where token='{0}'", token))[0];
+                SQLDatabase.AddFbLog(new FbLog() { account = model.account, command = url });
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Log");
+            }
+        }
 
         public static string GetLocation(string url, string data = null, WebHeaderCollection headerCollection = null)
         {

@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Web;
 using COMExcel = Microsoft.Office.Interop.Excel;
 
 namespace Facebook
@@ -285,6 +286,7 @@ namespace Facebook
     public static class TheardFacebookWriter
     {
         public static bool hasProcess = true; /*khai bao bien stop*/
+        public static int _gioihangoilai = 0;
 
         private static LogWriter writer;
 
@@ -324,7 +326,8 @@ namespace Facebook
                                                         Facebook.SelectMyGUIOfUser()
                         , strToken);
 
-                    string json = Facebook.GetHtmlFB(requestUriString, strToken);
+                    int solanlap = 0;
+                    string json = WebToolkit.GetHtml(requestUriString,ref solanlap, (Label)((ArrayList)arrControl)[1], strToken);
                     if (model.IsLoai == 0)
                     {
                         FbUID resultsFbUID = JsonConvert.DeserializeObject<FbUID>(json);
@@ -487,7 +490,7 @@ namespace Facebook
                             lblMessage2.Update();
 
                             string requestUriLike = string.Format(@"https://graph.facebook.com/{0}/likes?limit=200&access_token={1}", mFeed.feedid, strToken);
-                            Dictionary<string, FbLike> resultsLikechitiets = GetLike(requestUriLike, arrControl, strToken);
+                            Dictionary<string, FbLike> resultsLikechitiets = GetLike(requestUriLike, arrControl);
                             foreach (KeyValuePair<string, FbLike> itemLike in resultsLikechitiets)
                             {
                                 itemLike.Value.uid = model.UID;
@@ -506,17 +509,11 @@ namespace Facebook
                         #endregion
 
                         #region Comment
-                        strToken = Facebook.Token(arrControl);
-                        if (strToken == "")
-                        {
-                            TheardFacebookWriter.hasProcess = false;
-                            return;
-                        };
                         lblMessage2.Text = string.Format("Đang load số liệu comments của: '{0}' với bài viết: {1}", model.Name, mFeed.name);
                         lblMessage2.Update();
 
                         string requestComment = string.Format(@"https://graph.facebook.com/{0}/comments?limit=500&fields={1}&access_token={2}", mFeed.feedid, Facebook.Selectcomments(), strToken);
-                        ListFbComments modeComment = GetFbCommend(requestComment,arrControl, strToken);
+                        ListFbComments modeComment = GetFbCommend(requestComment,arrControl);
                         foreach (FbComments itemComment in modeComment.fbComments)
                         {
                             itemComment.uid = mFeed.uid;
@@ -555,7 +552,7 @@ namespace Facebook
         }
 
 
-        public static Dictionary<string, FbLike> GetLike(string requestUriString, object arrControl, string token)
+        public static Dictionary<string, FbLike> GetLike(string requestUriString, object arrControl)
         {
             Dictionary<string, FbLike> resul = new Dictionary<string, FbLike>();
             Likes model = new Likes();
@@ -563,16 +560,18 @@ namespace Facebook
             bool flag = true;
             try
             {
+                string Strtoken = "";
+                int solangoilai = 0;
                 while (flag)
                 {
-                    token = Facebook.Token(arrControl);
-                    if (token == ""){
+                    Strtoken = Facebook.Token(arrControl);
+                    if (Strtoken == ""){
                         TheardFacebookWriter.hasProcess = false;
                         return resul;
                     };
-                    string json = Facebook.GetHtmlFB(requestUriString, token);
-                    if (json != "")
-                    {
+                    solangoilai = 0;
+                    string json = WebToolkit.GetHtml(requestUriString,ref solangoilai,(Label)((ArrayList)arrControl)[1],  Strtoken);
+                    if (json != ""){
                         Likes resultsComment = JsonConvert.DeserializeObject<Likes>(json);
                         if (resultsComment.like.Count == 0) break;
                         Pagings paging = JsonConvert.DeserializeObject<Pagings>(json);
@@ -583,15 +582,16 @@ namespace Facebook
                             dsUIDLike += item1.id + ",";
                         }
                         dsUIDLike = dsUIDLike.Substring(0, dsUIDLike.Length - 1);
-                        string strToken = Facebook.Token(arrControl);
-                        if (strToken == "")
+                        Strtoken = Facebook.Token(arrControl);
+                        if (Strtoken == "")
                         {
                             TheardFacebookWriter.hasProcess = false;
                             return resul;
                         };
 
-                        string strdsLike = string.Format(@"https://graph.facebook.com/?ids={0}&access_token={1}", dsUIDLike, strToken);
-                        string jsonLikechitiet = Facebook.GetHtmlFB(strdsLike, token);
+                        string strdsLike = string.Format(@"https://graph.facebook.com/?ids={0}&access_token={1}", dsUIDLike, Strtoken);
+                        solangoilai = 0;
+                        string jsonLikechitiet = WebToolkit.GetHtml(strdsLike, ref solangoilai, (Label)((ArrayList)arrControl)[1], Strtoken);
                         Dictionary<string, FbLike> resultsLikechitiets = JsonConvert.DeserializeObject<Dictionary<string, FbLike>>(jsonLikechitiet);
                         foreach (var newAnimal in resultsLikechitiets)
                             resul.Add(newAnimal.Key, newAnimal.Value);
@@ -628,9 +628,8 @@ namespace Facebook
                         TheardFacebookWriter.hasProcess = false;
                         return model;
                     };
-                    //string json = Facebook.GetHtmlFB(requestUriString, token);
                     int lap = 0;
-                    string json = Web.WebToolkit.GetHtml2(requestUriString,ref lap);
+                    string json = Web.WebToolkit.GetHtml(requestUriString,ref lap, (Label)((ArrayList)arrControl)[1], token);
                     if (json != "")
                     {
                         ListFbFriend resultsFbFeed = JsonConvert.DeserializeObject<ListFbFriend>(json);
@@ -672,7 +671,9 @@ namespace Facebook
                         TheardFacebookWriter.hasProcess = false;
                         return model;
                     };
-                    string json = Facebook.GetHtmlFB(requestUriString, token);
+                    //string json = Facebook.GetHtmlFB(requestUriString, token, gioihangoilai);
+                    int solangoilai = 0;
+                    string json = WebToolkit.GetHtml(requestUriString, ref solangoilai, (Label)((ArrayList)arrControl)[1],  token);
 
                     if (json != "")
                     {
@@ -716,7 +717,8 @@ namespace Facebook
                         TheardFacebookWriter.hasProcess = false;
                         return model;
                     };
-                    string json = Facebook.GetHtmlFB(requestUriString, token);
+                    int solangoilai = 0;
+                    string json = WebToolkit.GetHtml(requestUriString, ref solangoilai, (Label)((ArrayList)arrControl)[1], token);
 
                     if (json != "")
                     {
@@ -760,7 +762,8 @@ namespace Facebook
                         TheardFacebookWriter.hasProcess = false;
                         return model;
                     };
-                    string json = Facebook.GetHtmlFB(requestUriString, token);
+                    int solangoilai = 0;
+                    string json = WebToolkit.GetHtml(requestUriString, ref solangoilai, (Label)((ArrayList)arrControl)[1], token);
 
                     if (json != "")
                     {
@@ -803,7 +806,8 @@ namespace Facebook
                         TheardFacebookWriter.hasProcess = false;
                         return model;
                     };
-                    string json = Facebook.GetHtmlFB(requestUriString,token);
+                    int solanlaplai = 0;
+                    string json = WebToolkit.GetHtml(requestUriString,ref solanlaplai, (Label)((ArrayList)arrControl)[1],token);
                     if (json != "")
                     {
                         ListFbFeed resultsFbFeed = JsonConvert.DeserializeObject<ListFbFeed>(json);
@@ -829,13 +833,14 @@ namespace Facebook
             }
         }
 
-        public static ListFbComments GetFbCommend(string requestUriString, object arrControl, string token)
+        public static ListFbComments GetFbCommend(string requestUriString, object arrControl)
         {
             ListFbComments model = new ListFbComments();
             model.fbComments = new List<FbComments>();
             bool flag = true;
             try
             {
+                string token = "";
                 while (flag)
                 {
                     token = Facebook.Token(arrControl);
@@ -843,7 +848,8 @@ namespace Facebook
                         TheardFacebookWriter.hasProcess = false;
                         return model;
                     };
-                    string jsonComment = Facebook.GetHtmlFB(requestUriString,token);
+                    int solanlaplai = 0;
+                    string jsonComment = WebToolkit.GetHtml(requestUriString,ref solanlaplai,(Label)((ArrayList)arrControl)[1],  token);
                     if (jsonComment != "")
                     {
                         ListFbComments resultsComment = JsonConvert.DeserializeObject<ListFbComments>(jsonComment);

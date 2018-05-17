@@ -19,6 +19,8 @@ namespace Facebook
         }
 
         private ArrayList _arrController;
+        private int _gioihangoilai = 0;
+        private int _gioihantimkiemfb = 0;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -41,10 +43,10 @@ namespace Facebook
 
                 switch (tabControl1.SelectedIndex)
                 {
-                    case 0: /*Page*/
+                    case 1: /*Page*/
                         requestUriString = string.Format(@"https://graph.facebook.com/search?q={0}&type={1}&limit={2}&fields={3}&access_token={4}", strNoidungtimkiem,"page", LimitTopSearch.Value, Facebook.SelectPage(), strToken);
                         new Waiting((MethodInvoker)delegate {
-                            ListFbPageSearch model= TheardFacebookWriter.FbSearchByPage(requestUriString, _arrController, strToken, 1);
+                            ListFbPageSearch model= TheardFacebookWriter.FbSearchByPage(requestUriString, _arrController, strToken, _gioihantimkiemfb);
                             if (model.FbPageSearch.Count() != 0) {
                                 BindgridPage(model);
                                 return;
@@ -52,10 +54,10 @@ namespace Facebook
                         }, "Vui Lòng Chờ...").ShowDialog();
 
                         break;
-                    case 1:
+                    case 0:
                         requestUriString = string.Format(@"https://graph.facebook.com/search?q={0}&type={1}&limit={2}&fields={3}&access_token={4}", strNoidungtimkiem, "user", LimitTopSearch.Value, Facebook.SelectUser(), strToken);
                         new Waiting((MethodInvoker)delegate {
-                            ListFbUserSearch model = TheardFacebookWriter.FbSearchByUser(requestUriString, _arrController, strToken, 1);
+                            ListFbUserSearch model = TheardFacebookWriter.FbSearchByUser(requestUriString, _arrController, strToken, _gioihantimkiemfb);
                             if (model.FbUserSearch.Count() != 0)
                             {
                                 BindgridUser(model);
@@ -66,7 +68,7 @@ namespace Facebook
                     case 2:/*group*/
                         requestUriString = string.Format(@"https://graph.facebook.com/search?q={0}&limit={1}&fields={2}&type={3}&access_token={4}", strNoidungtimkiem, LimitTopSearch.Value, Facebook.SelectGroup(),"group", strToken);
                         new Waiting((MethodInvoker)delegate {
-                            ListFbGroupSearch model = TheardFacebookWriter.FbSearchByGroup(requestUriString, _arrController, strToken, 1);
+                            ListFbGroupSearch model = TheardFacebookWriter.FbSearchByGroup(requestUriString, _arrController, strToken, _gioihantimkiemfb);
                             if (model.FbGroupSearch.Count() != 0)
                             {
                                 BindgridGroup(model);
@@ -192,6 +194,9 @@ namespace Facebook
             _arrController.Add(lblQuataDaDung);
             _arrController.Add(lblQuataConLai);
             Facebook.Token(_arrController);
+            CauHinh cauhinh = SQLDatabase.LoadCauHinh("select * from cauhinh");
+            _gioihangoilai = cauhinh.GoiLai;
+            _gioihantimkiemfb = cauhinh.LimitTimKiemFb;
         }
 
         private void txtSearch_KeyDown(object sender, KeyEventArgs e)
@@ -201,28 +206,9 @@ namespace Facebook
                 button1_Click(null, null);
             }
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            try
+        private void SaveUser() {
+            for (int i = 0; i < 2; i++)
             {
-                /*Page*/
-                foreach (DataGridViewRow row in gridPage.Rows)
-                {
-                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["checkPage"];
-                    if (chk.Value !=null && (Boolean)chk.Value == true) {
-                       string id = row.Cells["idPage"].Value.ToString();
-                       string link = row.Cells["linkPage"].Value.ToString();
-                        string name = row.Cells["namePage"].Value.ToString();
-                        List<NhomUID> nhomUIDs = SQLDatabase.LoadNhomUID(string.Format("select * from NhomUID where ParentId in (select id from NhomUID where Name='admin') and UID='{0}'", id));
-                        if (nhomUIDs.Count == 0)
-                        {
-                            NhomUID nhomUIDCha = SQLDatabase.LoadNhomUID("select * from NhomUID where name='admin'").FirstOrDefault();
-                            SQLDatabase.AddNhomUID(new NhomUID() { UID= id, Name = name, URD= link, ParentId = nhomUIDCha.id, IsActi = true, IsLoai = 1});
-                        }
-                    }
-                }
-                /*User*/
                 foreach (DataGridViewRow row in gridUser.Rows)
                 {
                     DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["checkUser"];
@@ -236,9 +222,45 @@ namespace Facebook
                         {
                             NhomUID nhomUIDCha = SQLDatabase.LoadNhomUID("select * from NhomUID where name='admin'").FirstOrDefault();
                             SQLDatabase.AddNhomUID(new NhomUID() { UID = id, Name = name, URD = link, ParentId = nhomUIDCha.id, IsActi = true, IsLoai = 0 });
+                            gridUser.Rows.Remove(row);
+
+                        }
+                    }
+
+                }
+            }
+            
+        }
+        private void SavePage()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                /*Page*/
+                foreach (DataGridViewRow row in gridPage.Rows)
+                {
+                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["checkPage"];
+                    if (chk.Value != null && (Boolean)chk.Value == true)
+                    {
+                        string id = row.Cells["idPage"].Value.ToString();
+                        string link = row.Cells["linkPage"].Value.ToString();
+                        string name = row.Cells["namePage"].Value.ToString();
+                        List<NhomUID> nhomUIDs = SQLDatabase.LoadNhomUID(string.Format("select * from NhomUID where ParentId in (select id from NhomUID where Name='admin') and UID='{0}'", id));
+                        if (nhomUIDs.Count == 0)
+                        {
+                            NhomUID nhomUIDCha = SQLDatabase.LoadNhomUID("select * from NhomUID where name='admin'").FirstOrDefault();
+                            SQLDatabase.AddNhomUID(new NhomUID() { UID = id, Name = name, URD = link, ParentId = nhomUIDCha.id, IsActi = true, IsLoai = 1 });
+
+                            gridPage.Rows.Remove(row);
                         }
                     }
                 }
+            }
+        }
+
+        private void SaveGroup()
+        {
+            for (int i = 0; i < 2; i++)
+            {
                 /*Group*/
                 foreach (DataGridViewRow row in gridGroup.Rows)
                 {
@@ -251,10 +273,21 @@ namespace Facebook
                         if (nhomUIDs.Count == 0)
                         {
                             NhomUID nhomUIDCha = SQLDatabase.LoadNhomUID("select * from NhomUID where name='admin'").FirstOrDefault();
-                            SQLDatabase.AddNhomUID(new NhomUID() { UID = id, Name = name ,URD= "https://www.facebook.com/", ParentId= nhomUIDCha.id, IsActi=true,IsLoai=2});
+                            SQLDatabase.AddNhomUID(new NhomUID() { UID = id, Name = name, URD = "https://www.facebook.com/", ParentId = nhomUIDCha.id, IsActi = true, IsLoai = 2 });
+                            gridGroup.Rows.Remove(row);
                         }
                     }
                 }
+            }
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                SavePage();
+                SaveUser();
+                SaveGroup();
             }
             catch (Exception ex)
             {

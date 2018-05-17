@@ -48,7 +48,7 @@ namespace Facebook
                     }
                 }
                 int n = ConvertType.ToInt(tb.Rows.Count);
-                chkShowAllAccount.Text = string.Format("(All) - Danh Sách Account {0}/{1}", n, ConvertType.ToInt(tbTong.Rows[0][0]));
+                chkShowAllAccount.Text = string.Format("Tài Khoản Quét UID {0}/{1}", n, ConvertType.ToInt(tbTong.Rows[0][0]));
                 if (n != 0) BindAccount(GridAccount.Rows[0]);
             }
             catch (Exception ex)
@@ -57,6 +57,57 @@ namespace Facebook
                 throw;
             }
         }
+
+        private void BindDM_QuocGia()
+        {
+            try
+            {
+                DataTable table = new DataTable();
+                table.Columns.Add("ma", typeof(string));
+                table.Columns.Add("name", typeof(string));
+
+                table.Rows.Add(null, "Tất Cả");
+
+                DataTable tb = SQLDatabase.ExcDataTable(" select  ma, name from DM_QuocGia where isAct=1 order by OrderId ");
+                foreach (DataRow item in tb.Rows)
+                    table.Rows.Add(item["ma"],item["name"].ToString() =="" ? item["ma"] : item["name"]);
+
+                cmbQuocGia.Invoke((Action)delegate
+                {
+                    cmbQuocGia.DataSource = table;
+                    cmbQuocGia.DisplayMember = "name";
+                    cmbQuocGia.ValueMember = "ma";
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "BindUID");
+                throw;
+            }
+        }
+        private void BindGioiTinh() {
+            try
+            {
+                DataTable table = new DataTable();
+                table.Columns.Add("ma", typeof(string));
+                table.Columns.Add("name", typeof(string));
+
+                table.Rows.Add(null, "Tất Cả");
+                table.Rows.Add("male", "Nam");
+                table.Rows.Add("female", "Nữ");
+                cmbGioiTinh.Invoke((Action)delegate
+                {
+                    cmbGioiTinh.DataSource = table;
+                    cmbGioiTinh.DisplayMember = "name";
+                    cmbGioiTinh.ValueMember = "ma";
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "BindGioiTinh");
+            }
+        }
+
         private void BindAccount(DataGridViewRow row)
         {
             try
@@ -107,7 +158,7 @@ namespace Facebook
 
                 grDsUID.Invoke((Action)delegate
                 {
-                    grDsUID.Text = string.Format("Danh Sách UID: {0}", tb.Rows.Count);
+                    grDsUID.Text = string.Format("UID Cần Quét: {0}", tb.Rows.Count);
                 });
 
                 
@@ -124,7 +175,8 @@ namespace Facebook
             _cauHinh = SQLDatabase.LoadCauHinh("select * from cauhinh");
             BindAccount();
             BindUID();
-
+            BindDM_QuocGia();
+            BindGioiTinh();
             _regexs = SQLDatabase.LoadRegexs("select * from Regexs");
             DataTable tb_dausp = SQLDatabase.ExcDataTable(" select distinct dauso dauso,lenght  " +
                                                           " from dau_so where dauso is not null and dauso <> '' " +
@@ -285,20 +337,19 @@ namespace Facebook
                 Guid NhomChaId = SQLDatabase.LoadNhomUID(string.Format("select * from NhomUID where name='admin'")).FirstOrDefault().id;
                 foreach (DataRow item in tb.Rows)
                 {
-                    if (item["UID_URD"].ToString() != "")
+                    if (item[0].ToString() != "")
                     {
                         NhomUID model;
-                        if (item["UID_URD"].ToString().Contains("https://www.facebook.com/"))
+                        if (item[0].ToString().Contains("https://www.facebook.com/"))
                         {
-                            model = Facebook.ConvertUrdToNhom(item["UID_URD"].ToString());
+                            model = Facebook.ConvertUrdToNhom(item[0].ToString());
                         }
                         else
                         {
-                            model = Facebook.ConvertUidToNhom(item["UID_URD"].ToString());
+                            model = Facebook.ConvertUidToNhom(item[0].ToString());
                         }
                         model.ParentId = NhomChaId;
                         model.IsActi = true;
-                        model.Note = item["Note"].ToString();
                         SQLDatabase.AddNhomUID(model);
                     }
                 }
@@ -309,22 +360,7 @@ namespace Facebook
                 return false;
             }
         }
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string fileName = "MauFacebook" + DateTime.Now.ToString("dd_MM_yyyy");
-                bool temp = false;
-                new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName), "Vui Lòng Chờ").ShowDialog();
-                if (temp)
-                    MessageBox.Show("Đã xuất thành công file.\n File:" + fileName, "Thông Báo");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "linkLabel1_LinkClicked");
-            }
-        }
+       
         private bool xuatfilemain(string filePath)
         {
             try
@@ -383,6 +419,7 @@ namespace Facebook
                     MessageBox.Show("Vui lòng chọn quét thông tin nào? \n Bạn bè, Thành viên, bài viết, theo dõi", "Thông báo");
                     return;
                 }
+                TheardFacebookWriter._gioihangoilai = ConvertType.ToInt(SQLDatabase.ExcDataTable("select goilai from cauhinh").Rows[0][0]);
                 if (btnQuet.Text == "Start")
                 {
                     btnQuet.Text = "Stop";
@@ -519,9 +556,10 @@ namespace Facebook
             try
             {
                 FrmCauHinh frm = new FrmCauHinh();
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-                }
+                frm.ShowDialog();
+                //{
+                    BindDM_QuocGia();
+                //}
             }
             catch (Exception)
             {
@@ -873,9 +911,12 @@ namespace Facebook
                     {
                         lblMessage1.Text = string.Format("Đang xuất Friend: {0}",model.Name);
                         lblMessage1.Update();
+                    
 
                         string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Friend_" + DateTime.Now.ToString("dd_MM_yyyy") +string.Format("{0}", radExcel.Checked ?".xls":"txt");
-                        SQLDatabase.ExcNonQuery(string.Format("[spExportFriend] '{0}','{1}','{2}'", model.UID, _strdatabasename, filePath + "\\" + fileName));
+                        SQLDatabase.ExcNonQuery(string.Format("[spExportFriend] '{0}','{1}','{2}','{3}','{4}'", model.UID, cmbQuocGia.SelectedValue.ToString() == "" ? "-1" : cmbQuocGia.SelectedValue.ToString().Trim()
+                                                                                                                       , cmbGioiTinh.SelectedValue.ToString() == "" ? "-1": cmbGioiTinh.SelectedValue.ToString().Trim()
+                                                                                                                       , _strdatabasename, filePath + "\\" + fileName));
 
                         lblMessage1.Text = string.Format("Kết Thúc xuất Friend: {0}", model.Name);
                         lblMessage1.Update();
@@ -887,7 +928,10 @@ namespace Facebook
                         lblMessage1.Update();
 
                         string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Friend_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
-                        SQLDatabase.ExcNonQuery(string.Format("[spExportFollow] '{0}','{1}','{2}'", model.UID, _strdatabasename, filePath + "\\" + fileName));
+                        SQLDatabase.ExcNonQuery(string.Format("[spExportFollow] '{0}','{1}','{2}','{3}','{4}'", model.UID, cmbQuocGia.SelectedValue.ToString() == "" ? "-1" : cmbQuocGia.SelectedValue.ToString().Trim()
+                                                                                                                   , cmbGioiTinh.SelectedValue.ToString() == "" ? "-1" : cmbGioiTinh.SelectedValue.ToString().Trim()
+                                                                                                                   , _strdatabasename, filePath + "\\" + fileName));
+
 
                         lblMessage1.Text = string.Format("Kết Thúc xuất Follow: {0}", model.Name);
                         lblMessage1.Update();

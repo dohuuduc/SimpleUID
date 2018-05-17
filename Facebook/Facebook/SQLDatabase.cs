@@ -686,10 +686,12 @@ namespace Facebook
     
     public class CauHinh
     {
-        public int sysLimitCallApi { get; set; }
-        public int sysTimeSleep { get; set; }
-        public int sysLimitBaiViet { get; set; }
-        
+        public int LimitCallApi { get; set; }
+        public int TimerOut { get; set; }
+        public int GoiLai { get; set; }
+        public int LimitTimKiemFb { get; set; }
+
+
     }
 
     public class dau_so
@@ -710,7 +712,23 @@ namespace Facebook
         public string Example { get; set; }
         public int OrderId { get; set; }
     }
+    //id, ma, name, isAct, OrderId
+    public class DM_QuocGia
+    {
+        public Guid id { get; set; }
+        public string ma { get; set; }
+        public string name { get; set; }
+        public bool isAct { get; set; }
+        public int OrderId { get; set; }
 
+        public DM_QuocGia()
+        {
+            this.ma = "";
+            this.name = "";
+            this.isAct = true;
+            this.OrderId = 0;
+        }
+    }
     class SQLDatabase
     {
         #region Fields
@@ -853,11 +871,13 @@ namespace Facebook
                 {
                     InfoCOMMANDTABLE = new CauHinh();
                     if (!reader.IsDBNull(0))
-                        InfoCOMMANDTABLE.sysLimitCallApi = reader.GetInt32(0);
+                        InfoCOMMANDTABLE.LimitCallApi = reader.GetInt32(0);
                     if (!reader.IsDBNull(1))
-                        InfoCOMMANDTABLE.sysTimeSleep = reader.GetInt32(1);
+                        InfoCOMMANDTABLE.TimerOut = reader.GetInt32(1);
                     if (!reader.IsDBNull(2))
-                        InfoCOMMANDTABLE.sysLimitBaiViet = reader.GetInt32(2);
+                        InfoCOMMANDTABLE.GoiLai = reader.GetInt32(2);
+                    if (!reader.IsDBNull(3))
+                        InfoCOMMANDTABLE.LimitTimKiemFb = reader.GetInt32(3);
                     InfoCOMMANDTABLEs.Add(InfoCOMMANDTABLE);
                 }
                 return InfoCOMMANDTABLEs.FirstOrDefault();
@@ -891,20 +911,193 @@ namespace Facebook
                 // Create command to update GeneralGuessGroup record
                 cmd = new SqlCommand();
                 cmd.Connection = connection;
-                //sysLimitCallApi, sysTimeSleep
-                cmd.CommandText = "Update [CauHinh] Set sysLimitCallApi=@sysLimitCallApi, sysTimeSleep=@sysTimeSleep, sysLimitBaiViet=@sysLimitBaiViet";
+                cmd.CommandText = "Update [CauHinh] Set LimitCallApi=@LimitCallApi, TimerOut=@TimerOut, GoiLai=@GoiLai, LimitTimKiemFb=@LimitTimKiemFb";
                                    
                 cmd.CommandType = CommandType.Text;
 
-                cmd.Parameters.AddWithValue("@sysLimitCallApi", record.sysLimitCallApi);
-                cmd.Parameters.AddWithValue("@sysTimeSleep", record.sysTimeSleep);
-                cmd.Parameters.AddWithValue("@sysLimitBaiViet", record.sysLimitBaiViet);
+                cmd.Parameters.AddWithValue("@LimitCallApi", record.LimitCallApi);
+                cmd.Parameters.AddWithValue("@TimerOut", record.TimerOut);
+                cmd.Parameters.AddWithValue("@GoiLai", record.GoiLai);
+                cmd.Parameters.AddWithValue("@LimitTimKiemFb", record.LimitTimKiemFb);
 
                 cmd.ExecuteNonQuery();
                 return true;
             }
             catch (Exception ex)
             {
+                return false;
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+        }
+
+        #endregion
+
+        #region DM_QuocGia
+        public static List<DM_QuocGia> LoadDM_QuocGia(string sql)
+        {
+            SqlConnection cnn = null;
+            SqlCommand cmd = null;
+            SqlDataReader reader = null;
+            DM_QuocGia InfoCOMMANDTABLE;
+            List<DM_QuocGia> InfoCOMMANDTABLEs = null;
+
+            try
+            {
+                InfoCOMMANDTABLEs = new List<DM_QuocGia>();
+
+                cnn = new SqlConnection();
+                cnn.ConnectionString = ConnectionString;
+                cnn.Open();
+                cnn.FireInfoMessageEventOnUserErrors = false;
+
+                cmd = new SqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = cnn;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    InfoCOMMANDTABLE = new DM_QuocGia();
+                    if (!reader.IsDBNull(0))
+                        InfoCOMMANDTABLE.id = reader.GetGuid(0);
+                    if (!reader.IsDBNull(1))
+                        InfoCOMMANDTABLE.ma = reader.GetString(1);
+                    if (!reader.IsDBNull(2))
+                        InfoCOMMANDTABLE.name = reader.GetString(2);
+                    if (!reader.IsDBNull(3))
+                        InfoCOMMANDTABLE.isAct = reader.GetBoolean(3);
+                    if (!reader.IsDBNull(4))
+                        InfoCOMMANDTABLE.OrderId = reader.GetInt32(4);
+
+                    InfoCOMMANDTABLEs.Add(InfoCOMMANDTABLE);
+                }
+                return InfoCOMMANDTABLEs;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (cnn.State == ConnectionState.Open)
+                    cnn.Close();
+            }
+        }
+        public static bool AddDM_QuocGia(DM_QuocGia record)
+        {
+            SqlConnection cnn = null;
+            SqlCommand cmd = null;
+
+            try
+            {
+                if (record == null)
+                    return false;
+
+                cnn = new SqlConnection();
+                cnn.ConnectionString = ConnectionString;
+                cnn.FireInfoMessageEventOnUserErrors = false;
+                cnn.Open();
+
+                cmd = new SqlCommand();
+                cmd.Connection = cnn;
+                //--- Insert Record
+                cmd.CommandText = "Insert into DM_QuocGia(ma, name, isAct, OrderId) OUTPUT inserted.id " +
+                                  " values(@ma, @name, @isAct, @OrderId);";
+
+
+                cmd.Parameters.AddWithValue("@ma", record.ma);
+                cmd.Parameters.AddWithValue("@name", record.name);
+                cmd.Parameters.AddWithValue("@isAct", record.isAct);
+                cmd.Parameters.AddWithValue("@OrderId", record.OrderId);
+                Guid guid = (Guid)cmd.ExecuteScalar();
+
+                if (guid == null || guid == Guid.Empty)
+                    return false;
+
+                record.id = new Guid(guid.ToString());
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                if (cnn.State == ConnectionState.Open)
+                    cnn.Close();
+            }
+        }
+
+        public static bool UpdateDM_QuocGia(DM_QuocGia record)
+        {
+            SqlConnection connection = null;
+            SqlCommand cmd = null;
+
+            try
+            {
+                if (record == null)
+                    return false;
+
+                // Make connection to database
+                connection = new SqlConnection();
+                connection.ConnectionString = ConnectionString;
+                connection.FireInfoMessageEventOnUserErrors = false;
+                connection.Open();
+                // Create command to update GeneralGuessGroup record
+                cmd = new SqlCommand();
+                cmd.Connection = connection;
+                cmd.CommandText = "Update [DM_QuocGia] Set  ma=@ma, name=@name, isAct=@isAct, OrderId=@OrderId "+
+                                 " where id='" + record.id + "'";
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.AddWithValue("@ma", record.ma);
+                cmd.Parameters.AddWithValue("@name", record.name);
+                cmd.Parameters.AddWithValue("@isAct", record.isAct);
+                cmd.Parameters.AddWithValue("@OrderId", record.OrderId);
+
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+        }
+
+        public static bool DelDM_QuocGia(DM_QuocGia recode)
+        {
+            SqlConnection connection = null;
+            SqlCommand command = null;
+
+            try
+            {
+                if (recode == null)
+                    return false;
+
+                connection = new SqlConnection();
+                connection.ConnectionString = ConnectionString;
+                connection.FireInfoMessageEventOnUserErrors = false;
+                connection.Open();
+                command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "DELETE FROM DM_QuocGia WHERE id ='" + recode.id + "'";
+
+                command.CommandType = CommandType.Text;
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DelDM_QuocGia");
                 return false;
             }
             finally

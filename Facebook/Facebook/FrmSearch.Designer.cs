@@ -59,19 +59,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPagePage = new System.Windows.Forms.TabPage();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.gridPage = new System.Windows.Forms.DataGridView();
-            this.chkAllPage = new System.Windows.Forms.CheckBox();
             this.tabPageUser = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
             this.gridUser = new System.Windows.Forms.DataGridView();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.chkAllUser = new System.Windows.Forms.CheckBox();
-            this.tabPageGroup = new System.Windows.Forms.TabPage();
-            this.gridGroup = new System.Windows.Forms.DataGridView();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkUser = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.idUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
@@ -80,6 +70,11 @@
             this.hocvan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.work = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.chkAllUser = new System.Windows.Forms.CheckBox();
+            this.tabPagePage = new System.Windows.Forms.TabPage();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.gridPage = new System.Windows.Forms.DataGridView();
             this.checkPage = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.idPage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.avata = new System.Windows.Forms.DataGridViewImageColumn();
@@ -92,23 +87,28 @@
             this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mission = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.website = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.chkAllPage = new System.Windows.Forms.CheckBox();
+            this.tabPageGroup = new System.Windows.Forms.TabPage();
+            this.gridGroup = new System.Windows.Forms.DataGridView();
             this.checkNhom = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.idGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.nameGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewLinkColumn2 = new System.Windows.Forms.DataGridViewLinkColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LimitTopSearch)).BeginInit();
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPagePage.SuspendLayout();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridPage)).BeginInit();
             this.tabPageUser.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUser)).BeginInit();
             this.panel4.SuspendLayout();
+            this.tabPagePage.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridPage)).BeginInit();
             this.tabPageGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridGroup)).BeginInit();
             this.panel6.SuspendLayout();
@@ -229,7 +229,7 @@
             this.lblQuataDaDung.AutoSize = true;
             this.lblQuataDaDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblQuataDaDung.ForeColor = System.Drawing.Color.Blue;
-            this.lblQuataDaDung.Location = new System.Drawing.Point(136, 45);
+            this.lblQuataDaDung.Location = new System.Drawing.Point(147, 44);
             this.lblQuataDaDung.Name = "lblQuataDaDung";
             this.lblQuataDaDung.Size = new System.Drawing.Size(29, 16);
             this.lblQuataDaDung.TabIndex = 12;
@@ -305,67 +305,6 @@
             this.tabControl1.Size = new System.Drawing.Size(1226, 607);
             this.tabControl1.TabIndex = 0;
             // 
-            // tabPagePage
-            // 
-            this.tabPagePage.Controls.Add(this.panel3);
-            this.tabPagePage.Controls.Add(this.chkAllPage);
-            this.tabPagePage.Location = new System.Drawing.Point(4, 22);
-            this.tabPagePage.Name = "tabPagePage";
-            this.tabPagePage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePage.Size = new System.Drawing.Size(1218, 581);
-            this.tabPagePage.TabIndex = 0;
-            this.tabPagePage.Text = "Fanpage";
-            this.tabPagePage.UseVisualStyleBackColor = true;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.gridPage);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 20);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1212, 558);
-            this.panel3.TabIndex = 2;
-            // 
-            // gridPage
-            // 
-            this.gridPage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridPage.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.checkPage,
-            this.idPage,
-            this.avata,
-            this.namePage,
-            this.linkPage,
-            this.street,
-            this.about,
-            this.city,
-            this.country,
-            this.description,
-            this.mission,
-            this.website});
-            this.gridPage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridPage.Location = new System.Drawing.Point(0, 0);
-            this.gridPage.MultiSelect = false;
-            this.gridPage.Name = "gridPage";
-            this.gridPage.RowHeadersVisible = false;
-            this.gridPage.RowHeadersWidth = 4;
-            this.gridPage.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(5);
-            this.gridPage.RowTemplate.Height = 100;
-            this.gridPage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridPage.Size = new System.Drawing.Size(1212, 558);
-            this.gridPage.TabIndex = 0;
-            // 
-            // chkAllPage
-            // 
-            this.chkAllPage.AutoSize = true;
-            this.chkAllPage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.chkAllPage.Location = new System.Drawing.Point(3, 3);
-            this.chkAllPage.Name = "chkAllPage";
-            this.chkAllPage.Size = new System.Drawing.Size(1212, 17);
-            this.chkAllPage.TabIndex = 1;
-            this.chkAllPage.Text = "Chọn All";
-            this.chkAllPage.UseVisualStyleBackColor = true;
-            this.chkAllPage.CheckedChanged += new System.EventHandler(this.chkAllPage_CheckedChanged);
-            // 
             // tabPageUser
             // 
             this.tabPageUser.Controls.Add(this.panel5);
@@ -410,81 +349,6 @@
             this.gridUser.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridUser.Size = new System.Drawing.Size(1212, 559);
             this.gridUser.TabIndex = 2;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.chkAllUser);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(3, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1212, 16);
-            this.panel4.TabIndex = 4;
-            // 
-            // chkAllUser
-            // 
-            this.chkAllUser.AutoSize = true;
-            this.chkAllUser.Dock = System.Windows.Forms.DockStyle.Top;
-            this.chkAllUser.Location = new System.Drawing.Point(0, 0);
-            this.chkAllUser.Name = "chkAllUser";
-            this.chkAllUser.Size = new System.Drawing.Size(1212, 17);
-            this.chkAllUser.TabIndex = 3;
-            this.chkAllUser.Text = "Chọn All";
-            this.chkAllUser.UseVisualStyleBackColor = true;
-            this.chkAllUser.CheckedChanged += new System.EventHandler(this.chkAllUser_CheckedChanged);
-            // 
-            // tabPageGroup
-            // 
-            this.tabPageGroup.Controls.Add(this.gridGroup);
-            this.tabPageGroup.Controls.Add(this.panel6);
-            this.tabPageGroup.Location = new System.Drawing.Point(4, 22);
-            this.tabPageGroup.Name = "tabPageGroup";
-            this.tabPageGroup.Size = new System.Drawing.Size(1218, 581);
-            this.tabPageGroup.TabIndex = 2;
-            this.tabPageGroup.Text = "Group";
-            this.tabPageGroup.UseVisualStyleBackColor = true;
-            // 
-            // gridGroup
-            // 
-            this.gridGroup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridGroup.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.checkNhom,
-            this.idGroup,
-            this.dataGridViewImageColumn2,
-            this.nameGroup,
-            this.dataGridViewLinkColumn2,
-            this.dataGridViewTextBoxColumn5});
-            this.gridGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridGroup.Location = new System.Drawing.Point(0, 23);
-            this.gridGroup.MultiSelect = false;
-            this.gridGroup.Name = "gridGroup";
-            this.gridGroup.RowHeadersVisible = false;
-            this.gridGroup.RowHeadersWidth = 4;
-            this.gridGroup.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(2);
-            this.gridGroup.RowTemplate.Height = 100;
-            this.gridGroup.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridGroup.Size = new System.Drawing.Size(1218, 558);
-            this.gridGroup.TabIndex = 3;
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.checkBox1);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel6.Location = new System.Drawing.Point(0, 0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1218, 23);
-            this.panel6.TabIndex = 0;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox1.Location = new System.Drawing.Point(0, 0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(1218, 23);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "Chọn All";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkUser
             // 
@@ -563,6 +427,76 @@
             this.work.Name = "work";
             this.work.Width = 150;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.chkAllUser);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(3, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1212, 16);
+            this.panel4.TabIndex = 4;
+            // 
+            // chkAllUser
+            // 
+            this.chkAllUser.AutoSize = true;
+            this.chkAllUser.Dock = System.Windows.Forms.DockStyle.Top;
+            this.chkAllUser.Location = new System.Drawing.Point(0, 0);
+            this.chkAllUser.Name = "chkAllUser";
+            this.chkAllUser.Size = new System.Drawing.Size(1212, 17);
+            this.chkAllUser.TabIndex = 3;
+            this.chkAllUser.Text = "Chọn All";
+            this.chkAllUser.UseVisualStyleBackColor = true;
+            this.chkAllUser.CheckedChanged += new System.EventHandler(this.chkAllUser_CheckedChanged);
+            // 
+            // tabPagePage
+            // 
+            this.tabPagePage.Controls.Add(this.panel3);
+            this.tabPagePage.Controls.Add(this.chkAllPage);
+            this.tabPagePage.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePage.Name = "tabPagePage";
+            this.tabPagePage.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePage.Size = new System.Drawing.Size(1218, 581);
+            this.tabPagePage.TabIndex = 0;
+            this.tabPagePage.Text = "Fanpage";
+            this.tabPagePage.UseVisualStyleBackColor = true;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.gridPage);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 20);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1212, 558);
+            this.panel3.TabIndex = 2;
+            // 
+            // gridPage
+            // 
+            this.gridPage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridPage.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.checkPage,
+            this.idPage,
+            this.avata,
+            this.namePage,
+            this.linkPage,
+            this.street,
+            this.about,
+            this.city,
+            this.country,
+            this.description,
+            this.mission,
+            this.website});
+            this.gridPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridPage.Location = new System.Drawing.Point(0, 0);
+            this.gridPage.MultiSelect = false;
+            this.gridPage.Name = "gridPage";
+            this.gridPage.RowHeadersVisible = false;
+            this.gridPage.RowHeadersWidth = 4;
+            this.gridPage.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(5);
+            this.gridPage.RowTemplate.Height = 100;
+            this.gridPage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridPage.Size = new System.Drawing.Size(1212, 558);
+            this.gridPage.TabIndex = 0;
+            // 
             // checkPage
             // 
             this.checkPage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -574,7 +508,7 @@
             // 
             // idPage
             // 
-            this.idPage.DataPropertyName = "idPage";
+            this.idPage.DataPropertyName = "id";
             this.idPage.HeaderText = "id";
             this.idPage.Name = "idPage";
             this.idPage.Visible = false;
@@ -666,6 +600,51 @@
             this.website.Name = "website";
             this.website.Width = 200;
             // 
+            // chkAllPage
+            // 
+            this.chkAllPage.AutoSize = true;
+            this.chkAllPage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.chkAllPage.Location = new System.Drawing.Point(3, 3);
+            this.chkAllPage.Name = "chkAllPage";
+            this.chkAllPage.Size = new System.Drawing.Size(1212, 17);
+            this.chkAllPage.TabIndex = 1;
+            this.chkAllPage.Text = "Chọn All";
+            this.chkAllPage.UseVisualStyleBackColor = true;
+            this.chkAllPage.CheckedChanged += new System.EventHandler(this.chkAllPage_CheckedChanged);
+            // 
+            // tabPageGroup
+            // 
+            this.tabPageGroup.Controls.Add(this.gridGroup);
+            this.tabPageGroup.Controls.Add(this.panel6);
+            this.tabPageGroup.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGroup.Name = "tabPageGroup";
+            this.tabPageGroup.Size = new System.Drawing.Size(1218, 581);
+            this.tabPageGroup.TabIndex = 2;
+            this.tabPageGroup.Text = "Group";
+            this.tabPageGroup.UseVisualStyleBackColor = true;
+            // 
+            // gridGroup
+            // 
+            this.gridGroup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridGroup.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.checkNhom,
+            this.idGroup,
+            this.dataGridViewImageColumn2,
+            this.nameGroup,
+            this.dataGridViewLinkColumn2,
+            this.dataGridViewTextBoxColumn5});
+            this.gridGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridGroup.Location = new System.Drawing.Point(0, 23);
+            this.gridGroup.MultiSelect = false;
+            this.gridGroup.Name = "gridGroup";
+            this.gridGroup.RowHeadersVisible = false;
+            this.gridGroup.RowHeadersWidth = 4;
+            this.gridGroup.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(2);
+            this.gridGroup.RowTemplate.Height = 100;
+            this.gridGroup.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridGroup.Size = new System.Drawing.Size(1218, 558);
+            this.gridGroup.TabIndex = 3;
+            // 
             // checkNhom
             // 
             this.checkNhom.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -725,6 +704,27 @@
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.Width = 450;
             // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.checkBox1);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(1218, 23);
+            this.panel6.TabIndex = 0;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox1.Location = new System.Drawing.Point(0, 0);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(1218, 23);
+            this.checkBox1.TabIndex = 4;
+            this.checkBox1.Text = "Chọn All";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // FrmSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -741,15 +741,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.LimitTopSearch)).EndInit();
             this.panel2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPagePage.ResumeLayout(false);
-            this.tabPagePage.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridPage)).EndInit();
             this.tabPageUser.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridUser)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.tabPagePage.ResumeLayout(false);
+            this.tabPagePage.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridPage)).EndInit();
             this.tabPageGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridGroup)).EndInit();
             this.panel6.ResumeLayout(false);
@@ -797,6 +797,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn hocvan;
         private System.Windows.Forms.DataGridViewTextBoxColumn location;
         private System.Windows.Forms.DataGridViewTextBoxColumn work;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn checkNhom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idGroup;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameGroup;
+        private System.Windows.Forms.DataGridViewLinkColumn dataGridViewLinkColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn checkPage;
         private System.Windows.Forms.DataGridViewTextBoxColumn idPage;
         private System.Windows.Forms.DataGridViewImageColumn avata;
@@ -809,11 +815,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn description;
         private System.Windows.Forms.DataGridViewTextBoxColumn mission;
         private System.Windows.Forms.DataGridViewLinkColumn website;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn checkNhom;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idGroup;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameGroup;
-        private System.Windows.Forms.DataGridViewLinkColumn dataGridViewLinkColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
     }
 }
