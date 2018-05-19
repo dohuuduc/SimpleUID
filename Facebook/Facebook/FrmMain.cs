@@ -130,12 +130,14 @@ namespace Facebook
         {
             try
             {
+                SQLDatabase.ExcNonQuery("spUpdateSoLuongQuet");
                 DataTable tb = SQLDatabase.ExcDataTable(" select id,ROW_NUMBER() OVER (ORDER BY CreateDate desc) AS stt,REPLACE(Name,'| Facebook','') as Name, UID, URD,REPLACE(URD,'www.facebook.com','...') as URD2 ,IsLoai, CASE " +
-                                                       " WHEN IsLoai = 0 THEN N'Người Dùng'" +
-                                                       " WHEN IsLoai = 1 THEN N'Trang'" +
-                                                       " WHEN IsLoai = 2 THEN N'Nhóm'" +
+                                                       " WHEN IsLoai = 0 THEN N'User'" +
+                                                       " WHEN IsLoai = 1 THEN N'Page'" +
+                                                       " WHEN IsLoai = 2 THEN N'Group'" +
                                                        "    ELSE NULL " +
-                                                       " END AS 'LoaiFb'" +
+                                                       " END AS 'LoaiFb'," +
+                                                       " slFriend, slFollow, slFeed, slComment, slLike " +
                                                        " from NhomUID where [ParentId] in (select id from NhomUID where name = 'admin') order by CreateDate desc");
 
                 gridUID.Invoke((Action)delegate
@@ -726,10 +728,23 @@ namespace Facebook
                 string name = gridUID.Rows[e.RowIndex].Cells["name1"].Value.ToString();
                 string URD2 = gridUID.Rows[e.RowIndex].Cells["URD"].Value.ToString();
                 string LoaiFb = gridUID.Rows[e.RowIndex].Cells["LoaiFb"].Value.ToString();
+
+                string slFriend = gridUID.Rows[e.RowIndex].Cells["slFriend"].Value.ToString();
+                string slFollow = gridUID.Rows[e.RowIndex].Cells["slFollow"].Value.ToString();
+                string slFeed = gridUID.Rows[e.RowIndex].Cells["slFeed"].Value.ToString();
+                string slComment = gridUID.Rows[e.RowIndex].Cells["slComment"].Value.ToString();
+                string slLike = gridUID.Rows[e.RowIndex].Cells["slLike"].Value.ToString();
+
                 txtFbId.Text = uid;
                 txtFbName.Text = name;
                 txtFbLink.Text = URD2;
                 txtFbLoai.Text = LoaiFb;
+
+                txtSLFriend.Text = slFriend;
+                txtSLComment.Text = slComment;
+                txtSLLike.Text = slLike;
+                txtSLFbFollow.Text = slFollow;
+
             }
             catch (Exception)
             {
@@ -744,8 +759,19 @@ namespace Facebook
             try
             {
                 Boolean mo = false;
+               
                 (new Waiting(() => mo = SQLDatabase.ExcNonQuery(string.Format("[spChuanHoa] '{0}'", 1)))).ShowDialog();
-                MessageBox.Show(string.Format("Hoàn tất chuẩn hoá"), "Thông Báo");
+
+                new Waiting((MethodInvoker)delegate
+                {
+                    if (checkBox1.Checked)
+                        SQLDatabase.ExcNonQuery(string.Format("[spChuanHoa] '{0}'", 1));
+                    if (chkSLuong.Checked) {
+                        SQLDatabase.ExcNonQuery(string.Format("spUpdateSoLuongQuet"));
+                        BindUID();
+                    }
+                }, "Vui Lòng Chờ").ShowDialog();
+
             }
             catch (Exception ex)
             {
@@ -968,12 +994,14 @@ namespace Facebook
                     progressBar1.Update();
 
                 }
+                
                 lblMessage1.Text = "Hoàn thành xuất số liệu.";
                 lblMessage2.Text = ".....";
                 progressBar1.Value = progressBar1.Maximum;
                 progressBar1.Update();
                 progressBar1.Visible = false;
                 progressBar1.Update();
+                BindUID();
 
             }
             catch (Exception ex)

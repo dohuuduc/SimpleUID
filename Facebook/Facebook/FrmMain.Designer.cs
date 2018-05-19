@@ -101,6 +101,15 @@
             this.lblMessage2 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtSLLike = new System.Windows.Forms.TextBox();
+            this.txtSLFbFollow = new System.Windows.Forms.TextBox();
+            this.txtSLComment = new System.Windows.Forms.TextBox();
+            this.txtSLFriend = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -129,7 +138,13 @@
             this.btnQuet = new System.Windows.Forms.Button();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chkSLuong = new System.Windows.Forms.CheckBox();
             this.Err = new System.Windows.Forms.DataGridViewImageColumn();
+            this.slFriend = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.slFollow = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.slFeed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.slComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.slLike = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LoaiFb = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -158,6 +173,7 @@
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grQuataAcc.SuspendLayout();
             this.grDoituongquet.SuspendLayout();
@@ -195,6 +211,11 @@
             this.gridUID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridUID.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Err,
+            this.slFriend,
+            this.slFollow,
+            this.slFeed,
+            this.slComment,
+            this.slLike,
             this.id,
             this.STT,
             this.LoaiFb,
@@ -570,9 +591,9 @@
             // 
             this.panel6.Controls.Add(this.groupBox3);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 104);
+            this.panel6.Location = new System.Drawing.Point(0, 166);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(645, 198);
+            this.panel6.Size = new System.Drawing.Size(645, 136);
             this.panel6.TabIndex = 5;
             // 
             // groupBox3
@@ -584,7 +605,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(645, 198);
+            this.groupBox3.Size = new System.Drawing.Size(645, 136);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
@@ -596,9 +617,9 @@
             this.groupBox5.Controls.Add(this.cmbGioiTinh);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.cmbQuocGia);
-            this.groupBox5.Location = new System.Drawing.Point(6, 94);
+            this.groupBox5.Location = new System.Drawing.Point(4, 78);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(634, 56);
+            this.groupBox5.Size = new System.Drawing.Size(636, 54);
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Điều Kiện Lộc";
@@ -648,7 +669,7 @@
             this.groupBox2.Controls.Add(this.radText);
             this.groupBox2.Controls.Add(this.radExcel);
             this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Location = new System.Drawing.Point(252, 19);
+            this.groupBox2.Location = new System.Drawing.Point(252, 8);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(128, 69);
             this.groupBox2.TabIndex = 9;
@@ -692,9 +713,10 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.chkSLuong);
             this.groupBox7.Controls.Add(this.checkBox1);
             this.groupBox7.Controls.Add(this.button2);
-            this.groupBox7.Location = new System.Drawing.Point(6, 19);
+            this.groupBox7.Location = new System.Drawing.Point(6, 8);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(240, 69);
             this.groupBox7.TabIndex = 8;
@@ -732,7 +754,7 @@
             this.groupBox4.Controls.Add(this.chbExpTheoDoi);
             this.groupBox4.Controls.Add(this.chbExpLike);
             this.groupBox4.Controls.Add(this.chbExpFriend);
-            this.groupBox4.Location = new System.Drawing.Point(387, 19);
+            this.groupBox4.Location = new System.Drawing.Point(387, 8);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(255, 69);
             this.groupBox4.TabIndex = 4;
@@ -840,11 +862,12 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(645, 104);
+            this.panel4.Size = new System.Drawing.Size(645, 166);
             this.panel4.TabIndex = 3;
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.groupBox8);
             this.groupBox6.Controls.Add(this.button6);
             this.groupBox6.Controls.Add(this.button5);
             this.groupBox6.Controls.Add(this.button4);
@@ -860,17 +883,112 @@
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox6.Location = new System.Drawing.Point(0, 0);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(645, 104);
+            this.groupBox6.Size = new System.Drawing.Size(645, 166);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "UID Cần Quét";
             // 
+            // groupBox8
+            // 
+            this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox8.Controls.Add(this.label9);
+            this.groupBox8.Controls.Add(this.label12);
+            this.groupBox8.Controls.Add(this.label10);
+            this.groupBox8.Controls.Add(this.label11);
+            this.groupBox8.Controls.Add(this.txtSLLike);
+            this.groupBox8.Controls.Add(this.txtSLFbFollow);
+            this.groupBox8.Controls.Add(this.txtSLComment);
+            this.groupBox8.Controls.Add(this.txtSLFriend);
+            this.groupBox8.Location = new System.Drawing.Point(14, 68);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(417, 92);
+            this.groupBox8.TabIndex = 13;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Thông Tin Số Lượng Của UID";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(225, 58);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(27, 13);
+            this.label9.TabIndex = 16;
+            this.label9.Text = "Like";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 58);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(51, 13);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "Comment";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(224, 26);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(82, 13);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "Người Theo Dõi";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 26);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(106, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Bạn Bè (Thành Viên)";
+            // 
+            // txtSLLike
+            // 
+            this.txtSLLike.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSLLike.Location = new System.Drawing.Point(312, 55);
+            this.txtSLLike.Name = "txtSLLike";
+            this.txtSLLike.ReadOnly = true;
+            this.txtSLLike.Size = new System.Drawing.Size(78, 20);
+            this.txtSLLike.TabIndex = 13;
+            this.txtSLLike.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtSLFbFollow
+            // 
+            this.txtSLFbFollow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSLFbFollow.Location = new System.Drawing.Point(312, 23);
+            this.txtSLFbFollow.Name = "txtSLFbFollow";
+            this.txtSLFbFollow.ReadOnly = true;
+            this.txtSLFbFollow.Size = new System.Drawing.Size(78, 20);
+            this.txtSLFbFollow.TabIndex = 13;
+            this.txtSLFbFollow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtSLComment
+            // 
+            this.txtSLComment.Location = new System.Drawing.Point(117, 55);
+            this.txtSLComment.Name = "txtSLComment";
+            this.txtSLComment.ReadOnly = true;
+            this.txtSLComment.Size = new System.Drawing.Size(87, 20);
+            this.txtSLComment.TabIndex = 12;
+            this.txtSLComment.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtSLFriend
+            // 
+            this.txtSLFriend.Location = new System.Drawing.Point(117, 23);
+            this.txtSLFriend.Name = "txtSLFriend";
+            this.txtSLFriend.ReadOnly = true;
+            this.txtSLFriend.Size = new System.Drawing.Size(87, 20);
+            this.txtSLFriend.TabIndex = 12;
+            this.txtSLFriend.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(94, 75);
+            this.button6.Location = new System.Drawing.Point(483, 75);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(128, 23);
+            this.button6.Size = new System.Drawing.Size(153, 23);
             this.button6.TabIndex = 11;
             this.button6.Text = "Thêm UID";
             this.button6.UseVisualStyleBackColor = true;
@@ -879,7 +997,7 @@
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(483, 75);
+            this.button5.Location = new System.Drawing.Point(483, 137);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(153, 23);
             this.button5.TabIndex = 10;
@@ -890,9 +1008,9 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(325, 73);
+            this.button4.Location = new System.Drawing.Point(483, 104);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(106, 23);
+            this.button4.Size = new System.Drawing.Size(153, 23);
             this.button4.TabIndex = 9;
             this.button4.Text = "Lộc Trùng UID";
             this.button4.UseVisualStyleBackColor = true;
@@ -1180,11 +1298,58 @@
             this.panel2.Size = new System.Drawing.Size(659, 548);
             this.panel2.TabIndex = 2;
             // 
+            // chkSLuong
+            // 
+            this.chkSLuong.AutoSize = true;
+            this.chkSLuong.Checked = true;
+            this.chkSLuong.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSLuong.Location = new System.Drawing.Point(121, 19);
+            this.chkSLuong.Name = "chkSLuong";
+            this.chkSLuong.Size = new System.Drawing.Size(110, 17);
+            this.chkSLuong.TabIndex = 8;
+            this.chkSLuong.Text = "Cập Nhật S.lượng";
+            this.chkSLuong.UseVisualStyleBackColor = true;
+            // 
             // Err
             // 
             this.Err.HeaderText = "";
             this.Err.Name = "Err";
             this.Err.Width = 20;
+            // 
+            // slFriend
+            // 
+            this.slFriend.DataPropertyName = "slFriend";
+            this.slFriend.HeaderText = "slFriend";
+            this.slFriend.Name = "slFriend";
+            this.slFriend.Visible = false;
+            // 
+            // slFollow
+            // 
+            this.slFollow.DataPropertyName = "slFollow";
+            this.slFollow.HeaderText = "slFollow";
+            this.slFollow.Name = "slFollow";
+            this.slFollow.Visible = false;
+            // 
+            // slFeed
+            // 
+            this.slFeed.DataPropertyName = "slFeed";
+            this.slFeed.HeaderText = "slFeed";
+            this.slFeed.Name = "slFeed";
+            this.slFeed.Visible = false;
+            // 
+            // slComment
+            // 
+            this.slComment.DataPropertyName = "slComment";
+            this.slComment.HeaderText = "slComment";
+            this.slComment.Name = "slComment";
+            this.slComment.Visible = false;
+            // 
+            // slLike
+            // 
+            this.slLike.DataPropertyName = "slLike";
+            this.slLike.HeaderText = "slLike";
+            this.slLike.Name = "slLike";
+            this.slLike.Visible = false;
             // 
             // id
             // 
@@ -1282,6 +1447,8 @@
             this.panel4.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.grQuataAcc.ResumeLayout(false);
@@ -1395,7 +1562,21 @@
         private System.Windows.Forms.ComboBox cmbQuocGia;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbGioiTinh;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtSLLike;
+        private System.Windows.Forms.TextBox txtSLFbFollow;
+        private System.Windows.Forms.TextBox txtSLComment;
+        private System.Windows.Forms.CheckBox chkSLuong;
         private System.Windows.Forms.DataGridViewImageColumn Err;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slFriend;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slFollow;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slFeed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slComment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slLike;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn STT;
         private System.Windows.Forms.DataGridViewTextBoxColumn LoaiFb;
@@ -1404,6 +1585,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn URD;
         private System.Windows.Forms.DataGridViewTextBoxColumn URD2;
         private System.Windows.Forms.DataGridViewTextBoxColumn IsLoai;
+        private System.Windows.Forms.TextBox txtSLFriend;
     }
 }
 
