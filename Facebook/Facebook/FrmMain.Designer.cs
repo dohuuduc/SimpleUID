@@ -33,15 +33,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.grDsUID = new System.Windows.Forms.GroupBox();
             this.gridUID = new System.Windows.Forms.DataGridView();
-            this.Err = new System.Windows.Forms.DataGridViewImageColumn();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.URD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.URD2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsLoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LoaiFb = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.quétToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -138,6 +129,15 @@
             this.btnQuet = new System.Windows.Forms.Button();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.Err = new System.Windows.Forms.DataGridViewImageColumn();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LoaiFb = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.URD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.URD2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsLoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.grDsUID.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUID)).BeginInit();
@@ -197,12 +197,12 @@
             this.Err,
             this.id,
             this.STT,
+            this.LoaiFb,
             this.name1,
             this.UID,
             this.URD,
             this.URD2,
-            this.IsLoai,
-            this.LoaiFb});
+            this.IsLoai});
             this.gridUID.ContextMenuStrip = this.contextMenuStrip1;
             this.gridUID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridUID.Location = new System.Drawing.Point(3, 16);
@@ -212,64 +212,6 @@
             this.gridUID.Size = new System.Drawing.Size(405, 360);
             this.gridUID.TabIndex = 0;
             this.gridUID.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridUID_CellClick);
-            // 
-            // Err
-            // 
-            this.Err.HeaderText = "";
-            this.Err.Name = "Err";
-            this.Err.Width = 20;
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.Visible = false;
-            // 
-            // STT
-            // 
-            this.STT.DataPropertyName = "stt";
-            this.STT.HeaderText = "TT";
-            this.STT.Name = "STT";
-            this.STT.Width = 30;
-            // 
-            // name1
-            // 
-            this.name1.DataPropertyName = "name";
-            this.name1.HeaderText = "Tên Facebook";
-            this.name1.Name = "name1";
-            // 
-            // UID
-            // 
-            this.UID.DataPropertyName = "UID";
-            this.UID.HeaderText = "UID";
-            this.UID.Name = "UID";
-            // 
-            // URD
-            // 
-            this.URD.DataPropertyName = "URD";
-            this.URD.HeaderText = "Urd";
-            this.URD.Name = "URD";
-            this.URD.Visible = false;
-            // 
-            // URD2
-            // 
-            this.URD2.DataPropertyName = "URD2";
-            this.URD2.HeaderText = "Link";
-            this.URD2.Name = "URD2";
-            // 
-            // IsLoai
-            // 
-            this.IsLoai.DataPropertyName = "IsLoai";
-            this.IsLoai.HeaderText = "IsLoai";
-            this.IsLoai.Name = "IsLoai";
-            this.IsLoai.Visible = false;
-            // 
-            // LoaiFb
-            // 
-            this.LoaiFb.DataPropertyName = "LoaiFb";
-            this.LoaiFb.HeaderText = "Loại Fb";
-            this.LoaiFb.Name = "LoaiFb";
             // 
             // contextMenuStrip1
             // 
@@ -282,7 +224,7 @@
             this.xuấtFileToolStripMenuItem2,
             this.zToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(184, 180);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(184, 158);
             // 
             // quétToolStripMenuItem
             // 
@@ -331,14 +273,14 @@
             // uIDVàNameToolStripMenuItem
             // 
             this.uIDVàNameToolStripMenuItem.Name = "uIDVàNameToolStripMenuItem";
-            this.uIDVàNameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uIDVàNameToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.uIDVàNameToolStripMenuItem.Text = "UID và Name";
             this.uIDVàNameToolStripMenuItem.Click += new System.EventHandler(this.uIDVàNameToolStripMenuItem_Click);
             // 
             // phoneEmailToolStripMenuItem
             // 
             this.phoneEmailToolStripMenuItem.Name = "phoneEmailToolStripMenuItem";
-            this.phoneEmailToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.phoneEmailToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.phoneEmailToolStripMenuItem.Text = "Phone và Email";
             this.phoneEmailToolStripMenuItem.Click += new System.EventHandler(this.phoneEmailToolStripMenuItem_Click);
             // 
@@ -1160,6 +1102,8 @@
             // chkfollow
             // 
             this.chkfollow.AutoSize = true;
+            this.chkfollow.Checked = true;
+            this.chkfollow.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkfollow.Location = new System.Drawing.Point(139, 19);
             this.chkfollow.Name = "chkfollow";
             this.chkfollow.Size = new System.Drawing.Size(101, 17);
@@ -1170,6 +1114,8 @@
             // chkMe
             // 
             this.chkMe.AutoSize = true;
+            this.chkMe.Checked = true;
+            this.chkMe.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMe.Location = new System.Drawing.Point(8, 19);
             this.chkMe.Name = "chkMe";
             this.chkMe.Size = new System.Drawing.Size(106, 17);
@@ -1180,6 +1126,8 @@
             // chkBaiViet
             // 
             this.chkBaiViet.AutoSize = true;
+            this.chkBaiViet.Checked = true;
+            this.chkBaiViet.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBaiViet.Location = new System.Drawing.Point(139, 45);
             this.chkBaiViet.Name = "chkBaiViet";
             this.chkBaiViet.Size = new System.Drawing.Size(147, 17);
@@ -1190,6 +1138,8 @@
             // chkBanBe
             // 
             this.chkBanBe.AutoSize = true;
+            this.chkBanBe.Checked = true;
+            this.chkBanBe.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBanBe.Location = new System.Drawing.Point(8, 45);
             this.chkBanBe.Name = "chkBanBe";
             this.chkBanBe.Size = new System.Drawing.Size(125, 17);
@@ -1229,6 +1179,67 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(659, 548);
             this.panel2.TabIndex = 2;
+            // 
+            // Err
+            // 
+            this.Err.HeaderText = "";
+            this.Err.Name = "Err";
+            this.Err.Width = 20;
+            // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.Visible = false;
+            // 
+            // STT
+            // 
+            this.STT.DataPropertyName = "stt";
+            this.STT.HeaderText = "TT";
+            this.STT.Name = "STT";
+            this.STT.Width = 30;
+            // 
+            // LoaiFb
+            // 
+            this.LoaiFb.DataPropertyName = "LoaiFb";
+            this.LoaiFb.HeaderText = "Loại Fb";
+            this.LoaiFb.Name = "LoaiFb";
+            // 
+            // name1
+            // 
+            this.name1.DataPropertyName = "name";
+            this.name1.HeaderText = "Tên Facebook";
+            this.name1.Name = "name1";
+            this.name1.Width = 400;
+            // 
+            // UID
+            // 
+            this.UID.DataPropertyName = "UID";
+            this.UID.HeaderText = "UID";
+            this.UID.Name = "UID";
+            this.UID.Visible = false;
+            // 
+            // URD
+            // 
+            this.URD.DataPropertyName = "URD";
+            this.URD.HeaderText = "Urd";
+            this.URD.Name = "URD";
+            this.URD.Visible = false;
+            // 
+            // URD2
+            // 
+            this.URD2.DataPropertyName = "URD2";
+            this.URD2.HeaderText = "Link";
+            this.URD2.Name = "URD2";
+            this.URD2.Visible = false;
+            // 
+            // IsLoai
+            // 
+            this.IsLoai.DataPropertyName = "IsLoai";
+            this.IsLoai.HeaderText = "IsLoai";
+            this.IsLoai.Name = "IsLoai";
+            this.IsLoai.Visible = false;
             // 
             // FrmMain123
             // 
@@ -1379,20 +1390,20 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radText;
         private System.Windows.Forms.RadioButton radExcel;
-        private System.Windows.Forms.DataGridViewImageColumn Err;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn STT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn URD;
-        private System.Windows.Forms.DataGridViewTextBoxColumn URD2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IsLoai;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LoaiFb;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbQuocGia;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbGioiTinh;
+        private System.Windows.Forms.DataGridViewImageColumn Err;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn STT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LoaiFb;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn URD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn URD2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IsLoai;
     }
 }
 

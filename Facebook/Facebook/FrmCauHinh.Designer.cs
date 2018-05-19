@@ -48,21 +48,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.gridQuocGia = new System.Windows.Forms.DataGridView();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.làmTươiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.thêmMớiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lấyDữLiệuTừDataLoadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ma1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isAct = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Orderid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.xoa = new System.Windows.Forms.DataGridViewImageColumn();
-            this.txtSeachQuocGia = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.làmTươiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.thêmMớiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lấyDữLiệuTừDataLoadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.txtSeachQuocGia = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -72,10 +72,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtTimerOut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsysLimitCallApi)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridQuocGia)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -96,7 +96,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(393, 359);
+            this.tabPage1.Size = new System.Drawing.Size(393, 397);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Account Facebook";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -203,7 +203,7 @@
             this.txtTimkiemFB.TabIndex = 10;
             this.txtTimkiemFB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtTimkiemFB.Value = new decimal(new int[] {
-            1,
+            3,
             0,
             0,
             0});
@@ -336,6 +336,28 @@
             this.tabPage2.Text = "Quốc Gia";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.linkLabel1);
+            this.panel2.Controls.Add(this.gridQuocGia);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 26);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(387, 368);
+            this.panel2.TabIndex = 3;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.linkLabel1.Location = new System.Drawing.Point(180, 353);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(204, 13);
+            this.linkLabel1.TabIndex = 1;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Tham Khảo Mã Quốc Gia Trên Facebook";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // gridQuocGia
             // 
             this.gridQuocGia.AllowUserToAddRows = false;
@@ -360,36 +382,6 @@
             this.gridQuocGia.TabIndex = 0;
             this.gridQuocGia.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridQuocGia_CellClick);
             this.gridQuocGia.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridQuocGia_CellValueChanged);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.làmTươiToolStripMenuItem,
-            this.thêmMớiToolStripMenuItem,
-            this.lấyDữLiệuTừDataLoadToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(226, 70);
-            // 
-            // làmTươiToolStripMenuItem
-            // 
-            this.làmTươiToolStripMenuItem.Name = "làmTươiToolStripMenuItem";
-            this.làmTươiToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.làmTươiToolStripMenuItem.Text = "Làm Tươi";
-            this.làmTươiToolStripMenuItem.Click += new System.EventHandler(this.làmTươiToolStripMenuItem_Click);
-            // 
-            // thêmMớiToolStripMenuItem
-            // 
-            this.thêmMớiToolStripMenuItem.Name = "thêmMớiToolStripMenuItem";
-            this.thêmMớiToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.thêmMớiToolStripMenuItem.Text = "Thêm Mới";
-            this.thêmMớiToolStripMenuItem.Click += new System.EventHandler(this.thêmMớiToolStripMenuItem_Click);
-            // 
-            // lấyDữLiệuTừDataLoadToolStripMenuItem
-            // 
-            this.lấyDữLiệuTừDataLoadToolStripMenuItem.Name = "lấyDữLiệuTừDataLoadToolStripMenuItem";
-            this.lấyDữLiệuTừDataLoadToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.lấyDữLiệuTừDataLoadToolStripMenuItem.Text = "Lấy Dữ Liệu Từ Data Đã Load";
-            this.lấyDữLiệuTừDataLoadToolStripMenuItem.Click += new System.EventHandler(this.lấyDữLiệuTừDataLoadToolStripMenuItem_Click);
             // 
             // id
             // 
@@ -434,14 +426,35 @@
             this.xoa.Name = "xoa";
             this.xoa.Width = 40;
             // 
-            // txtSeachQuocGia
+            // contextMenuStrip1
             // 
-            this.txtSeachQuocGia.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSeachQuocGia.Location = new System.Drawing.Point(0, 0);
-            this.txtSeachQuocGia.Name = "txtSeachQuocGia";
-            this.txtSeachQuocGia.Size = new System.Drawing.Size(387, 20);
-            this.txtSeachQuocGia.TabIndex = 1;
-            this.txtSeachQuocGia.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSeachQuocGia_KeyDown);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.làmTươiToolStripMenuItem,
+            this.thêmMớiToolStripMenuItem,
+            this.lấyDữLiệuTừDataLoadToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(226, 70);
+            // 
+            // làmTươiToolStripMenuItem
+            // 
+            this.làmTươiToolStripMenuItem.Name = "làmTươiToolStripMenuItem";
+            this.làmTươiToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.làmTươiToolStripMenuItem.Text = "Làm Tươi";
+            this.làmTươiToolStripMenuItem.Click += new System.EventHandler(this.làmTươiToolStripMenuItem_Click);
+            // 
+            // thêmMớiToolStripMenuItem
+            // 
+            this.thêmMớiToolStripMenuItem.Name = "thêmMớiToolStripMenuItem";
+            this.thêmMớiToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.thêmMớiToolStripMenuItem.Text = "Thêm Mới";
+            this.thêmMớiToolStripMenuItem.Click += new System.EventHandler(this.thêmMớiToolStripMenuItem_Click);
+            // 
+            // lấyDữLiệuTừDataLoadToolStripMenuItem
+            // 
+            this.lấyDữLiệuTừDataLoadToolStripMenuItem.Name = "lấyDữLiệuTừDataLoadToolStripMenuItem";
+            this.lấyDữLiệuTừDataLoadToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.lấyDữLiệuTừDataLoadToolStripMenuItem.Text = "Lấy Dữ Liệu Từ Data Đã Load";
+            this.lấyDữLiệuTừDataLoadToolStripMenuItem.Click += new System.EventHandler(this.lấyDữLiệuTừDataLoadToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -452,27 +465,14 @@
             this.panel1.Size = new System.Drawing.Size(387, 23);
             this.panel1.TabIndex = 2;
             // 
-            // panel2
+            // txtSeachQuocGia
             // 
-            this.panel2.Controls.Add(this.linkLabel1);
-            this.panel2.Controls.Add(this.gridQuocGia);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 26);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(387, 368);
-            this.panel2.TabIndex = 3;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.linkLabel1.Location = new System.Drawing.Point(180, 353);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(204, 13);
-            this.linkLabel1.TabIndex = 1;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Tham Khảo Mã Quốc Gia Trên Facebook";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.txtSeachQuocGia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSeachQuocGia.Location = new System.Drawing.Point(0, 0);
+            this.txtSeachQuocGia.Name = "txtSeachQuocGia";
+            this.txtSeachQuocGia.Size = new System.Drawing.Size(387, 20);
+            this.txtSeachQuocGia.TabIndex = 1;
+            this.txtSeachQuocGia.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSeachQuocGia_KeyDown);
             // 
             // FrmCauHinh
             // 
@@ -497,12 +497,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtTimerOut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsysLimitCallApi)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridQuocGia)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }

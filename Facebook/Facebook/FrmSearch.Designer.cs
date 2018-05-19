@@ -171,7 +171,7 @@
             this.LimitTopSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.LimitTopSearch.Location = new System.Drawing.Point(1066, 39);
             this.LimitTopSearch.Maximum = new decimal(new int[] {
-            400,
+            500,
             0,
             0,
             0});
@@ -185,7 +185,7 @@
             this.LimitTopSearch.TabIndex = 15;
             this.LimitTopSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.LimitTopSearch.Value = new decimal(new int[] {
-            100,
+            500,
             0,
             0,
             0});
