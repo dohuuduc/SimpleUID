@@ -282,7 +282,7 @@
             this.xuấtFileToolStripMenuItem2,
             this.zToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(184, 158);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(184, 180);
             // 
             // quétToolStripMenuItem
             // 
@@ -331,14 +331,14 @@
             // uIDVàNameToolStripMenuItem
             // 
             this.uIDVàNameToolStripMenuItem.Name = "uIDVàNameToolStripMenuItem";
-            this.uIDVàNameToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.uIDVàNameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.uIDVàNameToolStripMenuItem.Text = "UID và Name";
             this.uIDVàNameToolStripMenuItem.Click += new System.EventHandler(this.uIDVàNameToolStripMenuItem_Click);
             // 
             // phoneEmailToolStripMenuItem
             // 
             this.phoneEmailToolStripMenuItem.Name = "phoneEmailToolStripMenuItem";
-            this.phoneEmailToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.phoneEmailToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.phoneEmailToolStripMenuItem.Text = "Phone và Email";
             this.phoneEmailToolStripMenuItem.Click += new System.EventHandler(this.phoneEmailToolStripMenuItem_Click);
             // 
@@ -648,6 +648,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.cmbGioiTinh);
             this.groupBox5.Controls.Add(this.label1);

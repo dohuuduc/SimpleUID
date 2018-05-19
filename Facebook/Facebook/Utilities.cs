@@ -48,6 +48,9 @@ namespace Facebook
             List<string> phoneChuan = new List<string>();
             if (content == null || content == "") return null;
             content = content.Replace("(84)", "0").Replace("(+84)", "0").Replace("+84", "0");
+            content = content.Replace("(855)", "0").Replace("(+855)", "0").Replace("+855", "0"); /*cambuchia*/
+            content = content.Replace("(856)", "0").Replace("(+856)", "0").Replace("+856", "0"); /*lào*/
+
             foreach (regexs re in _regexs)
             {
                 Regex rg = new Regex(string.Format(@"{0}", re.Regex), RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace);

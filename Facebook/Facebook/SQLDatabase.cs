@@ -2457,7 +2457,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "AddFbFeed");
+                //MessageBox.Show(ex.Message, "AddFbFeed");
                 return false;
             }
             finally
@@ -2540,7 +2540,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "UpFbFeed");
+                //MessageBox.Show(ex.Message, "UpFbFeed");
                 return false;
             }
             finally
@@ -2639,7 +2639,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "AddFbLike");
+                //MessageBox.Show(ex.Message, "AddFbLike");
                 return false;
             }
             finally
@@ -2725,7 +2725,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "UpFbLike");
+                //MessageBox.Show(ex.Message, "UpFbLike");
                 return false;
             }
             finally
@@ -2779,7 +2779,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "AddFbComments");
+                //MessageBox.Show(ex.Message, "AddFbComments");
                 return false;
             }
             finally
@@ -2822,7 +2822,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "UpFbComments");
+                //MessageBox.Show(ex.Message, "UpFbComments");
                 return false;
             }
             finally

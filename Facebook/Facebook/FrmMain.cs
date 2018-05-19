@@ -927,7 +927,7 @@ namespace Facebook
                         lblMessage1.Text = string.Format("Đang xuất Follow: {0}", model.Name);
                         lblMessage1.Update();
 
-                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Friend_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
+                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Follow_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
                         SQLDatabase.ExcNonQuery(string.Format("[spExportFollow] '{0}','{1}','{2}','{3}','{4}'", model.UID, cmbQuocGia.SelectedValue.ToString() == "" ? "-1" : cmbQuocGia.SelectedValue.ToString().Trim()
                                                                                                                    , cmbGioiTinh.SelectedValue.ToString() == "" ? "-1" : cmbGioiTinh.SelectedValue.ToString().Trim()
                                                                                                                    , _strdatabasename, filePath + "\\" + fileName));
@@ -953,7 +953,7 @@ namespace Facebook
                         lblMessage1.Text = string.Format("Đang xuất Comment: {0}", model.Name);
                         lblMessage1.Update();
 
-                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Follow_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
+                        string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Comment_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
                         SQLDatabase.ExcNonQuery(string.Format("[spExportComment] '{0}','{1}','{2}'", model.UID, _strdatabasename, filePath + "\\" + fileName));
 
                         lblMessage1.Text = string.Format("Kết Thúc xuất Comment: {0}", model.Name);
