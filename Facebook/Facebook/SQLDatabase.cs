@@ -1153,6 +1153,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "LoadFbAccount");
                 throw ex;
             }
             finally
@@ -2869,6 +2870,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "AddFbLog");
                 return false;
             }
             finally

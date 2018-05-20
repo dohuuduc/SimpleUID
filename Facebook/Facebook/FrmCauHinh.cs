@@ -20,12 +20,21 @@ namespace Facebook
         CauHinh cauHinh;
         private void FrmCauHinh_Load(object sender, EventArgs e)
         {
-            cauHinh = SQLDatabase.LoadCauHinh("select * from cauhinh");
-            txtsysLimitCallApi.Value = ConvertType.ToDecimal(cauHinh.LimitCallApi);
-            txtTimerOut.Value = ConvertType.ToDecimal(cauHinh.TimerOut);
-            txtGoiLai.Value = ConvertType.ToDecimal(cauHinh.GoiLai);
-            txtTimkiemFB.Value = ConvertType.ToDecimal(cauHinh.LimitTimKiemFb);
-            BindNhom(txtSeachQuocGia.Text);
+            try
+            {
+                cauHinh = SQLDatabase.LoadCauHinh("select * from cauhinh");
+                txtsysLimitCallApi.Value = ConvertType.ToDecimal(cauHinh.LimitCallApi);
+                txtTimerOut.Value = ConvertType.ToDecimal(cauHinh.TimerOut);
+                txtGoiLai.Value = ConvertType.ToDecimal(cauHinh.GoiLai);
+                txtTimkiemFB.Value = ConvertType.ToDecimal(cauHinh.LimitTimKiemFb);
+                BindNhom(txtSeachQuocGia.Text);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "FrmCauHinh_Load");
+            }
+           
 
         }
         private void BindNhom(string strkh)

@@ -524,7 +524,7 @@ namespace Facebook
                         txtFbLoai.Text = model.IsLoai == 0 ? "Người dùng" : model.IsLoai == 1 ? "Trang" : "Nhóm";
                         txtFbLoai.Update();
 
-                        Thread.Sleep(1000);
+                        //Thread.Sleep(1000);
 
                         TheardFacebookWriter.getwebBrowser(model, arrControl);
                         /******************************************************/
@@ -742,6 +742,7 @@ namespace Facebook
 
                 txtSLFriend.Text = slFriend;
                 txtSLComment.Text = slComment;
+                txtSlFeed.Text = slFeed;
                 txtSLLike.Text = slLike;
                 txtSLFbFollow.Text = slFollow;
 

@@ -434,9 +434,9 @@ namespace Facebook
 
                 string html3 = WebToolkit.GetHtml(url1);
                 string[] xx = html3.Split(new char[] { '\n', '\r' });
-                var index = Array.Find(xx, x => x.Contains("access_token:\"EAAA"));
-                string[] xx2 = index.Split(new char[] { ',' }).Where(p => p.Contains("access_token:\"EAAA")).ToArray();
-                string stoken = xx2.FirstOrDefault().Split(new char[] { '\"' }).Where(p => p.Contains("EAAA")).FirstOrDefault();
+                var index = Array.Find(xx, x => x.Contains("access_token:\"EAA"));
+                string[] xx2 = index.Split(new char[] { ',' }).Where(p => p.Contains("access_token:\"EAA")).ToArray();
+                string stoken = xx2.FirstOrDefault().Split(new char[] { '\"' }).Where(p => p.Contains("EAA")).FirstOrDefault();
 
                 return new FbAccount() { account = username, password = password, token= stoken }; 
             }

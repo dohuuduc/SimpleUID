@@ -277,12 +277,12 @@
             this.txtsysLimitCallApi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.txtsysLimitCallApi.Location = new System.Drawing.Point(104, 19);
             this.txtsysLimitCallApi.Maximum = new decimal(new int[] {
-            20000,
+            5000,
             0,
             0,
             0});
             this.txtsysLimitCallApi.Minimum = new decimal(new int[] {
-            5000,
+            1000,
             0,
             0,
             0});
@@ -291,7 +291,7 @@
             this.txtsysLimitCallApi.TabIndex = 5;
             this.txtsysLimitCallApi.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtsysLimitCallApi.Value = new decimal(new int[] {
-            10000,
+            5000,
             0,
             0,
             0});

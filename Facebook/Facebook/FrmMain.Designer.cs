@@ -33,6 +33,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.grDsUID = new System.Windows.Forms.GroupBox();
             this.gridUID = new System.Windows.Forms.DataGridView();
+            this.Err = new System.Windows.Forms.DataGridViewImageColumn();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LoaiFb = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.URD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.URD2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.slFriend = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsLoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.slComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.slLike = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.slFollow = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.slFeed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.quétToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,6 +102,7 @@
             this.radExcel = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.chkSLuong = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -138,21 +153,8 @@
             this.btnQuet = new System.Windows.Forms.Button();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.chkSLuong = new System.Windows.Forms.CheckBox();
-            this.Err = new System.Windows.Forms.DataGridViewImageColumn();
-            this.slFriend = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.slFollow = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.slFeed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.slComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.slLike = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LoaiFb = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.URD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.URD2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsLoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtSlFeed = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.grDsUID.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUID)).BeginInit();
@@ -211,11 +213,6 @@
             this.gridUID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridUID.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Err,
-            this.slFriend,
-            this.slFollow,
-            this.slFeed,
-            this.slComment,
-            this.slLike,
             this.id,
             this.STT,
             this.LoaiFb,
@@ -223,7 +220,12 @@
             this.UID,
             this.URD,
             this.URD2,
-            this.IsLoai});
+            this.slFriend,
+            this.IsLoai,
+            this.slComment,
+            this.slLike,
+            this.slFollow,
+            this.slFeed});
             this.gridUID.ContextMenuStrip = this.contextMenuStrip1;
             this.gridUID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridUID.Location = new System.Drawing.Point(3, 16);
@@ -233,6 +235,103 @@
             this.gridUID.Size = new System.Drawing.Size(405, 360);
             this.gridUID.TabIndex = 0;
             this.gridUID.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridUID_CellClick);
+            // 
+            // Err
+            // 
+            this.Err.HeaderText = "";
+            this.Err.Name = "Err";
+            this.Err.Width = 20;
+            // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.Visible = false;
+            // 
+            // STT
+            // 
+            this.STT.DataPropertyName = "stt";
+            this.STT.HeaderText = "TT";
+            this.STT.Name = "STT";
+            this.STT.Width = 30;
+            // 
+            // LoaiFb
+            // 
+            this.LoaiFb.DataPropertyName = "LoaiFb";
+            this.LoaiFb.HeaderText = "Loại Fb";
+            this.LoaiFb.Name = "LoaiFb";
+            this.LoaiFb.Width = 65;
+            // 
+            // name1
+            // 
+            this.name1.DataPropertyName = "name";
+            this.name1.HeaderText = "Tên Facebook";
+            this.name1.Name = "name1";
+            this.name1.Width = 400;
+            // 
+            // UID
+            // 
+            this.UID.DataPropertyName = "UID";
+            this.UID.HeaderText = "UID";
+            this.UID.Name = "UID";
+            this.UID.Visible = false;
+            // 
+            // URD
+            // 
+            this.URD.DataPropertyName = "URD";
+            this.URD.HeaderText = "Urd";
+            this.URD.Name = "URD";
+            this.URD.Visible = false;
+            // 
+            // URD2
+            // 
+            this.URD2.DataPropertyName = "URD2";
+            this.URD2.HeaderText = "Link";
+            this.URD2.Name = "URD2";
+            this.URD2.Visible = false;
+            // 
+            // slFriend
+            // 
+            this.slFriend.DataPropertyName = "slFriend";
+            this.slFriend.HeaderText = "slFriend";
+            this.slFriend.Name = "slFriend";
+            this.slFriend.Visible = false;
+            // 
+            // IsLoai
+            // 
+            this.IsLoai.DataPropertyName = "IsLoai";
+            this.IsLoai.HeaderText = "IsLoai";
+            this.IsLoai.Name = "IsLoai";
+            this.IsLoai.Visible = false;
+            // 
+            // slComment
+            // 
+            this.slComment.DataPropertyName = "slComment";
+            this.slComment.HeaderText = "slComment";
+            this.slComment.Name = "slComment";
+            this.slComment.Visible = false;
+            // 
+            // slLike
+            // 
+            this.slLike.DataPropertyName = "slLike";
+            this.slLike.HeaderText = "slLike";
+            this.slLike.Name = "slLike";
+            this.slLike.Visible = false;
+            // 
+            // slFollow
+            // 
+            this.slFollow.DataPropertyName = "slFollow";
+            this.slFollow.HeaderText = "slFollow";
+            this.slFollow.Name = "slFollow";
+            this.slFollow.Visible = false;
+            // 
+            // slFeed
+            // 
+            this.slFeed.DataPropertyName = "slFeed";
+            this.slFeed.HeaderText = "slFeed";
+            this.slFeed.Name = "slFeed";
+            this.slFeed.Visible = false;
             // 
             // contextMenuStrip1
             // 
@@ -619,7 +718,7 @@
             this.groupBox5.Controls.Add(this.cmbQuocGia);
             this.groupBox5.Location = new System.Drawing.Point(4, 78);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(636, 54);
+            this.groupBox5.Size = new System.Drawing.Size(636, 55);
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Điều Kiện Lộc";
@@ -723,6 +822,18 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Chuẩn Hoá Data";
             // 
+            // chkSLuong
+            // 
+            this.chkSLuong.AutoSize = true;
+            this.chkSLuong.Checked = true;
+            this.chkSLuong.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSLuong.Location = new System.Drawing.Point(121, 19);
+            this.chkSLuong.Name = "chkSLuong";
+            this.chkSLuong.Size = new System.Drawing.Size(110, 17);
+            this.chkSLuong.TabIndex = 8;
+            this.chkSLuong.Text = "Cập Nhật S.lượng";
+            this.chkSLuong.UseVisualStyleBackColor = true;
+            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
@@ -738,7 +849,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(100, 42);
+            this.button2.Location = new System.Drawing.Point(53, 39);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(128, 23);
             this.button2.TabIndex = 7;
@@ -892,6 +1003,8 @@
             // 
             this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox8.Controls.Add(this.label13);
+            this.groupBox8.Controls.Add(this.txtSlFeed);
             this.groupBox8.Controls.Add(this.label9);
             this.groupBox8.Controls.Add(this.label12);
             this.groupBox8.Controls.Add(this.label10);
@@ -900,9 +1013,9 @@
             this.groupBox8.Controls.Add(this.txtSLFbFollow);
             this.groupBox8.Controls.Add(this.txtSLComment);
             this.groupBox8.Controls.Add(this.txtSLFriend);
-            this.groupBox8.Location = new System.Drawing.Point(14, 68);
+            this.groupBox8.Location = new System.Drawing.Point(14, 64);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(417, 92);
+            this.groupBox8.Size = new System.Drawing.Size(417, 99);
             this.groupBox8.TabIndex = 13;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Thông Tin Số Lượng Của UID";
@@ -911,7 +1024,7 @@
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(225, 58);
+            this.label9.Location = new System.Drawing.Point(227, 78);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(27, 13);
             this.label9.TabIndex = 16;
@@ -919,8 +1032,9 @@
             // 
             // label12
             // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 58);
+            this.label12.Location = new System.Drawing.Point(227, 52);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(51, 13);
             this.label12.TabIndex = 15;
@@ -928,9 +1042,8 @@
             // 
             // label10
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(224, 26);
+            this.label10.Location = new System.Drawing.Point(6, 52);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(82, 13);
             this.label10.TabIndex = 15;
@@ -948,26 +1061,26 @@
             // txtSLLike
             // 
             this.txtSLLike.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSLLike.Location = new System.Drawing.Point(312, 55);
+            this.txtSLLike.Location = new System.Drawing.Point(314, 71);
             this.txtSLLike.Name = "txtSLLike";
             this.txtSLLike.ReadOnly = true;
-            this.txtSLLike.Size = new System.Drawing.Size(78, 20);
+            this.txtSLLike.Size = new System.Drawing.Size(87, 20);
             this.txtSLLike.TabIndex = 13;
             this.txtSLLike.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtSLFbFollow
             // 
-            this.txtSLFbFollow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSLFbFollow.Location = new System.Drawing.Point(312, 23);
+            this.txtSLFbFollow.Location = new System.Drawing.Point(117, 49);
             this.txtSLFbFollow.Name = "txtSLFbFollow";
             this.txtSLFbFollow.ReadOnly = true;
-            this.txtSLFbFollow.Size = new System.Drawing.Size(78, 20);
+            this.txtSLFbFollow.Size = new System.Drawing.Size(87, 20);
             this.txtSLFbFollow.TabIndex = 13;
             this.txtSLFbFollow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtSLComment
             // 
-            this.txtSLComment.Location = new System.Drawing.Point(117, 55);
+            this.txtSLComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSLComment.Location = new System.Drawing.Point(314, 45);
             this.txtSLComment.Name = "txtSLComment";
             this.txtSLComment.ReadOnly = true;
             this.txtSLComment.Size = new System.Drawing.Size(87, 20);
@@ -1021,7 +1134,7 @@
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.button3.Location = new System.Drawing.Point(581, 47);
+            this.button3.Location = new System.Drawing.Point(581, 43);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(55, 22);
             this.button3.TabIndex = 8;
@@ -1033,16 +1146,16 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(434, 50);
+            this.label8.Location = new System.Drawing.Point(434, 46);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 13);
+            this.label8.Size = new System.Drawing.Size(42, 13);
             this.label8.TabIndex = 7;
-            this.label8.Text = "Loại FB";
+            this.label8.Text = "Loại Fb";
             // 
             // txtFbLoai
             // 
             this.txtFbLoai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFbLoai.Location = new System.Drawing.Point(483, 47);
+            this.txtFbLoai.Location = new System.Drawing.Point(483, 43);
             this.txtFbLoai.Name = "txtFbLoai";
             this.txtFbLoai.ReadOnly = true;
             this.txtFbLoai.Size = new System.Drawing.Size(92, 20);
@@ -1053,7 +1166,7 @@
             this.txtFbLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFbLink.ForeColor = System.Drawing.Color.Blue;
-            this.txtFbLink.Location = new System.Drawing.Point(95, 47);
+            this.txtFbLink.Location = new System.Drawing.Point(95, 43);
             this.txtFbLink.Name = "txtFbLink";
             this.txtFbLink.ReadOnly = true;
             this.txtFbLink.Size = new System.Drawing.Size(336, 20);
@@ -1062,7 +1175,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 50);
+            this.label7.Location = new System.Drawing.Point(11, 46);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(78, 13);
             this.label7.TabIndex = 4;
@@ -1298,113 +1411,25 @@
             this.panel2.Size = new System.Drawing.Size(659, 548);
             this.panel2.TabIndex = 2;
             // 
-            // chkSLuong
+            // label13
             // 
-            this.chkSLuong.AutoSize = true;
-            this.chkSLuong.Checked = true;
-            this.chkSLuong.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSLuong.Location = new System.Drawing.Point(121, 19);
-            this.chkSLuong.Name = "chkSLuong";
-            this.chkSLuong.Size = new System.Drawing.Size(110, 17);
-            this.chkSLuong.TabIndex = 8;
-            this.chkSLuong.Text = "Cập Nhật S.lượng";
-            this.chkSLuong.UseVisualStyleBackColor = true;
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(227, 24);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(43, 13);
+            this.label13.TabIndex = 18;
+            this.label13.Text = "Bài Viết";
             // 
-            // Err
+            // txtSlFeed
             // 
-            this.Err.HeaderText = "";
-            this.Err.Name = "Err";
-            this.Err.Width = 20;
-            // 
-            // slFriend
-            // 
-            this.slFriend.DataPropertyName = "slFriend";
-            this.slFriend.HeaderText = "slFriend";
-            this.slFriend.Name = "slFriend";
-            this.slFriend.Visible = false;
-            // 
-            // slFollow
-            // 
-            this.slFollow.DataPropertyName = "slFollow";
-            this.slFollow.HeaderText = "slFollow";
-            this.slFollow.Name = "slFollow";
-            this.slFollow.Visible = false;
-            // 
-            // slFeed
-            // 
-            this.slFeed.DataPropertyName = "slFeed";
-            this.slFeed.HeaderText = "slFeed";
-            this.slFeed.Name = "slFeed";
-            this.slFeed.Visible = false;
-            // 
-            // slComment
-            // 
-            this.slComment.DataPropertyName = "slComment";
-            this.slComment.HeaderText = "slComment";
-            this.slComment.Name = "slComment";
-            this.slComment.Visible = false;
-            // 
-            // slLike
-            // 
-            this.slLike.DataPropertyName = "slLike";
-            this.slLike.HeaderText = "slLike";
-            this.slLike.Name = "slLike";
-            this.slLike.Visible = false;
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.Visible = false;
-            // 
-            // STT
-            // 
-            this.STT.DataPropertyName = "stt";
-            this.STT.HeaderText = "TT";
-            this.STT.Name = "STT";
-            this.STT.Width = 30;
-            // 
-            // LoaiFb
-            // 
-            this.LoaiFb.DataPropertyName = "LoaiFb";
-            this.LoaiFb.HeaderText = "Loại Fb";
-            this.LoaiFb.Name = "LoaiFb";
-            // 
-            // name1
-            // 
-            this.name1.DataPropertyName = "name";
-            this.name1.HeaderText = "Tên Facebook";
-            this.name1.Name = "name1";
-            this.name1.Width = 400;
-            // 
-            // UID
-            // 
-            this.UID.DataPropertyName = "UID";
-            this.UID.HeaderText = "UID";
-            this.UID.Name = "UID";
-            this.UID.Visible = false;
-            // 
-            // URD
-            // 
-            this.URD.DataPropertyName = "URD";
-            this.URD.HeaderText = "Urd";
-            this.URD.Name = "URD";
-            this.URD.Visible = false;
-            // 
-            // URD2
-            // 
-            this.URD2.DataPropertyName = "URD2";
-            this.URD2.HeaderText = "Link";
-            this.URD2.Name = "URD2";
-            this.URD2.Visible = false;
-            // 
-            // IsLoai
-            // 
-            this.IsLoai.DataPropertyName = "IsLoai";
-            this.IsLoai.HeaderText = "IsLoai";
-            this.IsLoai.Name = "IsLoai";
-            this.IsLoai.Visible = false;
+            this.txtSlFeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSlFeed.Location = new System.Drawing.Point(314, 17);
+            this.txtSlFeed.Name = "txtSlFeed";
+            this.txtSlFeed.ReadOnly = true;
+            this.txtSlFeed.Size = new System.Drawing.Size(87, 20);
+            this.txtSlFeed.TabIndex = 17;
+            this.txtSlFeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // FrmMain123
             // 
@@ -1571,12 +1596,8 @@
         private System.Windows.Forms.TextBox txtSLFbFollow;
         private System.Windows.Forms.TextBox txtSLComment;
         private System.Windows.Forms.CheckBox chkSLuong;
+        private System.Windows.Forms.TextBox txtSLFriend;
         private System.Windows.Forms.DataGridViewImageColumn Err;
-        private System.Windows.Forms.DataGridViewTextBoxColumn slFriend;
-        private System.Windows.Forms.DataGridViewTextBoxColumn slFollow;
-        private System.Windows.Forms.DataGridViewTextBoxColumn slFeed;
-        private System.Windows.Forms.DataGridViewTextBoxColumn slComment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn slLike;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn STT;
         private System.Windows.Forms.DataGridViewTextBoxColumn LoaiFb;
@@ -1584,8 +1605,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn UID;
         private System.Windows.Forms.DataGridViewTextBoxColumn URD;
         private System.Windows.Forms.DataGridViewTextBoxColumn URD2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slFriend;
         private System.Windows.Forms.DataGridViewTextBoxColumn IsLoai;
-        private System.Windows.Forms.TextBox txtSLFriend;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slComment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slLike;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slFollow;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slFeed;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtSlFeed;
     }
 }
 
