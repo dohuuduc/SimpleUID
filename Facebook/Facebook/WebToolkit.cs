@@ -281,8 +281,8 @@ namespace Web
                             GetHtml(url, ref solanlap,  lblMessage2, token);
                         }
                     }
-                    else if(ex.ToString().Contains("returned an error: (400) Bad Request")){
-                        MessageBox.Show("Vui Lòng kiễm tra lại Token các thông tin sau:\n -Hết hạn\n- Hết Quata\nBạn thử reset lại account để lấy lại token mới, hoặc nhập 1 accout mới", "Cảnh Báo",MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
+                    else {
+                        //MessageBox.Show("Vui Lòng kiễm tra lại Token các thông tin sau:\n -Hết hạn\n- Hết Quata\nBạn thử reset lại account để lấy lại token mới, hoặc nhập 1 accout mới", "Cảnh Báo",MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
                         return "";
                     }
                 }
