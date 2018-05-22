@@ -496,6 +496,7 @@ namespace Facebook
                     model.URD = myRow["URD"].ToString();
                     model.IsLoai = ConvertType.ToInt(myRow["IsLoai"]);
                     model.Name = myRow["name"].ToString();
+                    model.OrderID = ConvertType.ToInt( myRow["stt"]);
                     listQuet.Add(model);
                 }
                 lblMessage1.Text = string.Format("Đang xử lý: Số lượng uid sẽ quét: {0}", listQuet.Count());
@@ -507,7 +508,7 @@ namespace Facebook
                     if (TheardFacebookWriter.hasProcess)
                     {
                         /**************************Code here********************/
-                        NhomUID model = listQuet.FirstOrDefault();
+                        NhomUID model = listQuet.OrderBy(p=>p.OrderID).FirstOrDefault();
 
                         lblMessage1.Text = string.Format("Đang xử lý: {0} -Id: {1}", model.Name, model.UID);
                         lblMessage1.Update();
