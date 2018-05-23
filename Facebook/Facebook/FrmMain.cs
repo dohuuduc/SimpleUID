@@ -222,10 +222,12 @@ namespace Facebook
             {
                 string account = GridAccount.Rows[e.RowIndex].Cells["account"].Value.ToString();
                 string password = GridAccount.Rows[e.RowIndex].Cells["password"].Value.ToString();
+                string token = GridAccount.Rows[e.RowIndex].Cells["token"].Value.ToString();
                 FrmAddAcc frm = new FrmAddAcc();
                 frm.Flage = "sua";
                 frm.UserName = account;
                 frm.PassWord = password;
+                frm.Token = token;
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     BindAccount();

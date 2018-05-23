@@ -338,7 +338,7 @@ namespace Facebook
             try
             {
                 string url = "https://www.facebook.com/login.php";
-                string html = WebToolkit.GetHtml(url);
+                string html = WebToolkit.GetHtmlChuyenHtmlKhac(url);
 
                 HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                 doc.LoadHtml(html);

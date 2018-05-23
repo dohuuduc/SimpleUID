@@ -21,6 +21,7 @@ namespace Facebook
         private string flag;
         private string username;
         private string password;
+        private string token;
         public string Flage {
             get { return flag; }
             set { flag = value; }
@@ -33,7 +34,10 @@ namespace Facebook
             get { return password; }
             set { password = value; }
         }
-
+        public string Token {
+            get { return token; }
+            set { token = value; }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -46,13 +50,22 @@ namespace Facebook
                 return;
             }
             FbAccount fb= new FbAccount();
-            (new Waiting(() => fb = Facebook.Login(textBox1.Text, textBox2.Text))).ShowDialog();
-            List<FbAccount> fbAccounts =  SQLDatabase.LoadFbAccount(string.Format("select * from FbAccount where account='{0}'", textBox1.Text));
-            if (fbAccounts.Count == 0) {
-                SQLDatabase.AddFbAccount(new FbAccount() { account = fb.account, password = fb.password, token = fb.token, IsAct = true });
+            string token = "";
+            if (radioButton1.Checked)
+            {
+                (new Waiting(() => fb = Facebook.Login(textBox1.Text, textBox2.Text))).ShowDialog();
+                token = fb.token;
             }
             else {
-                SQLDatabase.UpdateFbAccount(new FbAccount() {password = fb.password, token = fb.token , IsAct = true });
+                token = txtToken.Text;
+            }
+
+            List<FbAccount> fbAccounts =  SQLDatabase.LoadFbAccount(string.Format("select * from FbAccount where account='{0}'", textBox1.Text));
+            if (fbAccounts.Count == 0) {
+                SQLDatabase.AddFbAccount(new FbAccount() { account = fb.account, password = fb.password, token = token, IsAct = true });
+            }
+            else {
+                SQLDatabase.UpdateFbAccount(new FbAccount() {password = fb.password, token = token, IsAct = true });
             }
             /*goi hàm kiễm tra lại trạng thái token có vươc gioi han soa chưa?*/
             this.DialogResult = DialogResult.OK;
@@ -70,6 +83,7 @@ namespace Facebook
             {
                 this.textBox1.Text = username;
                 this.textBox2.Text = password;
+                this.txtToken.Text = token;
                 this.Text = "Cập Nhật Account Facebook";
             }
         }
@@ -81,6 +95,11 @@ namespace Facebook
                 button1_Click(null, null);
                 e.Handled = true;
             }
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+           txtToken.Enabled = !radioButton1.Checked;
         }
     }
 }

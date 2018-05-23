@@ -1627,7 +1627,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "AddFbFollow");
+               // MessageBox.Show(ex.Message, "AddFbFollow");
                 return false;
             }
             finally
@@ -1738,7 +1738,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "UpdateFollowUid");
+                //MessageBox.Show(ex.Message, "UpdateFollowUid");
                 return false;
             }
             finally
@@ -1826,7 +1826,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "AddFbUID");
+               // MessageBox.Show(ex.Message, "AddFbUID");
                 return false;
             }
             finally
@@ -1902,7 +1902,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "UpFbUID");
+                //MessageBox.Show(ex.Message, "UpFbUID");
                 return false;
             }
             finally
@@ -1957,7 +1957,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "AddFbPage");
+               // MessageBox.Show(ex.Message, "AddFbPage");
                 return false;
             }
             finally
@@ -2001,7 +2001,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "UpFbPage");
+               // MessageBox.Show(ex.Message, "UpFbPage");
                 return false;
             }
             finally
@@ -2061,7 +2061,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "AddFbGUI"); 
+                //MessageBox.Show(ex.Message, "AddFbGUI"); 
                 return false;
             }
             finally
@@ -2111,7 +2111,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "UpFbGUI");
+               // MessageBox.Show(ex.Message, "UpFbGUI");
                 return false;
             }
             finally
