@@ -631,7 +631,15 @@ namespace Facebook
                 {
                     dscolumn = "uid_quet \n(1),FollowUid\n(2)," + dscolumn;
                 }
+                else if (keys.Contains("FbLike"))
+                {
+                    dscolumn = "UID_Chinh \n(1), feedid\n(2),  from_id [uid] \n(3), from_name \n(4),   from_xac_nhan\n(5), message\n(6), story, type\n(7)," +
+                               "status_type \n(8), description\n(9), List_Like\n(10), List_with_tags\n(11),  story_tags\n(12), created_time\n(13),    update_time\n(14), is_hidden\n(15),   is_expired\n(16), likes\n(17),   comments\n(18)";
 
+                }
+                else if (keys.Contains("FbComments")) {
+                    dscolumn = "UID_Chinh\n(1),	feedid\n(2),	message_baiviet\n(3),	description\n(4),	is_hidden\n(5),	is_expired\n(6),	likes\n(7),	comments\n(8),	from_id_commend\n(9),	from_name_commend\n(10),	from_xac_nhan_commend\n(11),	message_comment\n(12),	commend_create\n(13)";
+                }
                 return dscolumn;
             }
             catch (Exception ex)
@@ -1069,7 +1077,7 @@ namespace Facebook
             try
             {
                 string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string fileName = "MauFileFriend_" + DateTime.Now.ToString("dd_MM_yyyy");
+                string fileName = "Mau_Friend";
                 bool temp = false;
                 new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbFriend"), "Vui Lòng Chờ").ShowDialog();
                 MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
@@ -1105,7 +1113,7 @@ namespace Facebook
             try
             {
                 string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string fileName = "MauFileFriend_" + DateTime.Now.ToString("dd_MM_yyyy");
+                string fileName = "Mau_Follow";
                 bool temp = false;
                 new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbFollow"), "Vui Lòng Chờ").ShowDialog();
                 MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
@@ -1114,6 +1122,38 @@ namespace Facebook
             {
 
                 MessageBox.Show(ex.Message, "linkLabel1_LinkClicked");
+            }
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string fileName = "Mau_Like";
+                bool temp = false;
+                new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbLike"), "Vui Lòng Chờ").ShowDialog();
+                MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "linkLabel3_LinkClicked");
+            }
+        }
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string fileName = "Mau_Comments";
+                bool temp = false;
+                new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbComments"), "Vui Lòng Chờ").ShowDialog();
+                MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "linkLabel3_LinkClicked");
             }
         }
     }

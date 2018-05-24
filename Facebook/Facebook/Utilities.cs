@@ -1684,7 +1684,7 @@ namespace Facebook
 
                     // format cho header
                     COMExcel.Range headr = (COMExcel.Range)exSheet.Range[exSheet.Cells[1, 1], exSheet.Cells[1, colCount]];
-                    headr.Interior.Color = System.Drawing.Color.Gray.ToArgb();
+                    headr.Interior.Color = System.Drawing.Color.YellowGreen.ToArgb();
                     headr.Font.Bold = true;
                     headr.Font.Name = "Arial";
                     headr.Font.Color = System.Drawing.Color.White.ToArgb();

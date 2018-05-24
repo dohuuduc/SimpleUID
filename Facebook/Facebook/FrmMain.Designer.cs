@@ -740,6 +740,7 @@
             this.linkLabel4.TabIndex = 3;
             this.linkLabel4.TabStop = true;
             this.linkLabel4.Text = "Bài Viết (Comment)";
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
             // 
             // linkLabel3
             // 
@@ -751,6 +752,7 @@
             this.linkLabel3.TabIndex = 2;
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Text = "Bài Viết (Like)";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
             // 
             // linkLabel2
             // 
