@@ -561,6 +561,11 @@ namespace Facebook
             Likes model = new Likes();
             model.like = new List<like>();
             bool flag = true;
+
+            ArrayList arr1 = (ArrayList)arrControl;
+            Label lblMessage1 = (Label)arr1[0];
+            Label lblMessage2 = (Label)arr1[1];
+
             try
             {
                 string Strtoken = "";
@@ -608,12 +613,19 @@ namespace Facebook
                     }
                     else
                         flag = false;
+
+                    /*update */
+                    lblMessage2.Invoke((Action)delegate
+                    {
+                        lblMessage2.Text = string.Format("Đang load số liệu: {0}", requestUriString);
+                        lblMessage2.Update();
+                    });
                 }
                 return resul;
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, "GetFbLike");
+                writer.WriteToLog(string.Format("{0}-{1}", requestUriString, ex.Message));
                 return resul;
             }
         }
@@ -621,6 +633,11 @@ namespace Facebook
         public static ListFbFriend GetFbFriend(string requestUriString, object arrControl, string token)
         {
             ListFbFriend model = new ListFbFriend();
+
+            ArrayList arr1 = (ArrayList)arrControl;
+            Label lblMessage1 = (Label)arr1[0];
+            Label lblMessage2 = (Label)arr1[1];
+
             bool flag = true;
             try
             {
@@ -631,6 +648,8 @@ namespace Facebook
                         TheardFacebookWriter.hasProcess = false;
                         return model;
                     };
+                   
+
                     int lap = 0;
                     string json = Web.WebToolkit.GetHtml(requestUriString,ref lap, (Label)((ArrayList)arrControl)[1], token);
                     if (json != "")
@@ -648,12 +667,20 @@ namespace Facebook
                     }
                     else
                         flag = false;
+
+                    /*update message thông báo*/
+                    lblMessage2.Invoke((Action)delegate
+                    {
+                        lblMessage2.Text = string.Format("Đang load số liệu {0}: {1}",requestUriString.Contains("subscribers") ? "Theo dõi" : "Bạn vè", requestUriString);
+                        lblMessage2.Update();
+                    });
                 }
                 return model;
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, "ListFbFriend");
+
+                writer.WriteToLog(string.Format("{0}-{1}", requestUriString,ex.Message));
                 return model;
             }
         }
@@ -663,6 +690,10 @@ namespace Facebook
         {
             ListFbPageSearch model = new ListFbPageSearch();
             bool flag = true;
+            ArrayList arr1 = (ArrayList)arrControl;
+            Label lblMessage1 = (Label)arr1[0];
+            Label lblMessage2 = (Label)arr1[1];
+
             try
             {
                 int n = 0;
@@ -677,6 +708,9 @@ namespace Facebook
                     //string json = Facebook.GetHtmlFB(requestUriString, token, gioihangoilai);
                     int solangoilai = 0;
                     string json = WebToolkit.GetHtml(requestUriString, ref solangoilai, (Label)((ArrayList)arrControl)[1],  token);
+
+                    lblMessage2.Text = string.Format("Đang load số liệu: {0}", requestUriString);
+                    lblMessage2.Update();
 
                     if (json != "")
                     {
@@ -695,6 +729,13 @@ namespace Facebook
                     }
                     else
                         flag = false;
+
+                    /*update message thông báo*/
+                    lblMessage2.Invoke((Action)delegate
+                    {
+                        lblMessage2.Text = string.Format("Đang load số liệu: {0}", requestUriString);
+                        lblMessage2.Update();
+                    });
                 }
                 return model;
             }
@@ -709,6 +750,11 @@ namespace Facebook
         {
             ListFbUserSearch model = new ListFbUserSearch();
             bool flag = true;
+
+            ArrayList arr1 = (ArrayList)arrControl;
+            Label lblMessage1 = (Label)arr1[0];
+            Label lblMessage2 = (Label)arr1[1];
+
             try
             {
                 int n = 0;
@@ -740,6 +786,15 @@ namespace Facebook
                     }
                     else
                         flag = false;
+
+
+                    /*update message thông báo*/
+                    lblMessage2.Invoke((Action)delegate
+                    {
+                        lblMessage2.Text = string.Format("Đang load số liệu: {0}", requestUriString);
+                        lblMessage2.Update();
+                    });
+
                 }
                 return model;
             }
@@ -754,6 +809,11 @@ namespace Facebook
         {
             ListFbGroupSearch model = new ListFbGroupSearch();
             bool flag = true;
+
+            ArrayList arr1 = (ArrayList)arrControl;
+            Label lblMessage1 = (Label)arr1[0];
+            Label lblMessage2 = (Label)arr1[1];
+
             try
             {
                 int n = 0;
@@ -785,18 +845,30 @@ namespace Facebook
                     }
                     else
                         flag = false;
+
+                    /*update message thông báo*/
+                    lblMessage2.Invoke((Action)delegate
+                    {
+                        lblMessage2.Text = string.Format("Đang load số liệu: {0}", requestUriString);
+                        lblMessage2.Update();
+                    });
+
                 }
                 return model;
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, "FbSearchByGroup");
+                MessageBox.Show(ex.Message, "FbSearchByGroup");
                 return model;
             }
         }
 
         public static ListFbFeed GetFbFeed(string requestUriString, object arrControl, string token)
         {
+            ArrayList arr1 = (ArrayList)arrControl;
+            Label lblMessage1 = (Label)arr1[0];
+            Label lblMessage2 = (Label)arr1[1];
+
             ListFbFeed model = new ListFbFeed();
             model.FbFeed = new List<FbFeed>();
             bool flag = true;
@@ -826,12 +898,20 @@ namespace Facebook
                     }
                     else
                         flag = false;
+
+
+                    /*update message thông báo*/
+                    lblMessage2.Invoke((Action)delegate
+                    {
+                        lblMessage2.Text = string.Format("Đang load số liệu: {0}", requestUriString);
+                        lblMessage2.Update();
+                    });
                 }
                 return model;
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, "GetFbFeed");
+                writer.WriteToLog(string.Format("{0}-{1}", requestUriString, ex.Message));
                 return model;
             }
         }
@@ -841,6 +921,11 @@ namespace Facebook
             ListFbComments model = new ListFbComments();
             model.fbComments = new List<FbComments>();
             bool flag = true;
+
+            ArrayList arr1 = (ArrayList)arrControl;
+            Label lblMessage1 = (Label)arr1[0];
+            Label lblMessage2 = (Label)arr1[1];
+
             try
             {
                 string token = "";
@@ -867,12 +952,20 @@ namespace Facebook
                             flag = false;
                     }else
                         flag = false;
+
+
+                    /*update message thông báo*/
+                    lblMessage2.Invoke((Action)delegate
+                    {
+                        lblMessage2.Text = string.Format("Đang load số liệu: {0}", requestUriString);
+                        lblMessage2.Update();
+                    });
                 }
                 return model;
             }
             catch (Exception ex)
             {
-             //   MessageBox.Show(ex.Message, "GetFbCommend");
+                writer.WriteToLog(string.Format("{0}-{1}", requestUriString, ex.Message));
                 return model;
             }
         }

@@ -263,8 +263,6 @@ namespace Facebook
                             SQLDatabase.Updatedm_column(temp);
                         }
                     }, "Vui Lòng Chờ").ShowDialog();
-
-
                 }
                 catch (Exception ex)
                 {
@@ -273,7 +271,7 @@ namespace Facebook
                 }
             }
         }
-
+        
         private void làmTươiToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             BindColumn();

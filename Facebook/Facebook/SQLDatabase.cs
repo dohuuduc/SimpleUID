@@ -656,6 +656,11 @@ namespace Facebook
         public string Note { get; set; }
         public bool IsActi { get; set; }
         public int IsLoai { get; set; }
+        public int slFriend { get; set; }
+        public int slFollow { get; set; }
+        public int slFeed { get; set; }
+        public int slComment { get; set; }
+        public int slLike { get; set; }
         public int OrderID { get; set; }
         public DateTime CreateDate { get; set; }
         public NhomUID() {
@@ -665,6 +670,11 @@ namespace Facebook
             this.Note = "";
             this.IsActi = false;
             this.IsLoai = 0;
+            this.slFriend = 0;
+            this.slFollow = 0;
+            this.slFeed = 0;
+            this.slComment = 0;
+            this.slLike = 0;
             this.OrderID = 0;
         }
     }
@@ -2267,9 +2277,19 @@ namespace Facebook
                     if (!reader.IsDBNull(7))
                         InfoCOMMANDTABLE.IsLoai = reader.GetInt32(7);
                     if (!reader.IsDBNull(8))
-                        InfoCOMMANDTABLE.OrderID = reader.GetInt32(8);
+                        InfoCOMMANDTABLE.slFriend = reader.GetInt32(8);
                     if (!reader.IsDBNull(9))
-                        InfoCOMMANDTABLE.CreateDate = reader.GetDateTime(9);
+                        InfoCOMMANDTABLE.slFollow = reader.GetInt32(9);
+                    if (!reader.IsDBNull(10))
+                        InfoCOMMANDTABLE.slFeed = reader.GetInt32(10);
+                    if (!reader.IsDBNull(11))
+                        InfoCOMMANDTABLE.slComment = reader.GetInt32(11);
+                    if (!reader.IsDBNull(12))
+                        InfoCOMMANDTABLE.slLike = reader.GetInt32(12);
+                    if (!reader.IsDBNull(13))
+                        InfoCOMMANDTABLE.OrderID = reader.GetInt32(13);
+                    if (!reader.IsDBNull(14))
+                        InfoCOMMANDTABLE.CreateDate = reader.GetDateTime(14);
 
                     InfoCOMMANDTABLEs.Add(InfoCOMMANDTABLE);
                 }

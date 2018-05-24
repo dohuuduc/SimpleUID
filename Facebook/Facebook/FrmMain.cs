@@ -274,10 +274,6 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "xoáAccountToolStripMenuItem_Click");
             }
         }
-
-       
-     
-
         private void resetUIDToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -572,8 +568,6 @@ namespace Facebook
                 throw;
             }
         }
-
-
         private string strDanhSachXuat()
         {
             string strdk = "";
@@ -588,10 +582,64 @@ namespace Facebook
             }
             return strdk;
         }
+        private string getlistColumn(string keys) {
+            try
+            {
+                string dscolumn = "";
+                List<dm_column> collection = SQLDatabase.Loaddm_column("select * from dm_column where act=1 order by orderid ");
+                foreach (dm_column item in collection)
+                {
+                    dscolumn += string.Format("{0},", item.Keys);
+                }
+                dscolumn = dscolumn.Substring(0, dscolumn.Length - 1);
 
+                if (keys.Contains("FbFriend"))
+                {
+                    dscolumn = "uid_quet,FriendUid" + dscolumn;
+                }
+                else if (keys.Contains("FbFollow")) {
+                    dscolumn = "uid_quet,FollowUid" + dscolumn;
+                }
 
+                return dscolumn;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "getlistColumn");
+                return "";
+            }
+        }
+        private string getlistColumnByName(string keys)
+        {
+            try
+            {
+                string dscolumn = "";
+                List<dm_column> collection = SQLDatabase.Loaddm_column("select * from dm_column where act=1 order by orderid ");
+                int i = 3;
+                foreach (dm_column item in collection)
+                {
+                    dscolumn += string.Format("{0}\n\t\r ({1}),", item.name,i);
+                    i++;
+                }
+                dscolumn = dscolumn.Substring(0, dscolumn.Length - 1);
 
+                if (keys.Contains("FbFriend"))
+                {
+                    dscolumn = "uid_quet \n(1),FriendUid\n(2)," + dscolumn;
+                }
+                else if (keys.Contains("FbFollow"))
+                {
+                    dscolumn = "uid_quet \n(1),FollowUid\n(2)," + dscolumn;
+                }
 
+                return dscolumn;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "getlistColumn");
+                return "";
+            }
+        }
 
         private void phoneEmailToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -945,8 +993,9 @@ namespace Facebook
                     
 
                         string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Friend_" + DateTime.Now.ToString("dd_MM_yyyy") +string.Format("{0}", radExcel.Checked ?".xls":"txt");
-                        SQLDatabase.ExcNonQuery(string.Format("[spExportFriend] '{0}','{1}','{2}','{3}','{4}'", model.UID, cmbQuocGia.SelectedValue.ToString() == "" ? "-1" : cmbQuocGia.SelectedValue.ToString().Trim()
-                                                                                                                       , cmbGioiTinh.SelectedValue.ToString() == "" ? "-1": cmbGioiTinh.SelectedValue.ToString().Trim()
+                        SQLDatabase.ExcNonQuery(string.Format("[spExportFriend] '{0}','{1}','{2}','{3}','{4}','{5}'", model.UID, cmbQuocGia.SelectedValue.ToString() == "" ? "-1" : cmbQuocGia.SelectedValue.ToString().Trim()
+                                                                                                                       , cmbGioiTinh.SelectedValue.ToString() == "" ? "-1" : cmbGioiTinh.SelectedValue.ToString().Trim(),
+                                                                                                                       getlistColumn("FbFriend")
                                                                                                                        , _strdatabasename, filePath + "\\" + fileName));
 
                         lblMessage1.Text = string.Format("Kết Thúc xuất Friend: {0}", model.Name);
@@ -959,8 +1008,9 @@ namespace Facebook
                         lblMessage1.Update();
 
                         string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Follow_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
-                        SQLDatabase.ExcNonQuery(string.Format("[spExportFollow] '{0}','{1}','{2}','{3}','{4}'", model.UID, cmbQuocGia.SelectedValue.ToString() == "" ? "-1" : cmbQuocGia.SelectedValue.ToString().Trim()
-                                                                                                                   , cmbGioiTinh.SelectedValue.ToString() == "" ? "-1" : cmbGioiTinh.SelectedValue.ToString().Trim()
+                        SQLDatabase.ExcNonQuery(string.Format("[spExportFollow] '{0}','{1}','{2}','{3}','{4}','{5}'", model.UID, cmbQuocGia.SelectedValue.ToString() == "" ? "-1" : cmbQuocGia.SelectedValue.ToString().Trim()
+                                                                                                                   , cmbGioiTinh.SelectedValue.ToString() == "" ? "-1" : cmbGioiTinh.SelectedValue.ToString().Trim(),
+                                                                                                                   getlistColumn("FbFollow")
                                                                                                                    , _strdatabasename, filePath + "\\" + fileName));
 
 
@@ -1011,6 +1061,59 @@ namespace Facebook
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ProcessXuatFile");
+            }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string fileName = "MauFileFriend_" + DateTime.Now.ToString("dd_MM_yyyy");
+                bool temp = false;
+                new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbFriend"), "Vui Lòng Chờ").ShowDialog();
+                MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "linkLabel1_LinkClicked");
+            }
+        }
+
+        private bool xuatfilemain(string filePath,string keys)
+        {
+            try
+            {
+                DataTable table = new DataTable();
+                foreach (var item in getlistColumnByName(keys).Split(','))
+                    table.Columns.Add(item, typeof(string));
+
+                ExcelAdapter excel = new ExcelAdapter(filePath);
+                excel.CreateAndWrite(table, "Phone", 1);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string fileName = "MauFileFriend_" + DateTime.Now.ToString("dd_MM_yyyy");
+                bool temp = false;
+                new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbFollow"), "Vui Lòng Chờ").ShowDialog();
+                MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "linkLabel1_LinkClicked");
             }
         }
     }

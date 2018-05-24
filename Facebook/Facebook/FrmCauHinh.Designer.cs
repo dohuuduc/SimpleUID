@@ -532,7 +532,7 @@
             // làmTươiToolStripMenuItem1
             // 
             this.làmTươiToolStripMenuItem1.Name = "làmTươiToolStripMenuItem1";
-            this.làmTươiToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.làmTươiToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.làmTươiToolStripMenuItem1.Text = "Làm Tươi";
             this.làmTươiToolStripMenuItem1.Click += new System.EventHandler(this.làmTươiToolStripMenuItem1_Click);
             // 
@@ -556,6 +556,7 @@
             this.KeysCol.DataPropertyName = "Keys";
             this.KeysCol.HeaderText = "Mã";
             this.KeysCol.Name = "KeysCol";
+            this.KeysCol.ReadOnly = true;
             this.KeysCol.Width = 150;
             // 
             // namecol
