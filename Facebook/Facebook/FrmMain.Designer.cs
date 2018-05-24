@@ -117,6 +117,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtSlFeed = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -153,8 +155,11 @@
             this.btnQuet = new System.Windows.Forms.Button();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtSlFeed = new System.Windows.Forms.TextBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.grDsUID.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUID)).BeginInit();
@@ -180,6 +185,7 @@
             this.grQuataAcc.SuspendLayout();
             this.grDoituongquet.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -650,7 +656,7 @@
             // cấuHìnhToolStripMenuItem
             // 
             this.cấuHìnhToolStripMenuItem.Name = "cấuHìnhToolStripMenuItem";
-            this.cấuHìnhToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.cấuHìnhToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cấuHìnhToolStripMenuItem.Text = "Cấu Hình";
             this.cấuHìnhToolStripMenuItem.Click += new System.EventHandler(this.cấuHìnhToolStripMenuItem_Click);
             // 
@@ -692,11 +698,12 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 166);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(645, 136);
+            this.panel6.Size = new System.Drawing.Size(645, 142);
             this.panel6.TabIndex = 5;
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.groupBox9);
             this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Controls.Add(this.groupBox2);
             this.groupBox3.Controls.Add(this.groupBox7);
@@ -704,21 +711,19 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(645, 136);
+            this.groupBox3.Size = new System.Drawing.Size(645, 142);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
             // groupBox5
             // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.cmbGioiTinh);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.cmbQuocGia);
             this.groupBox5.Location = new System.Drawing.Point(4, 78);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(636, 55);
+            this.groupBox5.Size = new System.Drawing.Size(376, 61);
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Điều Kiện Lộc";
@@ -740,7 +745,7 @@
             "ALL",
             "Nam",
             "Nữ"});
-            this.cmbGioiTinh.Location = new System.Drawing.Point(279, 19);
+            this.cmbGioiTinh.Location = new System.Drawing.Point(271, 19);
             this.cmbGioiTinh.Name = "cmbGioiTinh";
             this.cmbGioiTinh.Size = new System.Drawing.Size(95, 21);
             this.cmbGioiTinh.TabIndex = 2;
@@ -927,9 +932,9 @@
             this.panel5.Controls.Add(this.lblMessage1);
             this.panel5.Controls.Add(this.lblMessage2);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(0, 302);
+            this.panel5.Location = new System.Drawing.Point(0, 308);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(645, 73);
+            this.panel5.Size = new System.Drawing.Size(645, 67);
             this.panel5.TabIndex = 4;
             // 
             // progressBar1
@@ -948,7 +953,7 @@
             this.lblMessage1.AutoSize = true;
             this.lblMessage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblMessage1.ForeColor = System.Drawing.Color.Red;
-            this.lblMessage1.Location = new System.Drawing.Point(-1, 11);
+            this.lblMessage1.Location = new System.Drawing.Point(-1, 5);
             this.lblMessage1.Name = "lblMessage1";
             this.lblMessage1.Size = new System.Drawing.Size(93, 15);
             this.lblMessage1.TabIndex = 1;
@@ -961,7 +966,7 @@
             this.lblMessage2.AutoSize = true;
             this.lblMessage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblMessage2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblMessage2.Location = new System.Drawing.Point(2, 23);
+            this.lblMessage2.Location = new System.Drawing.Point(2, 17);
             this.lblMessage2.Name = "lblMessage2";
             this.lblMessage2.Size = new System.Drawing.Size(22, 15);
             this.lblMessage2.TabIndex = 3;
@@ -1019,6 +1024,26 @@
             this.groupBox8.TabIndex = 13;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Thông Tin Số Lượng Của UID";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(227, 24);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(43, 13);
+            this.label13.TabIndex = 18;
+            this.label13.Text = "Bài Viết";
+            // 
+            // txtSlFeed
+            // 
+            this.txtSlFeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSlFeed.Location = new System.Drawing.Point(314, 17);
+            this.txtSlFeed.Name = "txtSlFeed";
+            this.txtSlFeed.ReadOnly = true;
+            this.txtSlFeed.Size = new System.Drawing.Size(87, 20);
+            this.txtSlFeed.TabIndex = 17;
+            this.txtSlFeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label9
             // 
@@ -1411,25 +1436,62 @@
             this.panel2.Size = new System.Drawing.Size(659, 548);
             this.panel2.TabIndex = 2;
             // 
-            // label13
+            // groupBox9
             // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(227, 24);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(43, 13);
-            this.label13.TabIndex = 18;
-            this.label13.Text = "Bài Viết";
+            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox9.Controls.Add(this.linkLabel4);
+            this.groupBox9.Controls.Add(this.linkLabel3);
+            this.groupBox9.Controls.Add(this.linkLabel2);
+            this.groupBox9.Controls.Add(this.linkLabel1);
+            this.groupBox9.Location = new System.Drawing.Point(387, 78);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(255, 61);
+            this.groupBox9.TabIndex = 11;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Mẫu File Excel Xuất";
             // 
-            // txtSlFeed
+            // linkLabel1
             // 
-            this.txtSlFeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSlFeed.Location = new System.Drawing.Point(314, 17);
-            this.txtSlFeed.Name = "txtSlFeed";
-            this.txtSlFeed.ReadOnly = true;
-            this.txtSlFeed.Size = new System.Drawing.Size(87, 20);
-            this.txtSlFeed.TabIndex = 17;
-            this.txtSlFeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(34, 19);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(106, 13);
+            this.linkLabel1.TabIndex = 0;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Bạn Bè (Thành Viên)";
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(34, 39);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(82, 13);
+            this.linkLabel2.TabIndex = 1;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "Người Theo Dõi";
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(159, 19);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(72, 13);
+            this.linkLabel3.TabIndex = 2;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "Bài Viết (Like)";
+            // 
+            // linkLabel4
+            // 
+            this.linkLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabel4.AutoSize = true;
+            this.linkLabel4.Location = new System.Drawing.Point(160, 39);
+            this.linkLabel4.Name = "linkLabel4";
+            this.linkLabel4.Size = new System.Drawing.Size(96, 13);
+            this.linkLabel4.TabIndex = 3;
+            this.linkLabel4.TabStop = true;
+            this.linkLabel4.Text = "Bài Viết (Comment)";
             // 
             // FrmMain123
             // 
@@ -1481,6 +1543,8 @@
             this.grDoituongquet.ResumeLayout(false);
             this.grDoituongquet.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1613,6 +1677,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn slFeed;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtSlFeed;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.LinkLabel linkLabel4;
+        private System.Windows.Forms.LinkLabel linkLabel3;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 

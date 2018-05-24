@@ -96,7 +96,15 @@ namespace Facebook
             this.work = null;
         }
     }
-
+    public class dm_column
+    {
+        //id, account, password, token, createdate
+        public int id { get; set; }
+        public string Keys { get; set; }
+        public string name { get; set; }
+        public bool act { get; set; }
+        public int orderid { get; set; }
+    }
     public class FbPage {
         [JsonIgnore]
         public Guid id { get; set; }
@@ -934,6 +942,97 @@ namespace Facebook
             }
         }
 
+        #endregion
+
+        #region dm_column
+        public static List<dm_column> Loaddm_column(string sql)
+        {
+            SqlConnection cnn = null;
+            SqlCommand cmd = null;
+            SqlDataReader reader = null;
+            dm_column InfoCOMMANDTABLE;
+            List<dm_column> InfoCOMMANDTABLEs = null;
+
+            try
+            {
+                InfoCOMMANDTABLEs = new List<dm_column>();
+
+                cnn = new SqlConnection();
+                cnn.ConnectionString = ConnectionString;
+                cnn.Open();
+                cnn.FireInfoMessageEventOnUserErrors = false;
+
+                cmd = new SqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = cnn;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    InfoCOMMANDTABLE = new dm_column();
+                    if (!reader.IsDBNull(0))
+                        InfoCOMMANDTABLE.id = reader.GetInt32(0);
+                    if (!reader.IsDBNull(1))
+                        InfoCOMMANDTABLE.Keys = reader.GetString(1);
+                    if (!reader.IsDBNull(2))
+                        InfoCOMMANDTABLE.name = reader.GetString(2);
+                    if (!reader.IsDBNull(3))
+                        InfoCOMMANDTABLE.act = reader.GetBoolean(3);
+                    if (!reader.IsDBNull(4))
+                        InfoCOMMANDTABLE.orderid = reader.GetInt32(4);
+                    InfoCOMMANDTABLEs.Add(InfoCOMMANDTABLE);
+                }
+                return InfoCOMMANDTABLEs;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (cnn.State == ConnectionState.Open)
+                    cnn.Close();
+            }
+        }
+        public static bool Updatedm_column(dm_column record)
+        {
+            SqlConnection connection = null;
+            SqlCommand cmd = null;
+
+            try
+            {
+                if (record == null)
+                    return false;
+
+                // Make connection to database
+                connection = new SqlConnection();
+                connection.ConnectionString = ConnectionString;
+                connection.FireInfoMessageEventOnUserErrors = false;
+                connection.Open();
+                // Create command to update GeneralGuessGroup record
+                cmd = new SqlCommand();
+                cmd.Connection = connection;
+                cmd.CommandText = "Update [dm_column] Set  Keys=@Keys,name=@name, act=@act, orderid=@orderid " +
+                                 " where id='" + record.id + "'";
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.AddWithValue("@Keys", record.Keys);
+                cmd.Parameters.AddWithValue("@name", record.name);
+                cmd.Parameters.AddWithValue("@act", record.act);
+                cmd.Parameters.AddWithValue("@orderid", record.orderid);
+
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+        }
         #endregion
 
         #region DM_QuocGia

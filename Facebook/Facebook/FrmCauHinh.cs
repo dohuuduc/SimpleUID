@@ -28,6 +28,7 @@ namespace Facebook
                 txtGoiLai.Value = ConvertType.ToDecimal(cauHinh.GoiLai);
                 txtTimkiemFB.Value = ConvertType.ToDecimal(cauHinh.LimitTimKiemFb);
                 BindNhom(txtSeachQuocGia.Text);
+                BindColumn();
             }
             catch (Exception ex)
             {
@@ -37,6 +38,7 @@ namespace Facebook
            
 
         }
+       
         private void BindNhom(string strkh)
         {
             try
@@ -53,6 +55,21 @@ namespace Facebook
                 MessageBox.Show(ex.Message, "BindGrid");
             }
         }
+        private void BindColumn()
+        {
+            try
+            {
+                string str = string.Format("select ROW_NUMBER() OVER(ORDER BY OrderId ASC) AS stt,* from dm_column  order by OrderId");
+                DataTable tb = null;
+                (new Waiting(() => tb = SQLDatabase.ExcDataTable(str))).ShowDialog();
+                gridViewColumn.DataSource = tb;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "BindGrid");
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -219,6 +236,47 @@ namespace Facebook
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://developers.facebook.com/docs/accountkit/countrycodes?locale=vi_VN");
+        }
+
+        private void gridViewColumn_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                try
+                {
+                    int ID =ConvertType.ToInt(gridViewColumn.Rows[e.RowIndex].Cells["idCol"].Value);
+                    string keys = gridViewColumn.Rows[e.RowIndex].Cells["KeysCol"].Value.ToString();
+                    string name = gridViewColumn.Rows[e.RowIndex].Cells["namecol"].Value.ToString();
+                    bool isActive = (Boolean)gridViewColumn.Rows[e.RowIndex].Cells["isActCol"].Value;
+                    int vitri = ConvertType.ToInt(gridViewColumn.Rows[e.RowIndex].Cells["OrderidCol"].Value);
+
+                    new Waiting((MethodInvoker)delegate
+                    {
+                        List<dm_column> model = SQLDatabase.Loaddm_column(string.Format("select * from dm_column where id='{0}'", ID));
+                        if (model.Count > 0)
+                        {
+                            dm_column temp = model.FirstOrDefault();
+                            temp.Keys = keys;
+                            temp.name = name;
+                            temp.act = isActive;
+                            temp.orderid = ConvertType.ToInt(vitri);
+                            SQLDatabase.Updatedm_column(temp);
+                        }
+                    }, "Vui Lòng Chờ").ShowDialog();
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unable to save the record. There might be a blank cell. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+            }
+        }
+
+        private void làmTươiToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            BindColumn();
         }
     }
 }
