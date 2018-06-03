@@ -102,6 +102,10 @@ namespace Facebook
         public int id { get; set; }
         public string Keys { get; set; }
         public string name { get; set; }
+        public bool isFriend { get; set; }
+        public bool isFollow { get; set; }
+        public bool isLike { get; set; }
+        public bool isComments { get; set; }
         public bool act { get; set; }
         public int orderid { get; set; }
     }
@@ -175,7 +179,11 @@ namespace Facebook
         public string first_name { get; set; }
         public string last_name { get; set; }
         public string username { get; set; }
+        public string mobile_phone { get; set; }
+        public string birthday { get; set; }
+        public string email { get; set; }
         public string gender { get; set; }
+        public List<Languages> languages { get; set; }
         public string link { get; set; }
         public location location { get; set; }
         public string locale { get; set; }
@@ -183,7 +191,10 @@ namespace Facebook
         public List<education> education { get; set; }
         public List<favorite_athletes> favorite_athletes { get; set; }
         public List<favorite_teams> favorite_teams { get; set; }
+        public Hometown hometown { get; set; }
+        public string quotes { get; set; }
         public string relationship_status { get; set; }
+        public string religion { get; set; }
         public List<work> work { get; set; }
         public bool can_post { get; set; }
         public string category { get; set; }
@@ -203,7 +214,11 @@ namespace Facebook
             this.first_name = "";
             this.last_name = "";
             this.username = "";
+            this.mobile_phone = "";
+            this.birthday = "";
+            this.email = "";
             this.gender = "";
+            this.languages = null;
             this.link = "";
             this.location = null;
             this.locale = "";
@@ -211,7 +226,10 @@ namespace Facebook
             this.education = null;
             this.favorite_athletes = null;
             this.favorite_teams = null;
+            this.hometown = null;
+            this.quotes = "";
             this.relationship_status = "";
+            this.religion = "";
             this.work = null;
             this.can_post = false;
             this.category = "";
@@ -986,9 +1004,17 @@ namespace Facebook
                     if (!reader.IsDBNull(2))
                         InfoCOMMANDTABLE.name = reader.GetString(2);
                     if (!reader.IsDBNull(3))
-                        InfoCOMMANDTABLE.act = reader.GetBoolean(3);
+                        InfoCOMMANDTABLE.isFriend = reader.GetBoolean(3);
                     if (!reader.IsDBNull(4))
-                        InfoCOMMANDTABLE.orderid = reader.GetInt32(4);
+                        InfoCOMMANDTABLE.isFollow = reader.GetBoolean(4);
+                    if (!reader.IsDBNull(5))
+                        InfoCOMMANDTABLE.isLike = reader.GetBoolean(5);
+                    if (!reader.IsDBNull(6))
+                        InfoCOMMANDTABLE.isComments = reader.GetBoolean(6);
+                    if (!reader.IsDBNull(7))
+                        InfoCOMMANDTABLE.act = reader.GetBoolean(7);
+                    if (!reader.IsDBNull(8))
+                        InfoCOMMANDTABLE.orderid = reader.GetInt32(8);
                     InfoCOMMANDTABLEs.Add(InfoCOMMANDTABLE);
                 }
                 return InfoCOMMANDTABLEs;
@@ -2693,8 +2719,9 @@ namespace Facebook
                 cmd = new SqlCommand();
                 cmd.Connection = cnn;
                 //--- Insert Record
-                cmd.CommandText = " Insert into FbLike(uid, feedid, likeid, first_name, last_name, username, gender, link, location, locale, updated_time, education, favorite_athletes, favorite_teams,                relationship_status, work, can_post, category,    category_list, cover,     has_added_app, is_published, likes, name, talking_about_count, were_here_count) OUTPUT inserted.id " +
-                                  " values(            @uid, @feedid, @likeid, @first_name, @last_name, @username, @gender, @link, @location, @locale, @updated_time, @education, @favorite_athletes, @favorite_teams, @relationship_status, @work, @can_post, @category, @category_list, @cover, @has_added_app, @is_published, @likes, @name, @talking_about_count, @were_here_count);";
+                                                      
+                cmd.CommandText = " Insert into FbLike(uid,  feedid, likeid, first_name, last_name, username, mobile_phone, birthday, email, gender,languages, link, location, locale, updated_time, education, favorite_athletes, favorite_teams, hometown, quotes, relationship_status, religion, work, can_post, category, category_list, cover, has_added_app, is_published, likes, name, talking_about_count, were_here_count) OUTPUT inserted.id " +
+                                  " values(            @uid, @feedid, @likeid, @first_name, @last_name, @username, @mobile_phone, @birthday, @email, @gender,@languages, @link, @location, @locale, @updated_time, @education, @favorite_athletes, @favorite_teams, @hometown, @quotes, @relationship_status, @religion, @work, @can_post, @category, @category_list, @cover, @has_added_app, @is_published, @likes, @name, @talking_about_count, @were_here_count);";
 
                 //cmd.CommandText = " Insert into FbLike(uid, feedid, likeid, first_name,last_name,  gender, link) OUTPUT inserted.id " +
                 //                 " values(            @uid, @feedid, @likeid, @first_name, @last_name,  @gender, @link);";
@@ -2705,7 +2732,14 @@ namespace Facebook
                 cmd.Parameters.AddWithValue("@first_name", record.first_name);
                 cmd.Parameters.AddWithValue("@last_name", record.last_name);
                 cmd.Parameters.AddWithValue("@username", record.username);
+                cmd.Parameters.AddWithValue("@mobile_phone", record.mobile_phone);
+                cmd.Parameters.AddWithValue("@birthday", record.birthday);
+                cmd.Parameters.AddWithValue("@email", record.email);
                 cmd.Parameters.AddWithValue("@gender", record.gender);
+                if (record.languages == null)
+                    cmd.Parameters.AddWithValue("@languages", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@languages", ConvertType.GetXMLFromObject(record.languages));
                 cmd.Parameters.AddWithValue("@link", record.link);
                 if (record.location == null)
                     cmd.Parameters.AddWithValue("@location", SqlXml.Null);
@@ -2725,7 +2759,13 @@ namespace Facebook
                     cmd.Parameters.AddWithValue("@favorite_teams", SqlXml.Null);
                 else
                     cmd.Parameters.AddWithValue("@favorite_teams", ConvertType.GetXMLFromObject(record.favorite_teams));
+                if (record.hometown == null)
+                    cmd.Parameters.AddWithValue("@hometown", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@hometown", ConvertType.GetXMLFromObject(record.hometown));
+                cmd.Parameters.AddWithValue("@quotes", record.quotes);
                 cmd.Parameters.AddWithValue("@relationship_status", record.relationship_status);
+                cmd.Parameters.AddWithValue("@religion", record.religion);
                 if (record.work == null)
                     cmd.Parameters.AddWithValue("@work", SqlXml.Null);
                 else
@@ -2759,7 +2799,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, "AddFbLike");
+                MessageBox.Show(ex.Message, "AddFbLike");
                 return false;
             }
             finally
@@ -2787,17 +2827,24 @@ namespace Facebook
                 // Create command to update GeneralGuessGroup record
                 cmd = new SqlCommand();
                 cmd.Connection = connection;
-                cmd.CommandText = "Update [FbLike] Set  first_name=@first_name, last_name=@last_name, username=@username, gender=@gender, link=@link, location=@location, locale=@locale, updated_time=@updated_time, education=@education, favorite_athletes=@favorite_athletes, favorite_teams=@favorite_teams, relationship_status=@relationship_status, work=@work, can_post=@can_post, category=@category, category_list=@category_list, cover=@cover, has_added_app=@has_added_app, is_published=@is_published, likes=@likes, name=@name, talking_about_count=@talking_about_count, were_here_count=@were_here_count "
+                cmd.CommandText = "Update [FbLike] Set  first_name=@first_name, last_name=@last_name, username=@username, mobile_phone=@mobile_phone, birthday=@birthday, email=@email, gender=@gender,languages=@languages, link=@link, location=@location, locale=@locale, updated_time=@updated_time, education=@education, favorite_athletes=@favorite_athletes, favorite_teams=@favorite_teams, hometown=@hometown, quotes=@quotes, relationship_status=@relationship_status, religion=@religion, work=@work, can_post=@can_post, category=@category, category_list=@category_list, cover=@cover, has_added_app=@has_added_app, is_published=@is_published, likes=@likes, name=@name, talking_about_count=@talking_about_count, were_here_count=@were_here_count "
                                     + " where uid='" + record.uid + "' and feedid='"+ record.feedid + "' and likeid='" + record.likeid+"'";
 
 
-                //cmd.Parameters.AddWithValue("@uid", record.uid);
-                //cmd.Parameters.AddWithValue("@feedid", record.feedid);
-                //cmd.Parameters.AddWithValue("@likeid", record.likeid);
+                cmd.Parameters.AddWithValue("@uid", record.uid);
+                cmd.Parameters.AddWithValue("@feedid", record.feedid);
+                cmd.Parameters.AddWithValue("@likeid", record.likeid);
                 cmd.Parameters.AddWithValue("@first_name", record.first_name);
                 cmd.Parameters.AddWithValue("@last_name", record.last_name);
                 cmd.Parameters.AddWithValue("@username", record.username);
+                cmd.Parameters.AddWithValue("@mobile_phone", record.mobile_phone);
+                cmd.Parameters.AddWithValue("@birthday", record.birthday);
+                cmd.Parameters.AddWithValue("@email", record.email);
                 cmd.Parameters.AddWithValue("@gender", record.gender);
+                if (record.languages == null)
+                    cmd.Parameters.AddWithValue("@languages", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@languages", ConvertType.GetXMLFromObject(record.languages));
                 cmd.Parameters.AddWithValue("@link", record.link);
                 if (record.location == null)
                     cmd.Parameters.AddWithValue("@location", SqlXml.Null);
@@ -2817,7 +2864,13 @@ namespace Facebook
                     cmd.Parameters.AddWithValue("@favorite_teams", SqlXml.Null);
                 else
                     cmd.Parameters.AddWithValue("@favorite_teams", ConvertType.GetXMLFromObject(record.favorite_teams));
+                if (record.hometown == null)
+                    cmd.Parameters.AddWithValue("@hometown", SqlXml.Null);
+                else
+                    cmd.Parameters.AddWithValue("@hometown", ConvertType.GetXMLFromObject(record.hometown));
+                cmd.Parameters.AddWithValue("@quotes", record.quotes);
                 cmd.Parameters.AddWithValue("@relationship_status", record.relationship_status);
+                cmd.Parameters.AddWithValue("@religion", record.religion);
                 if (record.work == null)
                     cmd.Parameters.AddWithValue("@work", SqlXml.Null);
                 else
@@ -2845,7 +2898,7 @@ namespace Facebook
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, "UpFbLike");
+                MessageBox.Show(ex.Message, "UpFbLike");
                 return false;
             }
             finally
@@ -3016,7 +3069,7 @@ namespace Facebook
                 connection.ConnectionString = ConnectionString;
                 connection.Open();
                 command = new SqlCommand(sqlcommand, connection);
-                command.CommandTimeout = 36000;
+                command.CommandTimeout = 50000;
                 command.ExecuteNonQuery();
                 return true;
             }
@@ -3044,7 +3097,7 @@ namespace Facebook
                 connection.ConnectionString = ConnectionString;
                 connection.Open();
                 command = new SqlCommand(sqlcommand, connection);
-                command.CommandTimeout = 36000;
+                command.CommandTimeout = 72000;
                 result = command.ExecuteScalar();
                 return result;
             }
@@ -3073,7 +3126,7 @@ namespace Facebook
                 connection.ConnectionString = ConnectionString;
                 connection.Open();
                 command = new SqlCommand(sqlcommand, connection);
-                command.CommandTimeout = 36000;
+                command.CommandTimeout = 72000;
                 table = new DataTable();
                 adp = new SqlDataAdapter(command);
                 adp.Fill(table);

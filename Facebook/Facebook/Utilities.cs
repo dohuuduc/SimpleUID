@@ -492,7 +492,7 @@ namespace Facebook
                             lblMessage2.Text = string.Format("Đang load số liệu Like của: '{0}' với bài viết: {1}", model.Name,mFeed.name);
                             lblMessage2.Update();
 
-                            string requestUriLike = string.Format(@"https://graph.facebook.com/{0}/likes?limit=200&access_token={1}", mFeed.feedid, strToken);
+                            string requestUriLike = string.Format(@"https://graph.facebook.com/{0}/likes?limit=500&access_token={1}", mFeed.feedid, strToken);
                             Dictionary<string, FbLike> resultsLikechitiets = GetLike(requestUriLike, arrControl);
                             foreach (KeyValuePair<string, FbLike> itemLike in resultsLikechitiets)
                             {

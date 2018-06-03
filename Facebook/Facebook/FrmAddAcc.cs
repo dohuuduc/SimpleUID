@@ -50,22 +50,26 @@ namespace Facebook
                 return;
             }
             FbAccount fb= new FbAccount();
-            string token = "";
+            string token = "", account="", password="";
             if (radioButton1.Checked)
             {
                 (new Waiting(() => fb = Facebook.Login(textBox1.Text, textBox2.Text))).ShowDialog();
                 token = fb.token;
+                account = fb.account;
+                password = fb.password;
             }
             else {
                 token = txtToken.Text;
+                account = textBox1.Text;
+                password = textBox2.Text;
             }
 
             List<FbAccount> fbAccounts =  SQLDatabase.LoadFbAccount(string.Format("select * from FbAccount where account='{0}'", textBox1.Text));
             if (fbAccounts.Count == 0) {
-                SQLDatabase.AddFbAccount(new FbAccount() { account = fb.account, password = fb.password, token = token, IsAct = true });
+                SQLDatabase.AddFbAccount(new FbAccount() { account = account, password = password, token = token, IsAct = true });
             }
             else {
-                SQLDatabase.UpdateFbAccount(new FbAccount() {password = fb.password, token = token, IsAct = true });
+                SQLDatabase.UpdateFbAccount(new FbAccount() { account = account,password = password, token = token, IsAct = true });
             }
             /*goi hàm kiễm tra lại trạng thái token có vươc gioi han soa chưa?*/
             this.DialogResult = DialogResult.OK;
