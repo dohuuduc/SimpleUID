@@ -440,7 +440,7 @@ namespace Facebook
 
                 return new FbAccount() { account = username, password = password, token= stoken }; 
             }
-            catch
+            catch (Exception ex)
             {
                 return new FbAccount() { account =username, password= password  };
             }

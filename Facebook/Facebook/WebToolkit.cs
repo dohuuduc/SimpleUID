@@ -40,115 +40,63 @@ namespace Web
             IncludeCookies = true;
         }
 
-        public static void SetInfo(HttpWebRequest httpWebRequest, string data = null, WebHeaderCollection headerCollection = null)
-        {
-            List<string> listUploadContentType = new List<string>();
-            listUploadContentType.Add("image/png");
-            listUploadContentType.Add("mage/jpg");
+    public static void SetInfo(HttpWebRequest httpWebRequest, string data = null, WebHeaderCollection headerCollection = null) {
+      List<string> listUploadContentType = new List<string>();
+      listUploadContentType.Add("image/png");
+      listUploadContentType.Add("mage/jpg");
 
-            if (headerCollection != null)
-            {
-                httpWebRequest.Headers = headerCollection;
-            }
+      if (headerCollection != null) {
+        httpWebRequest.Headers = headerCollection;
+      }
 
-            httpWebRequest.ContentType = ContentType;
-            httpWebRequest.UserAgent = UserAgent;
-            httpWebRequest.Accept = Accept;
-            httpWebRequest.Method = Method;
+      httpWebRequest.ContentType = ContentType;
+      httpWebRequest.UserAgent = UserAgent;
+      httpWebRequest.Accept = Accept;
+      httpWebRequest.Method = Method;
 
-            //httpWebRequest.Timeout = 5000 * 1000;
+      //httpWebRequest.Timeout = 5000 * 1000;
 
-            httpWebRequest.Referer = httpWebRequest.Host;
+      httpWebRequest.Referer = httpWebRequest.Host;
 
-            if (IncludeCookies)
-            {
-                httpWebRequest.CookieContainer = cookieContainer;
+      if (IncludeCookies) {
+        httpWebRequest.CookieContainer = cookieContainer;
+      }
 
-        CookieCollection myLoginCookies = new CookieCollection();
-        myLoginCookies.Add(GetUriCookieContainer("https://facebook.com"));
-        myLoginCookies.Add(GetUriCookieContainer("https://www.facebook.com/login.php?login_attempt=1"));
-        myLoginCookies.Add(GetUriCookieContainer("https://www.facebook.com"));
+      httpWebRequest.KeepAlive = true;
+      httpWebRequest.AllowAutoRedirect = false;
+      httpWebRequest.ServicePoint.Expect100Continue = false;
 
-        CookieCollection cok = new CookieCollection();
-        cok.Add(myLoginCookies);
-        httpWebRequest.CookieContainer.Add(cok);
-      } 
-
-            httpWebRequest.KeepAlive = true;
-            httpWebRequest.AllowAutoRedirect = false;
-            httpWebRequest.ServicePoint.Expect100Continue = false;
-     
       httpWebRequest.ProtocolVersion = HttpVersion.Version11;
 
-            // ServicePointManager.Expect100Continue = false;
+      // ServicePointManager.Expect100Continue = false;
 
-            if (Referer != "")
-            {
-                httpWebRequest.Referer = Referer;
-            }
+      if (Referer != "") {
+        httpWebRequest.Referer = Referer;
+      }
 
-            if (data != null)
-            {
-                //data = Uri.EscapeUriString(data);
+      if (data != null) {
+        //data = Uri.EscapeUriString(data);
 
-                httpWebRequest.Method = "POST";
-                if (Method != "GET")
-                {
-                    httpWebRequest.Method = Method;
-                }
-
-                if (listUploadContentType.Contains(ContentType))
-                {
-                    byte[] byteData = File.ReadAllBytes(data);
-
-                    Stream requestStream = httpWebRequest.GetRequestStream();
-                    requestStream.Write(byteData, 0, byteData.Length);
-                    requestStream.Close();
-                }
-                else
-                {
-                    StreamWriter streamWriter = new StreamWriter(httpWebRequest.GetRequestStream());
-                    streamWriter.Write(data);
-                    streamWriter.Close();
-                }
-            }
+        httpWebRequest.Method = "POST";
+        if (Method != "GET") {
+          httpWebRequest.Method = Method;
         }
 
-    [DllImport("wininet.dll", SetLastError = true)]
-    public static extern bool InternetGetCookieEx(
-          string url,
-          string cookieName,
-          StringBuilder cookieData,
-          ref int size,
-          Int32 dwFlags,
-          IntPtr lpReserved);
+        if (listUploadContentType.Contains(ContentType)) {
+          byte[] byteData = File.ReadAllBytes(data);
 
-    private const Int32 InternetCookieHttponly = 0x2000;
-    public static CookieCollection GetUriCookieContainer(string url) {
-      Uri uri = new Uri(url);
-      CookieContainer cookies = null;
-      // Determine the size of the cookie
-      int datasize = 8192 * 16;
-      StringBuilder cookieData = new StringBuilder(datasize);
-      if (!InternetGetCookieEx(uri.ToString(), null, cookieData, ref datasize, InternetCookieHttponly, IntPtr.Zero)) {
-        if (datasize < 0)
-          return null;
-        // Allocate stringbuilder large enough to hold the cookie
-        cookieData = new StringBuilder(datasize);
-        if (!InternetGetCookieEx(
-            uri.ToString(),
-            null, cookieData,
-            ref datasize,
-            InternetCookieHttponly,
-            IntPtr.Zero))
-          return null;
+          Stream requestStream = httpWebRequest.GetRequestStream();
+          requestStream.Write(byteData, 0, byteData.Length);
+          requestStream.Close();
+        }
+        else {
+          StreamWriter streamWriter = new StreamWriter(httpWebRequest.GetRequestStream());
+          streamWriter.Write(data);
+          streamWriter.Close();
+        }
       }
-      if (cookieData.Length > 0) {
-        cookies = new CookieContainer();
-        cookies.SetCookies(uri, cookieData.ToString().Replace(';', ','));
-      }
-      return cookies.GetCookies(uri);
     }
+
 
     public static string GetCookie(string name, string url)
         {
