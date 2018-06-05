@@ -22,6 +22,7 @@ namespace Facebook {
     private Dictionary<string, int> _dauso;
     private List<regexs> _regexs;
     private string _strdatabasename;
+    private static LogWriter writer;
 
     private void BindAccount() {
       try {
@@ -530,25 +531,25 @@ namespace Facebook {
         List<dm_column> collection = SQLDatabase.Loaddm_column("select * from dm_column where act=1 order by orderid ");
         int i = 3;
         foreach (dm_column item in collection) {
-          dscolumn += string.Format("{0}\n\t\r ({1}),", item.name, i);
+          dscolumn += string.Format("{0} ({1}),", item.name==""? item.Keys: item.name, i);
           i++;
         }
         dscolumn = dscolumn.Substring(0, dscolumn.Length - 1);
 
-        if (keys.Contains("FbFriend")) {
-          dscolumn = "uid_quet \n(1),FriendUid\n(2)," + dscolumn;
-        }
-        else if (keys.Contains("FbFollow")) {
-          dscolumn = "uid_quet \n(1),FollowUid\n(2)," + dscolumn;
-        }
-        else if (keys.Contains("FbLike")) {
-          dscolumn = "UID_Chinh \n(1), feedid\n(2),  from_id [uid] \n(3), from_name \n(4),   from_xac_nhan\n(5), message\n(6), story, type\n(7)," +
-                     "status_type \n(8), description\n(9), List_Like\n(10), List_with_tags\n(11),  story_tags\n(12), created_time\n(13),    update_time\n(14), is_hidden\n(15),   is_expired\n(16), likes\n(17),   comments\n(18)";
+        //if (keys.Contains("FbFriend")) {
+        //  dscolumn = "uid_quet \n(1),FriendUid\n(2)," + dscolumn;
+        //}
+        //else if (keys.Contains("FbFollow")) {
+        //  dscolumn = "uid_quet \n(1),FollowUid\n(2)," + dscolumn;
+        //}
+        //else if (keys.Contains("FbLike")) {
+        //  dscolumn = "UID_Chinh \n(1), feedid\n(2),  from_id [uid] \n(3), from_name \n(4),   from_xac_nhan\n(5), message\n(6), story, type\n(7)," +
+        //             "status_type \n(8), description\n(9), List_Like\n(10), List_with_tags\n(11),  story_tags\n(12), created_time\n(13),    update_time\n(14), is_hidden\n(15),   is_expired\n(16), likes\n(17),   comments\n(18)";
 
-        }
-        else if (keys.Contains("FbComments")) {
-          dscolumn = "UID_Chinh\n(1),	feedid\n(2),	message_baiviet\n(3),	description\n(4),	is_hidden\n(5),	is_expired\n(6),	likes\n(7),	comments\n(8),	from_id_commend\n(9),	from_name_commend\n(10),	from_xac_nhan_commend\n(11),	message_comment\n(12),	commend_create\n(13)";
-        }
+        //}
+        //else if (keys.Contains("FbComments")) {
+        //  dscolumn = "UID_Chinh\n(1),	feedid\n(2),	message_baiviet\n(3),	description\n(4),	is_hidden\n(5),	is_expired\n(6),	likes\n(7),	comments\n(8),	from_id_commend\n(9),	from_name_commend\n(10),	from_xac_nhan_commend\n(11),	message_comment\n(12),	commend_create\n(13)";
+        //}
         return dscolumn;
       }
       catch (Exception ex) {
@@ -705,7 +706,7 @@ namespace Facebook {
 
         new Waiting((MethodInvoker)delegate {
           if (checkBox1.Checked)
-            SQLDatabase.ExcNonQuery(string.Format("[spChuanHoa] '{0}'", 1));
+            SQLDatabase.ExcNonQuery(string.Format("[spChuanHoa]"));
           if (chkSLuong.Checked) {
             SQLDatabase.ExcNonQuery(string.Format("spUpdateSoLuongQuet"));
             BindUID();
@@ -804,11 +805,30 @@ namespace Facebook {
         if (dr == DialogResult.OK) {
           folderpath = fbd.SelectedPath;
         }
+        if (folderpath == "") {
+          MessageBox.Show("Vui lòng chọn thư mục xuất file", "Thông báo");
+          return;
+        }
         string filePath = folderpath == "" ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : folderpath;
         string strcmbQuocGia = cmbQuocGia.SelectedValue.ToString();
         string strgioitinh = cmbGioiTinh.SelectedValue.ToString();
+
+        bool isChuanHoa = false;
+        DialogResult dialogResult = MessageBox.Show("Bạn có muốn chuẩn hoá số liệu trước khi xuất file không?","Thông Báo", MessageBoxButtons.YesNo);
+        if (dialogResult == DialogResult.Yes) {
+          //do something
+          //new Waiting((MethodInvoker)delegate {
+          //  if (checkBox1.Checked)
+          //    SQLDatabase.ExcNonQuery(string.Format("[spChuanHoa] '{0}'", 1));
+          //  if (chkSLuong.Checked) {
+          //    SQLDatabase.ExcNonQuery(string.Format("spUpdateSoLuongQuet"));
+          //  }
+          //}, "Vui Lòng Chờ").ShowDialog();
+          isChuanHoa = true;
+        }
+       
         new Waiting((MethodInvoker)delegate {
-          ProcessXuatFile(filePath,strcmbQuocGia,strgioitinh);
+          ProcessXuatFile(filePath,strcmbQuocGia,strgioitinh,isChuanHoa);
         }, "Vui Lòng Chờ").ShowDialog();
 
         progressBar1.Value = progressBar1.Maximum;
@@ -828,7 +848,7 @@ namespace Facebook {
         MessageBox.Show(ex.Message, "button2_Click");
       }
     }
-    private void ProcessXuatFile(string filePath,string cmbQuocGia,string strgioitinh) {
+    private void ProcessXuatFile(string filePath,string cmbQuocGia,string strgioitinh,bool isChuanHoa) {
       try {
         //----- Add control process from
         int i = 0;
@@ -861,16 +881,26 @@ namespace Facebook {
         });
         foreach (NhomUID model in listQuet) {
           if (chkXuatGom.Checked) {
+
+            if (isChuanHoa) {
+              if (checkBox1.Checked)
+                SQLDatabase.ExcNonQuery(string.Format("[spChuanHoa] '{0}'", model.UID));
+              if (chkSLuong.Checked) {
+                SQLDatabase.ExcNonQuery(string.Format("spUpdateSoLuongQuet"));
+              }
+            }
             lblMessage1.Invoke((Action)delegate {
               lblMessage1.Text = string.Format("Đang xuất tổng: {0} task id: {1}", model.Name, Task.CurrentId);
               lblMessage1.Update();
             });
             string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Tong_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
+            
             SQLDatabase.ExcNonQuery(string.Format("[spExportALL] '{0}','{1}','{2}','{3}','{4}','{5}'", model.UID, cmbQuocGia == "" ? "-1" : cmbQuocGia.Trim()
                                                                                                            , strgioitinh == "" ? "-1" : strgioitinh.Trim(),
                                                                                                            getlistColumn()
                                                                                                            , _strdatabasename, filePath + "\\" + fileName));
 
+            
             lblMessage1.Invoke((Action)delegate {
               lblMessage1.Text = string.Format("Kết Thúc xuất tổng: {0}", model.Name);
               lblMessage1.Update();
@@ -878,6 +908,14 @@ namespace Facebook {
           }
           else {
             if (chbExpFriend.Checked) {
+
+              if (isChuanHoa) {
+                if (checkBox1.Checked)
+                  SQLDatabase.ExcNonQuery(string.Format("[spChuanHoa] '{0}'", model.UID));
+                if (chkSLuong.Checked) {
+                  SQLDatabase.ExcNonQuery(string.Format("spUpdateSoLuongQuet"));
+                }
+              }
 
               lblMessage1.Invoke((Action)delegate {
                 lblMessage1.Text = string.Format("Đang xuất Friend: {0}", model.Name);
@@ -899,6 +937,14 @@ namespace Facebook {
 
             }
             if (chbExpTheoDoi.Checked) {
+              if (isChuanHoa) {
+                if (checkBox1.Checked)
+                  SQLDatabase.ExcNonQuery(string.Format("[spChuanHoa] '{0}'", model.UID));
+                if (chkSLuong.Checked) {
+                  SQLDatabase.ExcNonQuery(string.Format("spUpdateSoLuongQuet"));
+                }
+              }
+
               lblMessage1.Invoke((Action)delegate {
                 lblMessage1.Text = string.Format("Đang xuất Follow: {0}", model.Name);
                 lblMessage1.Update();
@@ -920,6 +966,14 @@ namespace Facebook {
 
             }
             if (chbExpLike.Checked) {
+              if (isChuanHoa) {
+                if (checkBox1.Checked)
+                  SQLDatabase.ExcNonQuery(string.Format("[spChuanHoa] '{0}'", model.UID));
+                if (chkSLuong.Checked) {
+                  SQLDatabase.ExcNonQuery(string.Format("spUpdateSoLuongQuet"));
+                }
+              }
+
               lblMessage1.Invoke((Action)delegate {
                 lblMessage1.Text = string.Format("Đang xuất Like: {0}", model.Name);
                 lblMessage1.Update();
@@ -942,6 +996,14 @@ namespace Facebook {
 
             }
             if (chbExpCommen.Checked) {
+              if (isChuanHoa) {
+                if (checkBox1.Checked)
+                  SQLDatabase.ExcNonQuery(string.Format("[spChuanHoa] '{0}'", model.UID));
+                if (chkSLuong.Checked) {
+                  SQLDatabase.ExcNonQuery(string.Format("spUpdateSoLuongQuet"));
+                }
+              }
+
               lblMessage1.Invoke((Action)delegate {
                 lblMessage1.Text = string.Format("Đang xuất Comment: {0}", model.Name);
                 lblMessage1.Update();
