@@ -92,7 +92,6 @@
       this.panel3 = new System.Windows.Forms.Panel();
       this.panel6 = new System.Windows.Forms.Panel();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
-      this.chkXuatGom = new System.Windows.Forms.CheckBox();
       this.groupBox9 = new System.Windows.Forms.GroupBox();
       this.linkLabel4 = new System.Windows.Forms.LinkLabel();
       this.linkLabel3 = new System.Windows.Forms.LinkLabel();
@@ -161,6 +160,7 @@
       this.btnQuet = new System.Windows.Forms.Button();
       this.txtToken = new System.Windows.Forms.TextBox();
       this.panel2 = new System.Windows.Forms.Panel();
+      this.chkXuatGom = new System.Windows.Forms.CheckBox();
       this.panel1.SuspendLayout();
       this.grDsUID.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.gridUID)).BeginInit();
@@ -351,7 +351,7 @@
             this.xuấtFileToolStripMenuItem2,
             this.zToolStripMenuItem});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(184, 180);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(184, 158);
       // 
       // quétToolStripMenuItem
       // 
@@ -400,14 +400,14 @@
       // uIDVàNameToolStripMenuItem
       // 
       this.uIDVàNameToolStripMenuItem.Name = "uIDVàNameToolStripMenuItem";
-      this.uIDVàNameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.uIDVàNameToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
       this.uIDVàNameToolStripMenuItem.Text = "UID và Name";
       this.uIDVàNameToolStripMenuItem.Click += new System.EventHandler(this.uIDVàNameToolStripMenuItem_Click);
       // 
       // phoneEmailToolStripMenuItem
       // 
       this.phoneEmailToolStripMenuItem.Name = "phoneEmailToolStripMenuItem";
-      this.phoneEmailToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.phoneEmailToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
       this.phoneEmailToolStripMenuItem.Text = "Phone và Email";
       this.phoneEmailToolStripMenuItem.Click += new System.EventHandler(this.phoneEmailToolStripMenuItem_Click);
       // 
@@ -717,19 +717,6 @@
       this.groupBox3.TabIndex = 2;
       this.groupBox3.TabStop = false;
       // 
-      // chkXuatGom
-      // 
-      this.chkXuatGom.AutoSize = true;
-      this.chkXuatGom.Checked = true;
-      this.chkXuatGom.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chkXuatGom.Location = new System.Drawing.Point(390, 5);
-      this.chkXuatGom.Name = "chkXuatGom";
-      this.chkXuatGom.Size = new System.Drawing.Size(101, 17);
-      this.chkXuatGom.TabIndex = 7;
-      this.chkXuatGom.Text = "Gôm Chung File";
-      this.chkXuatGom.UseVisualStyleBackColor = true;
-      this.chkXuatGom.CheckedChanged += new System.EventHandler(this.chkXuatGom_CheckedChanged);
-      // 
       // groupBox9
       // 
       this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -858,7 +845,7 @@
       // radText
       // 
       this.radText.AutoSize = true;
-      this.radText.Location = new System.Drawing.Point(74, 45);
+      this.radText.Location = new System.Drawing.Point(74, 41);
       this.radText.Name = "radText";
       this.radText.Size = new System.Drawing.Size(46, 17);
       this.radText.TabIndex = 1;
@@ -869,7 +856,7 @@
       // 
       this.radExcel.AutoSize = true;
       this.radExcel.Checked = true;
-      this.radExcel.Location = new System.Drawing.Point(17, 45);
+      this.radExcel.Location = new System.Drawing.Point(17, 41);
       this.radExcel.Name = "radExcel";
       this.radExcel.Size = new System.Drawing.Size(51, 17);
       this.radExcel.TabIndex = 0;
@@ -1513,6 +1500,19 @@
       this.panel2.Size = new System.Drawing.Size(659, 548);
       this.panel2.TabIndex = 2;
       // 
+      // chkXuatGom
+      // 
+      this.chkXuatGom.AutoSize = true;
+      this.chkXuatGom.Checked = true;
+      this.chkXuatGom.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chkXuatGom.Location = new System.Drawing.Point(390, 5);
+      this.chkXuatGom.Name = "chkXuatGom";
+      this.chkXuatGom.Size = new System.Drawing.Size(101, 17);
+      this.chkXuatGom.TabIndex = 7;
+      this.chkXuatGom.Text = "Gôm Chung File";
+      this.chkXuatGom.UseVisualStyleBackColor = true;
+      this.chkXuatGom.CheckedChanged += new System.EventHandler(this.chkXuatGom_CheckedChanged);
+      // 
       // FrmMain123
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1703,7 +1703,7 @@
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.CheckBox chkXuatGom;
-    }
+    private System.Windows.Forms.CheckBox chkXuatGom;
+  }
 }
 

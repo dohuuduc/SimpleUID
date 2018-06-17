@@ -813,22 +813,24 @@ namespace Facebook {
         string strcmbQuocGia = cmbQuocGia.SelectedValue.ToString();
         string strgioitinh = cmbGioiTinh.SelectedValue.ToString();
 
+        bool isGomChungFile = false;
+        if (chkXuatGom.Checked) {
+          DialogResult dialogResultTong = MessageBox.Show("Bạn có muốn gôm tất cả danh sách UID vào '1 file Tổng' không?", "Thông Báo", MessageBoxButtons.YesNo);
+          if (dialogResultTong == DialogResult.Yes) {
+            isGomChungFile = true;
+          }
+        }
+
         bool isChuanHoa = false;
         DialogResult dialogResult = MessageBox.Show("Bạn có muốn chuẩn hoá số liệu trước khi xuất file không?","Thông Báo", MessageBoxButtons.YesNo);
         if (dialogResult == DialogResult.Yes) {
-          //do something
-          //new Waiting((MethodInvoker)delegate {
-          //  if (checkBox1.Checked)
-          //    SQLDatabase.ExcNonQuery(string.Format("[spChuanHoa] '{0}'", 1));
-          //  if (chkSLuong.Checked) {
-          //    SQLDatabase.ExcNonQuery(string.Format("spUpdateSoLuongQuet"));
-          //  }
-          //}, "Vui Lòng Chờ").ShowDialog();
           isChuanHoa = true;
         }
+
+        
        
         new Waiting((MethodInvoker)delegate {
-          ProcessXuatFile(filePath,strcmbQuocGia,strgioitinh,isChuanHoa);
+          ProcessXuatFile(filePath,strcmbQuocGia,strgioitinh,isChuanHoa, isGomChungFile);
         }, "Vui Lòng Chờ").ShowDialog();
 
         progressBar1.Value = progressBar1.Maximum;
@@ -848,7 +850,7 @@ namespace Facebook {
         MessageBox.Show(ex.Message, "button2_Click");
       }
     }
-    private void ProcessXuatFile(string filePath,string cmbQuocGia,string strgioitinh,bool isChuanHoa) {
+    private void ProcessXuatFile(string filePath,string cmbQuocGia,string strgioitinh,bool isChuanHoa, bool isTongfile) {
       try {
         //----- Add control process from
         int i = 0;
@@ -873,6 +875,8 @@ namespace Facebook {
           model.Name = myRow["name"].ToString();
           model.OrderID = ConvertType.ToInt(myRow["stt"]);
           listQuet.Add(model);
+
+          if (isTongfile) break;
         }
 
         lblMessage1.Invoke((Action)delegate {
@@ -893,9 +897,10 @@ namespace Facebook {
               lblMessage1.Text = string.Format("Đang xuất tổng: {0} task id: {1}", model.Name, Task.CurrentId);
               lblMessage1.Update();
             });
-            string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Tong_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
+            string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", ""))  + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
             
-            SQLDatabase.ExcNonQuery(string.Format("[spExportALL] '{0}','{1}','{2}','{3}','{4}','{5}'", model.UID, cmbQuocGia == "" ? "-1" : cmbQuocGia.Trim()
+            SQLDatabase.ExcNonQuery(string.Format("[spExportALL] '{0}','{1}','{2}','{3}','{4}','{5}'", isTongfile ? "-1": model.UID, 
+                                                                                                          cmbQuocGia == "" ? "-1" : cmbQuocGia.Trim()
                                                                                                            , strgioitinh == "" ? "-1" : strgioitinh.Trim(),
                                                                                                            getlistColumn()
                                                                                                            , _strdatabasename, filePath + "\\" + fileName));
@@ -922,8 +927,9 @@ namespace Facebook {
                 lblMessage1.Update();
               });
 
-              string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Friend_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
-              SQLDatabase.ExcNonQuery(string.Format("[spExportFriend] '{0}','{1}','{2}','{3}','{4}','{5}'", model.UID, cmbQuocGia == "" ? "-1" : cmbQuocGia.Trim()
+              string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
+              SQLDatabase.ExcNonQuery(string.Format("[spExportFriend] '{0}','{1}','{2}','{3}','{4}','{5}'",isTongfile? "-1": model.UID, 
+                                                                                                          cmbQuocGia == "" ? "-1" : cmbQuocGia.Trim()
                                                                                                              , strgioitinh == "" ? "-1" : strgioitinh.Trim(),
                                                                                                              getlistColumn()
                                                                                                              , _strdatabasename, filePath + "\\" + fileName));
@@ -950,8 +956,9 @@ namespace Facebook {
                 lblMessage1.Update();
               });
 
-              string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Follow_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
-              SQLDatabase.ExcNonQuery(string.Format("[spExportFollow] '{0}','{1}','{2}','{3}','{4}','{5}'", model.UID, cmbQuocGia == "" ? "-1" : cmbQuocGia.Trim()
+              string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", ""))  + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
+              SQLDatabase.ExcNonQuery(string.Format("[spExportFollow] '{0}','{1}','{2}','{3}','{4}','{5}'", isTongfile? "-1": model.UID, 
+                                                                                                        cmbQuocGia == "" ? "-1" : cmbQuocGia.Trim()
                                                                                                          , strgioitinh == "" ? "-1" : strgioitinh.Trim(),
                                                                                                          getlistColumn()
                                                                                                          , _strdatabasename, filePath + "\\" + fileName));
@@ -981,8 +988,8 @@ namespace Facebook {
 
 
 
-              string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Like_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
-              SQLDatabase.ExcNonQuery(string.Format("[spExportLike] '{0}','{1}','{2}','{3}','{4}','{5}'", model.UID, cmbQuocGia == "" ? "-1" : cmbQuocGia.Trim()
+              string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", ""))  + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
+              SQLDatabase.ExcNonQuery(string.Format("[spExportLike] '{0}','{1}','{2}','{3}','{4}','{5}'", isTongfile ? "-1" : model.UID, cmbQuocGia == "" ? "-1" : cmbQuocGia.Trim()
                                                                                                        , strgioitinh == "" ? "-1" : strgioitinh.Trim(),
                                                                                                        getlistColumn()
                                                                                                        , _strdatabasename, filePath + "\\" + fileName));
@@ -1011,8 +1018,8 @@ namespace Facebook {
 
 
 
-              string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + "_Comment_" + DateTime.Now.ToString("dd_MM_yyyy") + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
-              SQLDatabase.ExcNonQuery(string.Format("[spExportComment] '{0}','{1}','{2}','{3}','{4}','{5}'", model.UID, cmbQuocGia == "" ? "-1" : cmbQuocGia.Trim()
+              string fileName = Utilities.convertToUnSign3(model.Name.Replace(".", "")) + string.Format("{0}", radExcel.Checked ? ".xls" : "txt");
+              SQLDatabase.ExcNonQuery(string.Format("[spExportComment] '{0}','{1}','{2}','{3}','{4}','{5}'", isTongfile ? "-1" : model.UID, cmbQuocGia == "" ? "-1" : cmbQuocGia.Trim()
                                                                                                        , strgioitinh == "" ? "-1" : strgioitinh.Trim(),
                                                                                                        getlistColumn()
                                                                                                        , _strdatabasename, filePath + "\\" + fileName));
