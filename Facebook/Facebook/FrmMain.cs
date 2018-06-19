@@ -525,7 +525,38 @@ namespace Facebook {
         return "";
       }
     }
-   
+    private string getlistColumnByName(string keys) {
+      try {
+        string dscolumn = "";
+        List<dm_column> collection = SQLDatabase.Loaddm_column("select * from dm_column where act=1 order by orderid ");
+        int i = 3;
+        foreach (dm_column item in collection) {
+          dscolumn += string.Format("{0} ({1}),", item.name==""? item.Keys: item.name, i);
+          i++;
+        }
+        dscolumn = dscolumn.Substring(0, dscolumn.Length - 1);
+
+        //if (keys.Contains("FbFriend")) {
+        //  dscolumn = "uid_quet \n(1),FriendUid\n(2)," + dscolumn;
+        //}
+        //else if (keys.Contains("FbFollow")) {
+        //  dscolumn = "uid_quet \n(1),FollowUid\n(2)," + dscolumn;
+        //}
+        //else if (keys.Contains("FbLike")) {
+        //  dscolumn = "UID_Chinh \n(1), feedid\n(2),  from_id [uid] \n(3), from_name \n(4),   from_xac_nhan\n(5), message\n(6), story, type\n(7)," +
+        //             "status_type \n(8), description\n(9), List_Like\n(10), List_with_tags\n(11),  story_tags\n(12), created_time\n(13),    update_time\n(14), is_hidden\n(15),   is_expired\n(16), likes\n(17),   comments\n(18)";
+
+        //}
+        //else if (keys.Contains("FbComments")) {
+        //  dscolumn = "UID_Chinh\n(1),	feedid\n(2),	message_baiviet\n(3),	description\n(4),	is_hidden\n(5),	is_expired\n(6),	likes\n(7),	comments\n(8),	from_id_commend\n(9),	from_name_commend\n(10),	from_xac_nhan_commend\n(11),	message_comment\n(12),	commend_create\n(13)";
+        //}
+        return dscolumn;
+      }
+      catch (Exception ex) {
+        MessageBox.Show(ex.Message, "getlistColumn");
+        return "";
+      }
+    }
 
     private void phoneEmailToolStripMenuItem_Click(object sender, EventArgs e) {
       try {
@@ -783,8 +814,11 @@ namespace Facebook {
         string strgioitinh = cmbGioiTinh.SelectedValue.ToString();
 
         bool isGomChungFile = false;
-        if (chkXuatGom.Checked && radioButton1.Checked) {
+        if (chkXuatGom.Checked) {
+          DialogResult dialogResultTong = MessageBox.Show("Bạn có muốn gôm tất cả danh sách UID vào '1 file Tổng' không?", "Thông Báo", MessageBoxButtons.YesNo);
+          if (dialogResultTong == DialogResult.Yes) {
             isGomChungFile = true;
+          }
         }
 
         bool isChuanHoa = false;
@@ -842,10 +876,7 @@ namespace Facebook {
           model.OrderID = ConvertType.ToInt(myRow["stt"]);
           listQuet.Add(model);
 
-          if (isTongfile) {
-            listQuet.FirstOrDefault().Name = "ALL";
-            break;
-          }
+          if (isTongfile) break;
         }
 
         lblMessage1.Invoke((Action)delegate {
@@ -1136,8 +1167,78 @@ namespace Facebook {
     //  }
     //}
 
+    private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+      try {
+        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        string fileName = "Mau_Friend";
+        bool temp = false;
+        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbFriend"), "Vui Lòng Chờ").ShowDialog();
+        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+      }
+      catch (Exception ex) {
+
+        MessageBox.Show(ex.Message, "linkLabel1_LinkClicked");
+      }
+    }
+
+    private bool xuatfilemain(string filePath, string keys) {
+      try {
+        DataTable table = new DataTable();
+        foreach (var item in getlistColumnByName(keys).Split(','))
+          table.Columns.Add(item, typeof(string));
+
+        ExcelAdapter excel = new ExcelAdapter(filePath);
+        excel.CreateAndWrite(table, "Phone", 1);
+        return true;
+      }
+      catch (Exception ex) {
+        return false;
+      }
+
+    }
+
+    private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+      try {
+        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        string fileName = "Mau_Follow";
+        bool temp = false;
+        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbFollow"), "Vui Lòng Chờ").ShowDialog();
+        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+      }
+      catch (Exception ex) {
+
+        MessageBox.Show(ex.Message, "linkLabel1_LinkClicked");
+      }
+    }
+
+    private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+      try {
+        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        string fileName = "Mau_Like";
+        bool temp = false;
+        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbLike"), "Vui Lòng Chờ").ShowDialog();
+        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+      }
+      catch (Exception ex) {
+        MessageBox.Show(ex.Message, "linkLabel3_LinkClicked");
+      }
+    }
+
+    private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+      try {
+        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        string fileName = "Mau_Comments";
+        bool temp = false;
+        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbComments"), "Vui Lòng Chờ").ShowDialog();
+        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+      }
+      catch (Exception ex) {
+        MessageBox.Show(ex.Message, "linkLabel3_LinkClicked");
+      }
+    }
+
     private void chkXuatGom_CheckedChanged(object sender, EventArgs e) {
-      groupBox9.Enabled = !chkXuatGom.Checked;
+      groupBox4.Enabled = !chkXuatGom.Checked;
     }
   }
 }

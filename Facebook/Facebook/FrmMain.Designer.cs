@@ -92,8 +92,11 @@
       this.panel3 = new System.Windows.Forms.Panel();
       this.panel6 = new System.Windows.Forms.Panel();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
-      this.chkXuatGom = new System.Windows.Forms.CheckBox();
       this.groupBox9 = new System.Windows.Forms.GroupBox();
+      this.linkLabel4 = new System.Windows.Forms.LinkLabel();
+      this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+      this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+      this.linkLabel1 = new System.Windows.Forms.LinkLabel();
       this.groupBox5 = new System.Windows.Forms.GroupBox();
       this.label2 = new System.Windows.Forms.Label();
       this.cmbGioiTinh = new System.Windows.Forms.ComboBox();
@@ -157,8 +160,7 @@
       this.btnQuet = new System.Windows.Forms.Button();
       this.txtToken = new System.Windows.Forms.TextBox();
       this.panel2 = new System.Windows.Forms.Panel();
-      this.radioButton1 = new System.Windows.Forms.RadioButton();
-      this.radioButton2 = new System.Windows.Forms.RadioButton();
+      this.chkXuatGom = new System.Windows.Forms.CheckBox();
       this.panel1.SuspendLayout();
       this.grDsUID.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.gridUID)).BeginInit();
@@ -702,6 +704,7 @@
       // 
       // groupBox3
       // 
+      this.groupBox3.Controls.Add(this.chkXuatGom);
       this.groupBox3.Controls.Add(this.groupBox9);
       this.groupBox3.Controls.Add(this.groupBox5);
       this.groupBox3.Controls.Add(this.groupBox2);
@@ -714,33 +717,66 @@
       this.groupBox3.TabIndex = 2;
       this.groupBox3.TabStop = false;
       // 
-      // chkXuatGom
-      // 
-      this.chkXuatGom.AutoSize = true;
-      this.chkXuatGom.Checked = true;
-      this.chkXuatGom.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chkXuatGom.Location = new System.Drawing.Point(6, 0);
-      this.chkXuatGom.Name = "chkXuatGom";
-      this.chkXuatGom.Size = new System.Drawing.Size(101, 17);
-      this.chkXuatGom.TabIndex = 7;
-      this.chkXuatGom.Text = "Gôm Chung File";
-      this.chkXuatGom.UseVisualStyleBackColor = true;
-      this.chkXuatGom.CheckedChanged += new System.EventHandler(this.chkXuatGom_CheckedChanged);
-      // 
       // groupBox9
       // 
       this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.groupBox9.Controls.Add(this.chbExpCommen);
-      this.groupBox9.Controls.Add(this.chbExpTheoDoi);
-      this.groupBox9.Controls.Add(this.chbExpLike);
-      this.groupBox9.Controls.Add(this.chbExpFriend);
-      this.groupBox9.Enabled = false;
-      this.groupBox9.Location = new System.Drawing.Point(387, 75);
+      this.groupBox9.Controls.Add(this.linkLabel4);
+      this.groupBox9.Controls.Add(this.linkLabel3);
+      this.groupBox9.Controls.Add(this.linkLabel2);
+      this.groupBox9.Controls.Add(this.linkLabel1);
+      this.groupBox9.Location = new System.Drawing.Point(387, 80);
       this.groupBox9.Name = "groupBox9";
-      this.groupBox9.Size = new System.Drawing.Size(255, 66);
+      this.groupBox9.Size = new System.Drawing.Size(255, 61);
       this.groupBox9.TabIndex = 11;
       this.groupBox9.TabStop = false;
+      this.groupBox9.Text = "Mẫu File Excel Xuất";
+      // 
+      // linkLabel4
+      // 
+      this.linkLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.linkLabel4.AutoSize = true;
+      this.linkLabel4.Location = new System.Drawing.Point(160, 39);
+      this.linkLabel4.Name = "linkLabel4";
+      this.linkLabel4.Size = new System.Drawing.Size(96, 13);
+      this.linkLabel4.TabIndex = 3;
+      this.linkLabel4.TabStop = true;
+      this.linkLabel4.Text = "Bài Viết (Comment)";
+      this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
+      // 
+      // linkLabel3
+      // 
+      this.linkLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.linkLabel3.AutoSize = true;
+      this.linkLabel3.Location = new System.Drawing.Point(159, 19);
+      this.linkLabel3.Name = "linkLabel3";
+      this.linkLabel3.Size = new System.Drawing.Size(72, 13);
+      this.linkLabel3.TabIndex = 2;
+      this.linkLabel3.TabStop = true;
+      this.linkLabel3.Text = "Bài Viết (Like)";
+      this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
+      // 
+      // linkLabel2
+      // 
+      this.linkLabel2.AutoSize = true;
+      this.linkLabel2.Location = new System.Drawing.Point(34, 39);
+      this.linkLabel2.Name = "linkLabel2";
+      this.linkLabel2.Size = new System.Drawing.Size(82, 13);
+      this.linkLabel2.TabIndex = 1;
+      this.linkLabel2.TabStop = true;
+      this.linkLabel2.Text = "Người Theo Dõi";
+      this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+      // 
+      // linkLabel1
+      // 
+      this.linkLabel1.AutoSize = true;
+      this.linkLabel1.Location = new System.Drawing.Point(34, 19);
+      this.linkLabel1.Name = "linkLabel1";
+      this.linkLabel1.Size = new System.Drawing.Size(106, 13);
+      this.linkLabel1.TabIndex = 0;
+      this.linkLabel1.TabStop = true;
+      this.linkLabel1.Text = "Bạn Bè (Thành Viên)";
+      this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
       // 
       // groupBox5
       // 
@@ -748,9 +784,9 @@
       this.groupBox5.Controls.Add(this.cmbGioiTinh);
       this.groupBox5.Controls.Add(this.label1);
       this.groupBox5.Controls.Add(this.cmbQuocGia);
-      this.groupBox5.Location = new System.Drawing.Point(4, 75);
+      this.groupBox5.Location = new System.Drawing.Point(4, 81);
       this.groupBox5.Name = "groupBox5";
-      this.groupBox5.Size = new System.Drawing.Size(376, 67);
+      this.groupBox5.Size = new System.Drawing.Size(376, 61);
       this.groupBox5.TabIndex = 10;
       this.groupBox5.TabStop = false;
       this.groupBox5.Text = "Điều Kiện Lộc";
@@ -802,7 +838,7 @@
       this.groupBox2.Controls.Add(this.button1);
       this.groupBox2.Location = new System.Drawing.Point(252, 11);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(128, 62);
+      this.groupBox2.Size = new System.Drawing.Size(128, 69);
       this.groupBox2.TabIndex = 9;
       this.groupBox2.TabStop = false;
       // 
@@ -849,7 +885,7 @@
       this.groupBox7.Controls.Add(this.button2);
       this.groupBox7.Location = new System.Drawing.Point(6, 11);
       this.groupBox7.Name = "groupBox7";
-      this.groupBox7.Size = new System.Drawing.Size(240, 64);
+      this.groupBox7.Size = new System.Drawing.Size(240, 69);
       this.groupBox7.TabIndex = 8;
       this.groupBox7.TabStop = false;
       this.groupBox7.Text = "Chuẩn Hoá Data";
@@ -881,7 +917,7 @@
       // button2
       // 
       this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.button2.Location = new System.Drawing.Point(53, 35);
+      this.button2.Location = new System.Drawing.Point(53, 39);
       this.button2.Name = "button2";
       this.button2.Size = new System.Drawing.Size(128, 23);
       this.button2.TabIndex = 7;
@@ -893,12 +929,14 @@
       // 
       this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.groupBox4.Controls.Add(this.chkXuatGom);
-      this.groupBox4.Controls.Add(this.radioButton2);
-      this.groupBox4.Controls.Add(this.radioButton1);
+      this.groupBox4.Controls.Add(this.chbExpCommen);
+      this.groupBox4.Controls.Add(this.chbExpTheoDoi);
+      this.groupBox4.Controls.Add(this.chbExpLike);
+      this.groupBox4.Controls.Add(this.chbExpFriend);
+      this.groupBox4.Enabled = false;
       this.groupBox4.Location = new System.Drawing.Point(387, 11);
       this.groupBox4.Name = "groupBox4";
-      this.groupBox4.Size = new System.Drawing.Size(255, 62);
+      this.groupBox4.Size = new System.Drawing.Size(255, 69);
       this.groupBox4.TabIndex = 4;
       this.groupBox4.TabStop = false;
       // 
@@ -908,7 +946,7 @@
       this.chbExpCommen.AutoSize = true;
       this.chbExpCommen.Checked = true;
       this.chbExpCommen.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chbExpCommen.Location = new System.Drawing.Point(132, 40);
+      this.chbExpCommen.Location = new System.Drawing.Point(145, 42);
       this.chbExpCommen.Name = "chbExpCommen";
       this.chbExpCommen.Size = new System.Drawing.Size(115, 17);
       this.chbExpCommen.TabIndex = 6;
@@ -920,7 +958,7 @@
       this.chbExpTheoDoi.AutoSize = true;
       this.chbExpTheoDoi.Checked = true;
       this.chbExpTheoDoi.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chbExpTheoDoi.Location = new System.Drawing.Point(6, 40);
+      this.chbExpTheoDoi.Location = new System.Drawing.Point(19, 42);
       this.chbExpTheoDoi.Name = "chbExpTheoDoi";
       this.chbExpTheoDoi.Size = new System.Drawing.Size(101, 17);
       this.chbExpTheoDoi.TabIndex = 5;
@@ -933,7 +971,7 @@
       this.chbExpLike.AutoSize = true;
       this.chbExpLike.Checked = true;
       this.chbExpLike.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chbExpLike.Location = new System.Drawing.Point(132, 17);
+      this.chbExpLike.Location = new System.Drawing.Point(145, 19);
       this.chbExpLike.Name = "chbExpLike";
       this.chbExpLike.Size = new System.Drawing.Size(91, 17);
       this.chbExpLike.TabIndex = 2;
@@ -945,7 +983,7 @@
       this.chbExpFriend.AutoSize = true;
       this.chbExpFriend.Checked = true;
       this.chbExpFriend.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chbExpFriend.Location = new System.Drawing.Point(6, 17);
+      this.chbExpFriend.Location = new System.Drawing.Point(19, 19);
       this.chbExpFriend.Name = "chbExpFriend";
       this.chbExpFriend.Size = new System.Drawing.Size(125, 17);
       this.chbExpFriend.TabIndex = 0;
@@ -1462,27 +1500,18 @@
       this.panel2.Size = new System.Drawing.Size(659, 548);
       this.panel2.TabIndex = 2;
       // 
-      // radioButton1
+      // chkXuatGom
       // 
-      this.radioButton1.AutoSize = true;
-      this.radioButton1.Checked = true;
-      this.radioButton1.Location = new System.Drawing.Point(6, 23);
-      this.radioButton1.Name = "radioButton1";
-      this.radioButton1.Size = new System.Drawing.Size(104, 17);
-      this.radioButton1.TabIndex = 0;
-      this.radioButton1.TabStop = true;
-      this.radioButton1.Text = "All UID vào 1 file";
-      this.radioButton1.UseVisualStyleBackColor = true;
-      // 
-      // radioButton2
-      // 
-      this.radioButton2.AutoSize = true;
-      this.radioButton2.Location = new System.Drawing.Point(132, 23);
-      this.radioButton2.Name = "radioButton2";
-      this.radioButton2.Size = new System.Drawing.Size(90, 17);
-      this.radioButton2.TabIndex = 1;
-      this.radioButton2.Text = "UID vào 1 file";
-      this.radioButton2.UseVisualStyleBackColor = true;
+      this.chkXuatGom.AutoSize = true;
+      this.chkXuatGom.Checked = true;
+      this.chkXuatGom.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chkXuatGom.Location = new System.Drawing.Point(390, 5);
+      this.chkXuatGom.Name = "chkXuatGom";
+      this.chkXuatGom.Size = new System.Drawing.Size(101, 17);
+      this.chkXuatGom.TabIndex = 7;
+      this.chkXuatGom.Text = "Gôm Chung File";
+      this.chkXuatGom.UseVisualStyleBackColor = true;
+      this.chkXuatGom.CheckedChanged += new System.EventHandler(this.chkXuatGom_CheckedChanged);
       // 
       // FrmMain123
       // 
@@ -1512,6 +1541,7 @@
       this.panel3.ResumeLayout(false);
       this.panel6.ResumeLayout(false);
       this.groupBox3.ResumeLayout(false);
+      this.groupBox3.PerformLayout();
       this.groupBox9.ResumeLayout(false);
       this.groupBox9.PerformLayout();
       this.groupBox5.ResumeLayout(false);
@@ -1669,9 +1699,11 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtSlFeed;
         private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.LinkLabel linkLabel4;
+        private System.Windows.Forms.LinkLabel linkLabel3;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     private System.Windows.Forms.CheckBox chkXuatGom;
-    private System.Windows.Forms.RadioButton radioButton2;
-    private System.Windows.Forms.RadioButton radioButton1;
   }
 }
 
