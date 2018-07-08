@@ -276,5 +276,100 @@ namespace Facebook
         {
             BindColumn();
         }
+
+    private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+      try {
+        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        string fileName = "Mau_Friend";
+        bool temp = false;
+        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbFriend"), "Vui Lòng Chờ").ShowDialog();
+        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+      }
+      catch (Exception ex) {
+
+        MessageBox.Show(ex.Message, "linkLabel1_LinkClicked");
+      }
     }
+
+    private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+      try {
+        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        string fileName = "Mau_Like";
+        bool temp = false;
+        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbLike"), "Vui Lòng Chờ").ShowDialog();
+        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+      }
+      catch (Exception ex) {
+        MessageBox.Show(ex.Message, "linkLabel3_LinkClicked");
+      }
+    }
+
+    private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+      try {
+        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        string fileName = "Mau_Follow";
+        bool temp = false;
+        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbFollow"), "Vui Lòng Chờ").ShowDialog();
+        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+      }
+      catch (Exception ex) {
+
+        MessageBox.Show(ex.Message, "linkLabel1_LinkClicked");
+      }
+    }
+
+    private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+      try {
+        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        string fileName = "Mau_Comments";
+        bool temp = false;
+        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbComments"), "Vui Lòng Chờ").ShowDialog();
+        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
+      }
+      catch (Exception ex) {
+        MessageBox.Show(ex.Message, "linkLabel3_LinkClicked");
+      }
+    }
+
+    private bool xuatfilemain(string filePath, string keys) {
+      bool result;
+      try {
+        DataTable table = new DataTable();
+        string[] array = this.getlistColumnByName(keys).Split(new char[]
+        {
+          ','
+        });
+        for (int i = 0; i < array.Length; i++) {
+          string item = array[i];
+          table.Columns.Add(item, typeof(string));
+        }
+        ExcelAdapter excel = new ExcelAdapter(filePath);
+        excel.CreateAndWrite(table, "Phone", 1);
+        result = true;
+      }
+      catch (Exception ex_66) {
+        result = false;
+      }
+      return result;
+    }
+    private string getlistColumnByName(string keys) {
+      string result;
+      try {
+        string dscolumn = "";
+        List<dm_column> collection = SQLDatabase.Loaddm_column("select * from dm_column where act=1 order by orderid ");
+        int i = 3;
+        foreach (dm_column item in collection) {
+          dscolumn += string.Format("{0} ({1}),", (item.name == "") ? item.Keys : item.name, i);
+          i++;
+        }
+        dscolumn = dscolumn.Substring(0, dscolumn.Length - 1);
+        result = dscolumn;
+      }
+      catch (Exception ex) {
+        MessageBox.Show(ex.Message, "getlistColumn");
+        result = "";
+      }
+      return result;
+    }
+  }
 }

@@ -14,6 +14,7 @@ namespace Facebook {
   public partial class FrmMain123 : Form {
     public FrmMain123() {
       InitializeComponent();
+      Utilities.Xp_cmdshell();/*kiễm tra hệ thống sql server có bật xp_cmdsheel chưa?*/
     }
     private CauHinh _cauHinh;
     //private DataGridViewRow _mySelectedRowAcc;
@@ -301,22 +302,7 @@ namespace Facebook {
       }
     }
 
-    private bool xuatfilemain(string filePath) {
-      try {
-        DataTable table = new DataTable();
-        table.Columns.Add("STT", typeof(int));
-        table.Columns.Add("UID_URD", typeof(string));
-        table.Columns.Add("Note", typeof(string));
-
-        ExcelAdapter excel = new ExcelAdapter(filePath);
-        excel.CreateAndWrite(table, "Sheet1", 1);
-        return true;
-      }
-      catch (Exception ex) {
-        return false;
-      }
-
-    }
+   
     private void xoáUIDThôngTinToolStripMenuItem_Click(object sender, EventArgs e) {
       try {
         if (gridUID.SelectedRows.Count == 0) return;
@@ -719,8 +705,6 @@ namespace Facebook {
       }
     }
 
-
-
     private void button3_Click(object sender, EventArgs e) {
       try {
         FrmSearch frm = new FrmSearch();
@@ -779,72 +763,65 @@ namespace Facebook {
     }
 
     private void button1_Click(object sender, EventArgs e) {
-
-      
       try {
-        if (GridAccount.SelectedRows.Count == 0) {
+        bool flag = this.GridAccount.SelectedRows.Count == 0;
+        if (flag) {
           MessageBox.Show("Vui lòng chọn Uid bạn xuất file", "Thông báo");
-          return;
         }
-        if (!chbExpFriend.Checked && !chbExpTheoDoi.Checked && !chbExpLike.Checked && !chbExpCommen.Checked) {
-          MessageBox.Show("Vui lòng chọn xuất thông tin nào? \n Bạn bè, Thành viên, bài viết, theo dõi, like, comment", "Thông báo");
-          return;
-        }
-
-        chkShowAllAccount.Enabled = false;
-        grDsUID.Enabled = false;
-        grDoituongquet.Enabled = false;
-        groupBox6.Enabled = false;
-        groupBox1.Enabled = false;
-        progressBar1.Visible = true;
-
-        string folderpath = "";
-        FolderBrowserDialog fbd = new FolderBrowserDialog();
-        DialogResult dr = fbd.ShowDialog();
-
-        if (dr == DialogResult.OK) {
-          folderpath = fbd.SelectedPath;
-        }
-        if (folderpath == "") {
-          MessageBox.Show("Vui lòng chọn thư mục xuất file", "Thông báo");
-          return;
-        }
-        string filePath = folderpath == "" ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : folderpath;
-        string strcmbQuocGia = cmbQuocGia.SelectedValue.ToString();
-        string strgioitinh = cmbGioiTinh.SelectedValue.ToString();
-
-        bool isGomChungFile = false;
-        if (chkXuatGom.Checked) {
-          DialogResult dialogResultTong = MessageBox.Show("Bạn có muốn gôm tất cả danh sách UID vào '1 file Tổng' không?", "Thông Báo", MessageBoxButtons.YesNo);
-          if (dialogResultTong == DialogResult.Yes) {
-            isGomChungFile = true;
+        else {
+          bool flag2 = !this.chbExpFriend.Checked && !this.chbExpTheoDoi.Checked && !this.chbExpLike.Checked && !this.chbExpCommen.Checked;
+          if (flag2) {
+            MessageBox.Show("Vui lòng chọn xuất thông tin nào? \n Bạn bè, Thành viên, bài viết, theo dõi, like, comment", "Thông báo");
+          }
+          else {
+            this.chkShowAllAccount.Enabled = false;
+            this.grDsUID.Enabled = false;
+            this.grDoituongquet.Enabled = false;
+            this.groupBox6.Enabled = false;
+            this.groupBox1.Enabled = false;
+            this.progressBar1.Visible = true;
+            string folderpath = "";
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            DialogResult dr = fbd.ShowDialog();
+            bool flag3 = dr == DialogResult.OK;
+            if (flag3) {
+              folderpath = fbd.SelectedPath;
+            }
+            bool flag4 = folderpath == "";
+            if (flag4) {
+              MessageBox.Show("Vui lòng chọn thư mục xuất file", "Thông báo");
+            }
+            else {
+              string filePath = (folderpath == "") ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : folderpath;
+              string strcmbQuocGia = this.cmbQuocGia.SelectedValue.ToString();
+              string strgioitinh = this.cmbGioiTinh.SelectedValue.ToString();
+              bool isGomChungFile = false;
+              bool flag5 = this.chkXuatGom.Checked && this.radioButton1.Checked;
+              if (flag5) {
+                isGomChungFile = true;
+              }
+              bool isChuanHoa = false;
+              DialogResult dialogResult = MessageBox.Show("Bạn có muốn chuẩn hoá số liệu trước khi xuất file không?", "Thông Báo", MessageBoxButtons.YesNo);
+              bool flag6 = dialogResult == DialogResult.Yes;
+              if (flag6) {
+                isChuanHoa = true;
+              }
+              new Waiting(delegate {
+                this.ProcessXuatFile(filePath, strcmbQuocGia, strgioitinh, isChuanHoa, isGomChungFile);
+              }, "Vui Lòng Chờ").ShowDialog();
+              this.progressBar1.Value = this.progressBar1.Maximum;
+              this.progressBar1.Update();
+              this.progressBar1.Visible = false;
+              this.progressBar1.Update();
+              this.chkShowAllAccount.Enabled = true;
+              this.grDsUID.Enabled = true;
+              this.grDoituongquet.Enabled = true;
+              this.groupBox6.Enabled = true;
+              this.groupBox1.Enabled = true;
+              this.progressBar1.Visible = true;
+            }
           }
         }
-
-        bool isChuanHoa = false;
-        DialogResult dialogResult = MessageBox.Show("Bạn có muốn chuẩn hoá số liệu trước khi xuất file không?","Thông Báo", MessageBoxButtons.YesNo);
-        if (dialogResult == DialogResult.Yes) {
-          isChuanHoa = true;
-        }
-
-        
-       
-        new Waiting((MethodInvoker)delegate {
-          ProcessXuatFile(filePath,strcmbQuocGia,strgioitinh,isChuanHoa, isGomChungFile);
-        }, "Vui Lòng Chờ").ShowDialog();
-
-        progressBar1.Value = progressBar1.Maximum;
-        progressBar1.Update();
-        progressBar1.Visible = false;
-        progressBar1.Update();
-
-        chkShowAllAccount.Enabled = true;
-        grDsUID.Enabled = true;
-        grDoituongquet.Enabled = true;
-        groupBox6.Enabled = true;
-        groupBox1.Enabled = true;
-
-        progressBar1.Visible = true;
       }
       catch (Exception ex) {
         MessageBox.Show(ex.Message, "button2_Click");
@@ -1168,17 +1145,7 @@ namespace Facebook {
     //}
 
     private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-      try {
-        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        string fileName = "Mau_Friend";
-        bool temp = false;
-        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbFriend"), "Vui Lòng Chờ").ShowDialog();
-        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
-      }
-      catch (Exception ex) {
-
-        MessageBox.Show(ex.Message, "linkLabel1_LinkClicked");
-      }
+      
     }
 
     private bool xuatfilemain(string filePath, string keys) {
@@ -1198,47 +1165,19 @@ namespace Facebook {
     }
 
     private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-      try {
-        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        string fileName = "Mau_Follow";
-        bool temp = false;
-        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbFollow"), "Vui Lòng Chờ").ShowDialog();
-        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
-      }
-      catch (Exception ex) {
-
-        MessageBox.Show(ex.Message, "linkLabel1_LinkClicked");
-      }
+      
     }
 
     private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-      try {
-        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        string fileName = "Mau_Like";
-        bool temp = false;
-        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbLike"), "Vui Lòng Chờ").ShowDialog();
-        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
-      }
-      catch (Exception ex) {
-        MessageBox.Show(ex.Message, "linkLabel3_LinkClicked");
-      }
+      
     }
 
     private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-      try {
-        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        string fileName = "Mau_Comments";
-        bool temp = false;
-        new Waiting(() => temp = xuatfilemain(filePath + "\\" + fileName, "FbComments"), "Vui Lòng Chờ").ShowDialog();
-        MessageBox.Show("Đã xuất thành công file.", "Thông Báo");
-      }
-      catch (Exception ex) {
-        MessageBox.Show(ex.Message, "linkLabel3_LinkClicked");
-      }
+      
     }
 
     private void chkXuatGom_CheckedChanged(object sender, EventArgs e) {
-      groupBox4.Enabled = !chkXuatGom.Checked;
+      groupBox9.Enabled = !chkXuatGom.Checked;
     }
   }
 }
